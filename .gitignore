@@ -1,0 +1,10 @@
+.venv/
+*.env
+.env
+hint.txt
+logs/
+*.db
+__pycache__/
+instance/
+__cache__/
+.mypy_cache/
