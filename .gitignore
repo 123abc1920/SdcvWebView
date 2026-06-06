@@ -8,3 +8,4 @@ __pycache__/
 instance/
 __cache__/
 .mypy_cache/
+node_modules/
