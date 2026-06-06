@@ -1,7 +1,7 @@
 from flask import Flask, request, render_template_string
 from flask_cors import CORS
 from app.shared.extensions import db, migrate
-from app.shared.config import BaseConfig
+from config import BaseConfig
 
 
 def app_factory(config: BaseConfig):

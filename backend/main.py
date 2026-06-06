@@ -1,5 +1,5 @@
 from app import app_factory
-from app.shared.config import config_factory
+from config import config_factory
 import os
 from dotenv import load_dotenv
 
