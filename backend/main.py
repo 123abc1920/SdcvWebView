@@ -1,13 +1,6 @@
-from app import app_factory
-from config import config_factory
-import os
-from dotenv import load_dotenv
+from app import create_app
 
-load_dotenv()
-
-config = os.getenv("CONFIG")
-
-app = app_factory(config_factory(config))
+app = create_app()
 
 if __name__ == "__main__":
     app.run(host="127.0.0.1", port=5200, debug=True)

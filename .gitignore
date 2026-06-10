@@ -15,3 +15,4 @@ dist-ssr
 build
 *.cache
 *.log
+venv
