@@ -9,3 +9,9 @@ instance/
 __cache__/
 .mypy_cache/
 node_modules/
+migrations/
+dist
+dist-ssr
+build
+*.cache
+*.log
