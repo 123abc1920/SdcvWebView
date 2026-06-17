@@ -10,6 +10,7 @@ class BaseConfig(BaseSettings):
         "SQLALCHEMY_DATABASE_URI_TEST", "sqlite:///test.db"
     )
     CONFIG: str = "DEBUG"
+    JWT_SECRET_KEY: str = os.getenv("JWT_SECRET_KEY", "3xvX3jfKiSOoFFGVcIM5Hkd9o")
 
     def special_init(self, migrate, app, db):
         pass
@@ -27,7 +28,7 @@ class DebugConfig(BaseConfig):
 
 class ProductConfig(BaseConfig):
     SQLALCHEMY_DATABASE_URI: str = os.getenv(
-        "SQLALCHEMY_DATABASE_URI_PROD", "sqlite:///test.db"
+        "SQLALCHEMY_DATABASE_URI_PROD", "sqlite:///app.db"
     )
     CONFIG: str = "PRODUCT"
 
