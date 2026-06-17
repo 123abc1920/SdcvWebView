@@ -1,9 +1,30 @@
 <template>
-  <div class="container mt-5">
-    <input v-model="word" class="form-control" placeholder="Введите слово" />
-    <button @click="translate" class="btn btn-primary mt-2">Перевести</button>
-    <pre class="mt-3">{{ result }}</pre>
-  </div>
+  <header>
+    <nav class="navbar bg-dark text-light">
+      <div class="w-100">
+        <div class="mx-auto px-3">
+          <a class="navbar-brand text-light fs-2 fw-bold" href="#">App Name</a>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  <main class="mt-4 mb-4">
+    <div class="mx-auto px-3" style="max-width: 1000px">
+      <textarea
+        class="form-control fs-5"
+        placeholder="Введите слово..."
+        rows="6"
+      ></textarea>
+      <p class="text-dark fs-5 mt-3 p-3">Результат</p>
+    </div>
+  </main>
+
+  <footer class="bg-dark text-light py-3">
+    <div class="mx-auto px-3">
+      <p class="fs-5 text-light text-center mb-0">2026</p>
+    </div>
+  </footer>
 </template>
 
 <script setup>
