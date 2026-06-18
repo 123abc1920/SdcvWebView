@@ -28,11 +28,74 @@
               >
                 <i class="bi bi-gear-fill mx-2"></i> <span>Настройки</span>
               </button>
+
+              <button
+                class="btn d-flex align-items-center justify-content-center w-100 w-lg-auto"
+                type="button"
+                data-bs-toggle="offcanvas"
+                data-bs-target="#offcanvasHistory"
+                aria-controls="offcanvasHistory"
+              >
+                <i class="bi bi-card-list mx-2"></i> <span>История</span>
+              </button>
+
+              <button
+                class="btn d-flex align-items-center justify-content-center w-100 w-lg-auto"
+                type="button"
+              >
+                <i class="bi bi-box-arrow-right mx-2"></i> <span>Выход</span>
+              </button>
             </div>
           </div>
         </div>
       </nav>
     </header>
+
+    <div
+      class="offcanvas offcanvas-end text-bg-light"
+      tabindex="-1"
+      id="offcanvasSettings"
+      aria-labelledby="offcanvasSettingsLabel"
+    >
+      <div class="offcanvas-header border-bottom">
+        <h5 class="offcanvas-title fw-bold" id="offcanvasSettingsLabel">
+          <i class="bi bi-gear-fill mx-2"></i> Настройки
+        </h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="offcanvas"
+          aria-label="Закрыть"
+        ></button>
+      </div>
+
+      <div class="offcanvas-body">
+        <p>настройки тут</p>
+      </div>
+    </div>
+
+    <div
+      class="offcanvas offcanvas-end text-bg-light"
+      tabindex="-1"
+      id="offcanvasHistory"
+      aria-labelledby="offcanvasHistoryLabel"
+    >
+      <div class="offcanvas-header border-bottom">
+        <h5 class="offcanvas-title fw-bold" id="offcanvasHistoryLabel">
+          <i class="bi bi-card-list mx-2"></i> История
+        </h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="offcanvas"
+          aria-label="Закрыть"
+        ></button>
+      </div>
+
+      <div class="offcanvas-body">
+        <p>история тут</p>
+      </div>
+    </div>
 
     <main class="mt-4 mb-4 flex-grow-1 px-2">
       <div class="container-lg">
