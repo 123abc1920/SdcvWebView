@@ -1,9 +1,35 @@
 <template>
   <div class="d-flex flex-column min-vh-100">
     <header>
-      <nav class="navbar navbar-expand bg-dark text-light">
+      <nav class="navbar navbar-expand-lg bg-dark" data-bs-theme="dark">
         <div class="container-fluid">
-          <a class="navbar-brand text-light fs-2 fw-bold" href="#">App Name</a>
+          <a class="navbar-brand fs-2 fw-bold text-light" href="#">App Name</a>
+
+          <button
+            class="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarNav"
+            aria-controls="navbarNav"
+            aria-expanded="false"
+            aria-label="Переключатель навигации"
+          >
+            <span class="navbar-toggler-icon"></span>
+          </button>
+
+          <div class="collapse navbar-collapse" id="navbarNav">
+            <div class="navbar-nav ms-auto mt-2 mt-lg-0">
+              <button
+                class="btn d-flex align-items-center justify-content-center w-100 w-lg-auto"
+                type="button"
+                data-bs-toggle="offcanvas"
+                data-bs-target="#offcanvasSettings"
+                aria-controls="offcanvasSettings"
+              >
+                <i class="bi bi-gear-fill mx-2"></i> <span>Настройки</span>
+              </button>
+            </div>
+          </div>
         </div>
       </nav>
     </header>
