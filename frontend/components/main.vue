@@ -8,21 +8,25 @@
       </nav>
     </header>
 
-    <main class="mt-4 mb-4 flex-grow-1">
-      <div class="container" style="max-width: 1000px; width: 100%">
+    <main class="mt-4 mb-4 flex-grow-1 px-2">
+      <div class="container-lg">
         <textarea
-          class="form-control fs-5"
+          class="form-control fs-5 rounded"
           placeholder="Введите слово..."
-          rows="6"
+          style="
+            resize: none;
+            field-sizing: content;
+            max-height: 20vh;
+          "
         ></textarea>
 
         <p class="fs-5 mt-3 p-3 rounded">Результат</p>
       </div>
     </main>
 
-    <footer class="bg-dark text-light py-3 mt-auto">
+    <footer class="bg-dark text-light py-2 mt-auto">
       <div class="container-fluid">
-        <p class="fs-5 text-center mb-0">2026</p>
+        <p class="fs-6 text-center mb-0">2026</p>
       </div>
     </footer>
   </div>
