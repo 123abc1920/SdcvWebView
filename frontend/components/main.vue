@@ -105,7 +105,7 @@
           style="resize: none; field-sizing: content; max-height: 20vh"
         ></textarea>
 
-        <div class="accordion bg-transparent" id="accordionSettings">
+        <div class="accordion bg-transparent mt-2" id="accordionSettings">
           <div class="accordion-item">
             <h2 class="accordion-header" id="headingOne">
               <button
@@ -173,6 +173,12 @@
               </div>
             </div>
           </div>
+        </div>
+
+        <div class="d-flex justify-content-center">
+          <button type="button" class="btn btn-sm btn-primary rounded">
+            Найти
+          </button>
         </div>
 
         <p class="fs-5 mt-3 p-3 rounded">Результат</p>
