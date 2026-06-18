@@ -3,7 +3,7 @@
     <header>
       <nav class="navbar navbar-expand-lg bg-dark" data-bs-theme="dark">
         <div class="container-fluid">
-          <a class="navbar-brand fs-2 fw-bold text-light" href="#">App Name</a>
+          <a class="navbar-brand fs-2 fw-bold text-light" href="#">SDCV</a>
 
           <button
             class="navbar-toggler"
@@ -19,6 +19,12 @@
 
           <div class="collapse navbar-collapse" id="navbarNav">
             <div class="navbar-nav ms-auto mt-2 mt-lg-0">
+              <span
+                class="navbar-text text-light text-center fw-semibold"
+              >
+                <i class="bi bi-person-fill me-2"></i> your-name
+              </span>
+
               <button
                 class="btn d-flex align-items-center justify-content-center w-100 w-lg-auto"
                 type="button"
@@ -26,7 +32,7 @@
                 data-bs-target="#offcanvasSettings"
                 aria-controls="offcanvasSettings"
               >
-                <i class="bi bi-gear-fill mx-2"></i> <span>Настройки</span>
+                <i class="bi bi-gear-fill me-2"></i> <span>Настройки</span>
               </button>
 
               <button
@@ -36,14 +42,16 @@
                 data-bs-target="#offcanvasHistory"
                 aria-controls="offcanvasHistory"
               >
-                <i class="bi bi-card-list mx-2"></i> <span>История</span>
+                <i class="bi bi-card-list me-2"></i> <span>История</span>
               </button>
 
               <button
                 class="btn d-flex align-items-center justify-content-center w-100 w-lg-auto"
                 type="button"
+                data-bs-toggle="modal"
+                data-bs-target="#loginModal"
               >
-                <i class="bi bi-box-arrow-right mx-2"></i> <span>Выход</span>
+                <i class="bi bi-box-arrow-right me-2"></i> <span>Выход</span>
               </button>
             </div>
           </div>
@@ -105,7 +113,7 @@
           style="resize: none; field-sizing: content; max-height: 20vh"
         ></textarea>
 
-        <div class="accordion bg-transparent mt-2" id="accordionSettings">
+        <div class="accordion bg-transparent mt-2 mb-2" id="accordionSettings">
           <div class="accordion-item">
             <h2 class="accordion-header" id="headingOne">
               <button
@@ -176,8 +184,8 @@
         </div>
 
         <div class="d-flex justify-content-center">
-          <button type="button" class="btn btn-sm btn-primary rounded">
-            Найти
+          <button type="button" class="btn btn-sm btn-dark rounded">
+            <i class="bi bi-search me-2"></i> <span>Найти</span>
           </button>
         </div>
 
@@ -190,6 +198,69 @@
         <p class="fs-6 text-center mb-0">2026</p>
       </div>
     </footer>
+
+    <div
+      class="modal fade"
+      id="loginModal"
+      tabindex="-1"
+      aria-labelledby="loginModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content rounded">
+          <div class="modal-header border-bottom-0">
+            <h5 class="modal-title fw-bold" id="loginModalLabel">
+              <i class="bi bi-person-circle me-2"></i> Личный кабинет
+            </h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Закрыть"
+            ></button>
+          </div>
+
+          <div class="modal-body py-4">
+            <form @submit.prevent="handleLogin">
+              <div class="form-floating mb-3">
+                <input
+                  type="email"
+                  class="form-control"
+                  id="floatingInput"
+                  placeholder="name@example.com"
+                  required
+                />
+                <label for="floatingInput">Email адрес</label>
+              </div>
+
+              <div class="form-floating mb-3">
+                <input
+                  type="password"
+                  class="form-control"
+                  id="floatingPassword"
+                  placeholder="Password"
+                  required
+                />
+                <label for="floatingPassword">Пароль</label>
+              </div>
+
+              <button
+                type="submit"
+                class="btn btn-dark w-100 py-2 mt-2 rounded"
+              >
+                Войти в аккаунт
+              </button>
+              <button
+                type="submit"
+                class="btn btn-light w-100 py-2 mt-2 rounded"
+              >
+                Регистрация
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
