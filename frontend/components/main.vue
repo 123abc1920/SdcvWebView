@@ -16,44 +16,73 @@
           style="resize: none; field-sizing: content; max-height: 20vh"
         ></textarea>
 
-        <div class="mb-3">
-          <div class="dropdown d-inline-block me-2 mb-2">
-            <button
-              class="btn btn-outline-secondary dropdown-toggle btn-sm"
-              type="button"
-              data-bs-toggle="dropdown"
-              aria-expanded="false"
-            >
-              Выбрать словарь
-            </button>
-            <ul class="dropdown-menu overflow-y-scroll">
-              <li v-for="option in availableOptions" :key="option">
-                <button
-                  class="dropdown-item btn-sm"
-                  type="button"
-                  @click="addFilter(option)"
-                >
-                  {{ option }}
-                </button>
-              </li>
-            </ul>
-          </div>
-
-          <div class="d-inline-flex flex-wrap gap-2 align-items-center">
-            <span
-              v-for="filter in selectedFilters"
-              :key="filter"
-              class="badge bg-secondary d-flex align-items-center gap-2 fs-6 px-1"
-            >
-              {{ filter }}
+        <div class="accordion bg-transparent" id="accordionSettings">
+          <div class="accordion-item">
+            <h2 class="accordion-header" id="headingOne">
               <button
+                class="accordion-button collapsed py-1 btn-sm"
                 type="button"
-                class="btn-close"
-                style="font-size: 0.6rem"
-                aria-label="Удалить"
-                @click="removeFilter(filter)"
-              ></button>
-            </span>
+                data-bs-toggle="collapse"
+                data-bs-target="#collapseOne"
+                aria-expanded="false"
+                aria-controls="collapseOne"
+              >
+                Настройки
+              </button>
+            </h2>
+
+            <div
+              id="collapseOne"
+              class="accordion-collapse collapse"
+              aria-labelledby="headingOne"
+              data-bs-parent="#accordionSettings"
+            >
+              <div class="accordion-body bg-transparent">
+                <div class="mb-0">
+                  <div class="dropdown d-inline-block me-2 mb-2">
+                    <button
+                      class="btn btn-outline-secondary dropdown-toggle btn-sm"
+                      type="button"
+                      data-bs-toggle="dropdown"
+                      aria-expanded="false"
+                    >
+                      Выбрать словарь
+                    </button>
+                    <ul class="dropdown-menu overflow-y-auto">
+                      <li
+                        v-for="(option, index) in availableOptions"
+                        :key="index"
+                      >
+                        <button
+                          class="dropdown-item btn-sm"
+                          type="button"
+                          @click="addFilter(option)"
+                        >
+                          {{ option }}
+                        </button>
+                      </li>
+                    </ul>
+                  </div>
+
+                  <div class="d-inline-flex flex-wrap gap-2 align-items-center">
+                    <span
+                      v-for="filter in selectedFilters"
+                      :key="filter"
+                      class="badge bg-secondary d-flex align-items-center gap-2 fs-6 px-1"
+                    >
+                      {{ filter }}
+                      <button
+                        type="button"
+                        class="btn-close"
+                        style="font-size: 0.6rem"
+                        aria-label="Удалить"
+                        @click="removeFilter(filter)"
+                      ></button>
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
 
