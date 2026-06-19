@@ -11,7 +11,7 @@
         <div class="accordion-item">
           <h2 class="accordion-header" id="headingOne">
             <button
-              class="accordion-button collapsed py-1 btn-sm"
+              class="accordion-button collapsed py-1 btn-sm bg-transparent"
               type="button"
               data-bs-toggle="collapse"
               data-bs-target="#collapseOne"
@@ -55,16 +55,16 @@
                   </ul>
                 </div>
 
-                <div class="d-inline-flex flex-wrap gap-2 align-items-center">
+                <div class="d-inline-flex flex-wrap gap-2 align-items-center px-1 py-2">
                   <span
                     v-for="filter in selectedFilters"
                     :key="filter"
-                    class="badge bg-secondary d-flex align-items-center gap-2 fs-6 px-1"
+                    class="badge bg-dark d-flex align-items-center gap-2 fs-6 px-1 rounded text-light fw-light"
                   >
                     {{ filter }}
                     <button
                       type="button"
-                      class="btn-close"
+                      class="btn-close btn-close-white"
                       style="font-size: 0.6rem"
                       aria-label="Удалить"
                       @click="removeFilter(filter)"
@@ -83,7 +83,7 @@
         </button>
       </div>
 
-      <p class="fs-5 mt-3 p-3 rounded">Результат</p>
+      <div class="mt-3 p-3 rounded">Результат</div>
     </div>
   </main>
 </template>

@@ -18,7 +18,7 @@
     </div>
 
     <div class="offcanvas-body">
-      <p>настройки тут</p>
+      <p>Выберите, где sdcv:</p>
     </div>
   </div>
 </template>
