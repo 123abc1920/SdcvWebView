@@ -7,7 +7,6 @@ class Translation(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     word = db.Column(db.Text, nullable=False)
-    result = db.Column(db.Text, nullable=False)
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
     user_id = db.Column(db.Integer, db.ForeignKey("users.id", ondelete="CASCADE"))
 
