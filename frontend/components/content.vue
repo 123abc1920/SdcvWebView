@@ -55,7 +55,9 @@
                   </ul>
                 </div>
 
-                <div class="d-inline-flex flex-wrap gap-2 align-items-center px-1 py-2">
+                <div
+                  class="d-inline-flex flex-wrap gap-2 align-items-center px-1 py-2"
+                >
                   <span
                     v-for="filter in selectedFilters"
                     :key="filter"
@@ -83,13 +85,17 @@
         </button>
       </div>
 
-      <div class="mt-3 p-3 rounded">Результат</div>
+      <div class="mt-3">
+        <ResultTemplate />
+      </div>
     </div>
   </main>
 </template>
 
 <script setup>
 import { ref } from "vue";
+
+import ResultTemplate from "./result.vue";
 
 const word = ref("");
 const result = ref("");
