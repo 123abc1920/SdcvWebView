@@ -18,7 +18,13 @@
     </div>
 
     <div class="offcanvas-body">
-      <p>история тут</p>
+      <HistoryElement />
     </div>
   </div>
 </template>
+
+<script setup>
+import { ref } from "vue";
+
+import HistoryElement from "./history_element.vue";
+</script>
