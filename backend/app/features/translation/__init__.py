@@ -1,0 +1,4 @@
+from flask import Blueprint
+
+translation_bp = Blueprint("translation", __name__)
+from . import route
