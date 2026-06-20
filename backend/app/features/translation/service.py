@@ -4,19 +4,33 @@ from pydantic import BaseModel, validator
 
 
 class TranslationData(BaseModel):
-    dict_name: str
-    content: str
+    dict: str
+    definition: str
+
+    class Config:
+        extra = "ignore"
 
 
 class TranslateService:
     def translate(self, container_name: str, word: str) -> dict:
         try:
             result = subprocess.run(
-                ["docker", "exec", container_name, "sdcv", "--json-output", word],
+                [
+                    "docker",
+                    "exec",
+                    container_name,
+                    "sdcv",
+                    "--json-output",
+                    "--exact-search",
+                    str(word),
+                ],
                 capture_output=True,
                 text=True,
+                encoding="utf-8",
                 timeout=10,
             )
+
+            print(result)
 
             if result.returncode == 0:
                 data = json.loads(result.stdout)
@@ -24,7 +38,12 @@ class TranslateService:
                 validated_data = [TranslationData(**item) for item in data]
                 return {
                     "success": True,
-                    "data": [item.dict() for item in validated_data],
+                    "data": [item.model_dump() for item in validated_data],
+                }
+            elif result.returncode == 2:
+                return {
+                    "success": False,
+                    "data": "Слово не найдено",
                 }
             else:
                 return {"success": False, "data": result.stderr}
