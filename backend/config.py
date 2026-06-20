@@ -2,6 +2,8 @@ import os
 from dotenv import load_dotenv
 from pydantic_settings import BaseSettings
 from flasgger import Swagger
+import logging
+from logging.handlers import RotatingFileHandler
 
 load_dotenv()
 
@@ -36,6 +38,22 @@ class DebugConfig(BaseConfig):
         swagger = Swagger(app)
 
         print("Swagger on localhost:5200/apidocs")
+
+        logging.basicConfig(
+            level=logging.DEBUG,
+            format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
+            handlers=[
+                RotatingFileHandler(
+                    "backend/logs/logs.log",
+                    encoding="utf-8",
+                    maxBytes=10_000_000,
+                    backupCount=5,
+                ),
+                logging.StreamHandler(),
+            ],
+        )
+
+        print("Logs on backend/logs/")
 
 
 class ProductConfig(BaseConfig):

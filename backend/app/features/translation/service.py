@@ -1,6 +1,7 @@
 import subprocess
 import json
-from pydantic import BaseModel, validator
+from pydantic import BaseModel
+import logging
 
 
 class TranslationData(BaseModel):
@@ -12,6 +13,10 @@ class TranslationData(BaseModel):
 
 
 class TranslateService:
+
+    def __init__(self):
+        self.logger = logging.getLogger(__name__)
+
     def translate(self, container_name: str, word: str) -> dict:
         try:
             result = subprocess.run(
@@ -30,28 +35,32 @@ class TranslateService:
                 timeout=10,
             )
 
-            print(result)
-
             if result.returncode == 0:
                 data = json.loads(result.stdout)
 
                 validated_data = [TranslationData(**item) for item in data]
+
+                self.logger.info("Word succsessfully found")
                 return {
                     "success": True,
                     "data": [item.model_dump() for item in validated_data],
                 }
             elif result.returncode == 2:
+                self.logger.warning("Word not found in dicts")
                 return {
                     "success": False,
                     "data": "Слово не найдено",
                 }
             else:
-                return {"success": False, "data": result.stderr}
+                self.logger.error(result.stderr)
+                return {"success": False, "data": "Непредвиденная ошибка"}
 
         except subprocess.TimeoutExpired:
-            return {"success": False, "data": "Timeout"}
+            self.logger.error("Timeout")
+            return {"success": False, "data": "Ошибка поиска слова"}
         except Exception as e:
-            return {"success": False, "data": str(e)}
+            self.logger.error(str(e))
+            return {"success": False, "data": "Непредвиденная ошибка"}
 
 
 translate_service = TranslateService()
