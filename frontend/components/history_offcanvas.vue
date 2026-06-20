@@ -18,6 +18,7 @@
     </div>
 
     <div class="offcanvas-body">
+      <p class="fs-5 text-center">Нужно иметь аккаунт</p>
       <HistoryElement />
     </div>
   </div>
