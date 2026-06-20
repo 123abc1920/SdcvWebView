@@ -1,6 +1,7 @@
 import os
 from dotenv import load_dotenv
 from pydantic_settings import BaseSettings
+from flasgger import Swagger
 
 load_dotenv()
 
@@ -11,6 +12,8 @@ class BaseConfig(BaseSettings):
     )
     CONFIG: str = "DEBUG"
     JWT_SECRET_KEY: str = os.getenv("JWT_SECRET_KEY", "3xvX3jfKiSOoFFGVcIM5Hkd9o")
+    APP_NAME: str = os.getenv("APP_NAME", "SDCV API")
+    OPEN_API_V: str = os.getenv("OPEN_API_V", "3.0.2")
 
     def special_init(self, migrate, app, db):
         pass
@@ -24,6 +27,15 @@ class DebugConfig(BaseConfig):
 
     def special_init(self, migrate, app, db):
         migrate.init_app(app, db)
+
+        app.config["SWAGGER"] = {
+            "title": self.APP_NAME,
+            "openapi": self.OPEN_API_V,
+            "specs_route": "/apidocs/",
+        }
+        swagger = Swagger(app)
+
+        print("Swagger on localhost:5200/apidocs")
 
 
 class ProductConfig(BaseConfig):

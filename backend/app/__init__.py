@@ -16,11 +16,11 @@ def create_app():
     app.config.from_object(config)
     CORS(app, resources={r"/*": {"origins": "*"}})
 
+    app.register_blueprint(translation_bp)
+
     db.init_app(app)
     config.special_init(migrate, app, db)
 
     from .shared import dbmodels
-
-    app.register_blueprint(translation_bp)
 
     return app
