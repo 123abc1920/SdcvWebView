@@ -72,7 +72,7 @@ def translate():
     word = data.get("word")
     filters = data.get("filters", [])
 
-    result = translate_service.translate(SDCV_TEST_CONTAINER, word)
+    result = translate_service.translate(SDCV_TEST_CONTAINER, word, filters)
 
     if result["success"]:
         return result["data"], 200

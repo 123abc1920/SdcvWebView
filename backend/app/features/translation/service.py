@@ -17,8 +17,13 @@ class TranslateService:
     def __init__(self):
         self.logger = logging.getLogger(__name__)
 
-    def translate(self, container_name: str, word: str) -> dict:
+    def translate(self, container_name: str, word: str, filters: list[str]) -> dict:
         try:
+            u_filters = []
+            for f in filters:
+                u_filters.append("-u"),
+                u_filters.append(f)
+
             result = subprocess.run(
                 [
                     "docker",
@@ -28,6 +33,7 @@ class TranslateService:
                     "--json-output",
                     "--exact-search",
                     str(word),
+                    *u_filters,
                 ],
                 capture_output=True,
                 text=True,
