@@ -4,7 +4,7 @@ from app.shared.extensions import db, migrate
 from config import config_factory
 import os
 from dotenv import load_dotenv
-from app.features.translation import translation_bp
+from app.features import translation_bp, dicts_bp
 
 load_dotenv()
 
@@ -17,6 +17,7 @@ def create_app():
     CORS(app, resources={r"/*": {"origins": "*"}})
 
     app.register_blueprint(translation_bp)
+    app.register_blueprint(dicts_bp)
 
     db.init_app(app)
     config.special_init(migrate, app, db)
