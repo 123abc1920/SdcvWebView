@@ -19,7 +19,7 @@ def list_dicts():
             schema:
               type: object
               properties:
-                dicts:
+                data:
                   type: array
                   description: Список названий словарей, доступных в sdcv
                   items:
@@ -41,4 +41,4 @@ def list_dicts():
     if result["success"] == True:
         return {"data": result["data"]}, 200
     else:
-        return {"message": result["data"]}
+        return {"message": result["data"]}, 409
