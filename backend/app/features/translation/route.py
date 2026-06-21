@@ -39,9 +39,6 @@ def translate():
             schema:
               type: object
               properties:
-                success:
-                  type: boolean
-                  example: true
                 data:
                   type: array
                   items:
@@ -60,10 +57,7 @@ def translate():
             schema:
               type: object
               properties:
-                success:
-                  type: boolean
-                  example: false
-                error:
+                message:
                   type: string
                   example: "Word not found"
     """
@@ -74,7 +68,7 @@ def translate():
 
     result = translate_service.translate(SDCV_TEST_CONTAINER, word, filters)
 
-    if result["success"]:
-        return result["data"], 200
+    if result["success"] == True:
+        return {"data": result["data"]}, 200
     else:
-        return result["data"], 409
+        return {"message": result["data"]}, 409
