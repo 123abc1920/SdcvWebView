@@ -4,6 +4,8 @@ from pydantic_settings import BaseSettings
 from flasgger import Swagger
 import logging
 from logging.handlers import RotatingFileHandler
+from datetime import timedelta
+from app.shared.consts import JWT_ACCESS_TOKEN_EXPIRES
 
 load_dotenv()
 
@@ -18,7 +20,10 @@ class BaseConfig(BaseSettings):
     OPEN_API_V: str = os.getenv("OPEN_API_V", "3.0.2")
 
     def special_init(self, migrate, app, db):
-        pass
+        app.config["JWT_SECRET_KEY"] = self.JWT_SECRET_KEY
+        app.config["JWT_ACCESS_TOKEN_EXPIRES"] = timedelta(
+            days=JWT_ACCESS_TOKEN_EXPIRES
+        )
 
 
 class DebugConfig(BaseConfig):
@@ -28,6 +33,8 @@ class DebugConfig(BaseConfig):
     CONFIG: str = "DEBUG"
 
     def special_init(self, migrate, app, db):
+        super().special_init(migrate, app, db)
+
         migrate.init_app(app, db)
 
         app.config["SWAGGER"] = {
@@ -45,7 +52,7 @@ class DebugConfig(BaseConfig):
             format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
             handlers=[
                 RotatingFileHandler(
-                    os.path.join(BASE_DIR, 'logs', 'logs.log'),
+                    os.path.join(BASE_DIR, "logs", "logs.log"),
                     encoding="utf-8",
                     maxBytes=10_000_000,
                     backupCount=5,
