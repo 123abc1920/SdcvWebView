@@ -5,12 +5,7 @@ from config import config_factory
 import os
 from dotenv import load_dotenv
 from app.features import translation_bp, dicts_bp, auth_bp
-from flask_jwt_extended import (
-    JWTManager,
-    create_access_token,
-    jwt_required,
-    get_jwt_identity,
-)
+from flask_jwt_extended import JWTManager
 
 load_dotenv()
 

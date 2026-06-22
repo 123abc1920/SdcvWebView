@@ -25,7 +25,7 @@ def list_dicts():
                   items:
                     type: string
                   example: ["Mueller7GPL", "Full English-Russian", "LingvoUniversal"]
-      500:
+      409:
         description: Внутренняя ошибка сервера при обращении к контейнеру sdcv
         content:
           application/json:

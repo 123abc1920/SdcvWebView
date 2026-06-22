@@ -1,0 +1,5 @@
+class ResultCodes:
+    OK: str = "OK"
+    USER_EXISTS_ALREADY: str = "Пользователь уже существует"
+    PASSWORD_INCORRECT: str = "Пароль неверен"
+    ERROR: str = "Непредвиденная ошибка"
