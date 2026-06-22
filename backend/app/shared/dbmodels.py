@@ -17,6 +17,7 @@ class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.Text, unique=True)
     password_hash = db.Column(db.Text)
+    is_admin = db.Column(db.Boolean, default=False)
 
     translations = db.relationship(
         "Translation", backref="user", cascade="all, delete-orphan"

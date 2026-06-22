@@ -39,12 +39,13 @@ class DebugConfig(BaseConfig):
 
         print("Swagger on localhost:5200/apidocs")
 
+        BASE_DIR = os.path.dirname(os.path.abspath(__file__))
         logging.basicConfig(
             level=logging.DEBUG,
             format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
             handlers=[
                 RotatingFileHandler(
-                    "backend/logs/logs.log",
+                    os.path.join(BASE_DIR, 'logs', 'logs.log'),
                     encoding="utf-8",
                     maxBytes=10_000_000,
                     backupCount=5,
