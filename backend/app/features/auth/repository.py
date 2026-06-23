@@ -22,5 +22,24 @@ class AuthRepository:
     def count_users(self) -> int:
         return db.session.query(User).count()
 
+    def delete_user(self, user_name: str) -> str:
+        user = self.get_user(user_name)
+
+        try:
+            db.session.delete(user)
+            db.session.commit()
+            return ResultCodes.OK
+        except Exception as e:
+            db.session.rollback()
+            return str(e)
+
+    def set_admin(self, user_name: str):
+        user = self.get_user(user_name)
+        user.is_admin = True
+        db.session.commit()
+
+    def get_first(self) -> User:
+        return db.session.query(User).order_by(User.id.asc()).first()
+
 
 auth_repo = AuthRepository()

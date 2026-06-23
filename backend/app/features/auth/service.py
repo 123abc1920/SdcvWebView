@@ -42,7 +42,7 @@ class AuthService:
 
         if user:
             password_hash = user.password_hash
-            is_valid = bcrypt.checkpw(password.encode("utf-8"), password_hash)
+            is_valid = self.is_password_valid(password, password_hash)
 
             if is_valid:
                 self.logger.info(f"User {user_name} logged in")
@@ -54,11 +54,40 @@ class AuthService:
         self.logger.warning(ResultCodes.USER_NOT_FOUND)
         return {"success": False, "data": ResultCodes.USER_NOT_FOUND}
 
-    def delete(self, user_name, password_hash):
-        pass
+    def delete(self, user_name, password):
+        user = auth_repo.get_user(user_name)
+
+        if user:
+            password_hash = user.password_hash
+            is_valid = self.is_password_valid(password, password_hash)
+
+            if is_valid:
+                result = auth_repo.delete_user(user_name)
+                if result == ResultCodes.OK:
+                    self.logger.info(f"User {user_name} deleted by {user_name}")
+
+                    if auth_repo.count_users() > 0:
+                        new_admin = auth_repo.get_first()
+                        if new_admin:
+                            auth_repo.set_admin(new_admin.name)
+                            self.logger.info(f"User {user_name} is admin now")
+
+                    return {"success": True, "data": ""}
+                else:
+                    self.logger.error(f"Deletion error: {result}")
+                    return {"success": False, "data": result}
+            else:
+                self.logger.warning(ResultCodes.PASSWORD_INCORRECT)
+                return {"success": False, "data": ResultCodes.PASSWORD_INCORRECT}
+
+        self.logger.warning(ResultCodes.USER_NOT_FOUND)
+        return {"success": False, "data": ResultCodes.USER_NOT_FOUND}
 
     def create_token(self, user_id: int) -> str:
         return create_access_token(identity=user_id)
+
+    def is_password_valid(self, password: str, password_hash: str) -> bool:
+        return bcrypt.checkpw(password.encode("utf-8"), password_hash)
 
 
 auth_service = AuthService()
