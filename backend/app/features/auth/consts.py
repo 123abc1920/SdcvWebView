@@ -3,3 +3,4 @@ class ResultCodes:
     USER_EXISTS_ALREADY: str = "Пользователь уже существует"
     PASSWORD_INCORRECT: str = "Пароль неверен"
     ERROR: str = "Непредвиденная ошибка"
+    USER_NOT_FOUND: str = "Пользователь не найден"

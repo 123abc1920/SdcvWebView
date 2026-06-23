@@ -37,8 +37,22 @@ class AuthService:
             token = self.create_token(user.id)
             return {"success": True, "data": token}
 
-    def login(self, user_name, password_hash):
-        pass
+    def login(self, user_name: str, password: str) -> dict:
+        user = auth_repo.get_user(user_name)
+
+        if user:
+            password_hash = user.password_hash
+            is_valid = bcrypt.checkpw(password.encode("utf-8"), password_hash)
+
+            if is_valid:
+                self.logger.info(f"User {user_name} logged in")
+                return {"success": True, "data": self.create_token(user.id)}
+            else:
+                self.logger.warning(ResultCodes.PASSWORD_INCORRECT)
+                return {"success": False, "data": ResultCodes.PASSWORD_INCORRECT}
+
+        self.logger.warning(ResultCodes.USER_NOT_FOUND)
+        return {"success": False, "data": ResultCodes.USER_NOT_FOUND}
 
     def delete(self, user_name, password_hash):
         pass

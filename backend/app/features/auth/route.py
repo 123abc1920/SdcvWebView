@@ -10,6 +10,24 @@ def login_route():
     ---
     tags:
       - features/auth
+    requestBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+              - user_name
+              - password
+            properties:
+              user_name:
+                type: string
+                description: Имя пользователя
+                example: "Test User"
+              password:
+                type: string
+                description: Пароль
+                example: "123456"
     responses:
       200:
         description: Успешное получение списка словарей
@@ -19,12 +37,10 @@ def login_route():
               type: object
               properties:
                 data:
-                  type: array
-                  description: Список названий словарей, доступных в sdcv
-                  items:
-                    type: string
-                  example: ["Mueller7GPL", "Full English-Russian", "LingvoUniversal"]
-      500:
+                  type: str
+                  description: JWT токен
+                  example: "5r67gthu99ojjiijji"
+      409:
         description: Внутренняя ошибка сервера при обращении к контейнеру sdcv
         content:
           application/json:
@@ -35,7 +51,12 @@ def login_route():
                   type: string
                   example: "Failed to fetch dictionaries from container"
     """
-    result = {}
+    data = request.get_json()
+
+    user_name = data.get("user_name")
+    password = data.get("password")
+
+    result = auth_service.login(user_name, password)
 
     if result["success"] == True:
         return {"data": result["data"]}, 200
