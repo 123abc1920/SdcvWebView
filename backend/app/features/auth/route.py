@@ -151,9 +151,12 @@ def get_data_route():
               type: object
               properties:
                 data:
-                  type: string
-                  description: Данные пользователя (заглушка)
-                  example: "778"
+                  type: object
+                  properties:
+                    user_name:
+                      type: string
+                      description: Имя пользователя
+                      example: "admin"
       401:
         description: Не авторизован (отсутствует или невалидный JWT)
         content:
@@ -176,9 +179,8 @@ def get_data_route():
                   example: "User not found"
     """
     user_id = get_jwt_identity()
-    print(user_id)
 
-    result = {"success": True, "data": "778"}
+    result = auth_service.get_user_data(user_id)
 
     if result["success"] == True:
         return {"data": result["data"]}, 200

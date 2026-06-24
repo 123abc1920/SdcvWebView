@@ -83,6 +83,13 @@ class AuthService:
         self.logger.warning(ResultCodes.USER_NOT_FOUND)
         return {"success": False, "data": ResultCodes.USER_NOT_FOUND}
 
+    def get_user_data(self, user_id: int) -> dict:
+        user = auth_repo.get_user_by_id(user_id)
+        if user:
+            return {"success": True, "data": {"user_name": user.name}}
+
+        return {"success": False, "data": ResultCodes.USER_NOT_FOUND}
+
     def create_token(self, user_id: int) -> str:
         return create_access_token(identity=str(user_id))
 

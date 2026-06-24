@@ -19,6 +19,9 @@ class AuthRepository:
     def get_user(self, user_name: str) -> User:
         return db.session.query(User).filter(User.name == user_name).first()
 
+    def get_user_by_id(self, user_id: int) -> User:
+        return db.session.query(User).filter(User.id == user_id).first()
+
     def count_users(self) -> int:
         return db.session.query(User).count()
 
