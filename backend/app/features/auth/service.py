@@ -84,7 +84,7 @@ class AuthService:
         return {"success": False, "data": ResultCodes.USER_NOT_FOUND}
 
     def create_token(self, user_id: int) -> str:
-        return create_access_token(identity=user_id)
+        return create_access_token(identity=str(user_id))
 
     def is_password_valid(self, password: str, password_hash: str) -> bool:
         return bcrypt.checkpw(password.encode("utf-8"), password_hash)

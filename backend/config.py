@@ -42,7 +42,20 @@ class DebugConfig(BaseConfig):
             "openapi": self.OPEN_API_V,
             "specs_route": "/apidocs/",
         }
-        swagger = Swagger(app)
+        swagger_template = {
+            "openapi": self.OPEN_API_V,
+            "info": {"title": self.APP_NAME, "version": "1.0.0"},
+            "components": {
+                "securitySchemes": {
+                    "BearerAuth": {
+                        "type": "http",
+                        "scheme": "bearer",
+                        "bearerFormat": "JWT",
+                    }
+                }
+            },
+        }
+        swagger = Swagger(app, template=swagger_template)
 
         print("Swagger on localhost:5200/apidocs")
 

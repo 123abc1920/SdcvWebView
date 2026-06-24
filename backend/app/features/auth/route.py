@@ -1,6 +1,7 @@
 from . import auth_bp
 from .service import auth_service
 from flask import request
+from flask_jwt_extended import jwt_required, get_jwt_identity
 
 
 @auth_bp.route("/login", methods=["POST"])
@@ -126,28 +127,35 @@ def signup_route():
 
 
 @auth_bp.route("/get/data", methods=["GET"])
+@jwt_required()
 def get_data_route():
     """
     Получить данные аккаунта
     ---
     tags:
       - features/auth
+    security:
+      - BearerAuth: []
+    definitions:
+      securitySchemes:
+        BearerAuth:
+          type: apiKey
+          name: Authorization
+          in: header
     responses:
       200:
-        description: Успешное получение списка словарей
+        description: Успешное получение данных пользователя
         content:
           application/json:
             schema:
               type: object
               properties:
                 data:
-                  type: array
-                  description: Список названий словарей, доступных в sdcv
-                  items:
-                    type: string
-                  example: ["Mueller7GPL", "Full English-Russian", "LingvoUniversal"]
-      500:
-        description: Внутренняя ошибка сервера при обращении к контейнеру sdcv
+                  type: string
+                  description: Данные пользователя (заглушка)
+                  example: "778"
+      401:
+        description: Не авторизован (отсутствует или невалидный JWT)
         content:
           application/json:
             schema:
@@ -155,9 +163,22 @@ def get_data_route():
               properties:
                 message:
                   type: string
-                  example: "Failed to fetch dictionaries from container"
+                  example: "Missing Authorization Header"
+      409:
+        description: Конфликт (логическая ошибка, например, пользователь не найден)
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                message:
+                  type: string
+                  example: "User not found"
     """
-    result = {}
+    user_id = get_jwt_identity()
+    print(user_id)
+
+    result = {"success": True, "data": "778"}
 
     if result["success"] == True:
         return {"data": result["data"]}, 200
