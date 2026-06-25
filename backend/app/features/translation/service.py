@@ -2,6 +2,8 @@ import subprocess
 import json
 from pydantic import BaseModel
 import logging
+from .repository import translate_repo
+from datetime import datetime
 
 
 class TranslationData(BaseModel):
@@ -67,6 +69,18 @@ class TranslateService:
         except Exception as e:
             self.logger.error(str(e))
             return {"success": False, "data": "Непредвиденная ошибка"}
+
+    def save_history(self, word: str, user_id: int) -> bool:
+        if translate_repo.user_exists(user_id):
+            try:
+                translate_repo.save_history(word, user_id, datetime.utcnow())
+                self.logger.debug(f"Successfully save history for user {user_id}")
+                return True
+            except Exception as e:
+                self.logger.error(
+                    f"Error while saving history for user {user_id}: {str(e)}"
+                )
+                return False
 
 
 translate_service = TranslateService()
