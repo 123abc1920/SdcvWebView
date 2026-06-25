@@ -11,5 +11,24 @@ class HistoryRepository:
             .all()
         )
 
+    def delete_history_item(self, id: int):
+        try:
+            translation = (
+                db.session.query(Translation).filter(Translation.id == id).first()
+            )
+            if translation:
+                db.session.delete(translation)
+                db.session.commit()
+        except Exception as e:
+            db.session.rollback()
+            raise e
+
+    def get_history_item(self, translation_id: int) -> Translation:
+        return (
+            db.session.query(Translation)
+            .filter(Translation.id == translation_id)
+            .first()
+        )
+
 
 history_repo = HistoryRepository()
