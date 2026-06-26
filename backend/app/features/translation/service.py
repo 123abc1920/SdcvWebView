@@ -1,17 +1,9 @@
 import subprocess
 import json
-from pydantic import BaseModel
 import logging
 from .repository import translate_repo
 from datetime import datetime
-
-
-class TranslationData(BaseModel):
-    dict: str
-    definition: str
-
-    class Config:
-        extra = "ignore"
+from .responses import TranslationData
 
 
 class TranslateService:
