@@ -1,15 +1,14 @@
 from . import auth_bp
 from .service import auth_service
-from flask import request
 from flask_jwt_extended import jwt_required, get_jwt_identity
 from flask_pydantic import validate
-from .requests import LoginRequest
-from .responses import JWTResponse
+from .requests import AuthRequest
+from .responses import JWTResponse, UserDataResponse, DeleteResponse
 
 
 @auth_bp.route("/login", methods=["POST"])
 @validate()
-def login_route(body: LoginRequest):
+def login_route(body: AuthRequest):
     """
     Войти в систему и получить JWT токен
     ---
@@ -113,9 +112,10 @@ def login_route(body: LoginRequest):
 
 
 @auth_bp.route("/signup", methods=["POST"])
-def signup_route():
+@validate()
+def signup_route(body: AuthRequest):
     """
-    Зарегистрироваться в системе
+    Зарегистрироваться в системе и получить JWT токен
     ---
     tags:
       - features/auth
@@ -139,42 +139,86 @@ def signup_route():
                 example: "123456"
     responses:
       200:
-        description: Успешное создание
+        description: Успешная регистрация и создание пользователя
         content:
           application/json:
             schema:
               type: object
+              required: [success, data, error]
               properties:
+                success:
+                  type: boolean
+                  example: true
                 data:
-                  type: str
-                  description: JWT токен
-                  example: "5r67gthu99ojjiijji"
-      409:
-        description: Внутренняя ошибка сервера при обращении к контейнеру sdcv
+                  type: string
+                  description: JWT токен доступа (Access Token)
+                  example: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+                error:
+                  type: string
+                  nullable: true
+                  example: null
+      400:
+        description: Ошибка валидации (не переданы обязательные поля или пустые строки)
         content:
           application/json:
             schema:
               type: object
               properties:
-                message:
+                validation_error:
+                  type: object
+                  properties:
+                    body_params:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          input:
+                            type: string
+                            example: ""
+                          loc:
+                            type: array
+                            items:
+                              type: string
+                            example: ["user_name"]
+                          msg:
+                            type: string
+                            example: "String should have at least 1 character"
+                          type:
+                            type: string
+                            example: "string_too_short"
+      409:
+        description: Ошибка регистрации (пользователь уже существует / ошибка БД)
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [success, data, error]
+              properties:
+                success:
+                  type: boolean
+                  example: false
+                data:
+                  type: object
+                  nullable: true
+                  example: null
+                error:
                   type: string
-                  example: "Failed to fetch dictionaries from container"
+                  example: "Username already exists"
     """
-    data = request.get_json()
-
-    user_name = data.get("user_name")
-    password = data.get("password")
+    user_name = body.user_name
+    password = body.password
 
     result = auth_service.signup(user_name, password)
 
     if result["success"] == True:
-        return {"data": result["data"]}, 200
+        return JWTResponse(success=True, data=result["data"]), 200
     else:
-        return {"message": result["data"]}, 409
+        return JWTResponse(success=False, error=result["data"]), 409
 
 
 @auth_bp.route("/get/data", methods=["GET"])
 @jwt_required()
+@validate()
 def get_data_route():
     """
     Получить данные аккаунта
@@ -183,12 +227,6 @@ def get_data_route():
       - features/auth
     security:
       - BearerAuth: []
-    definitions:
-      securitySchemes:
-        BearerAuth:
-          type: apiKey
-          name: Authorization
-          in: header
     responses:
       200:
         description: Успешное получение данных пользователя
@@ -196,14 +234,23 @@ def get_data_route():
           application/json:
             schema:
               type: object
+              required: [success, data, error]
               properties:
+                success:
+                  type: boolean
+                  example: true
                 data:
                   type: object
+                  required: [user_name]
                   properties:
                     user_name:
                       type: string
                       description: Имя пользователя
                       example: "admin"
+                error:
+                  type: string
+                  nullable: true
+                  example: null
       401:
         description: Не авторизован (отсутствует или невалидный JWT)
         content:
@@ -220,8 +267,16 @@ def get_data_route():
           application/json:
             schema:
               type: object
+              required: [success, data, error]
               properties:
-                message:
+                success:
+                  type: boolean
+                  example: false
+                data:
+                  type: object
+                  nullable: true
+                  example: null
+                error:
                   type: string
                   example: "User not found"
     """
@@ -229,16 +284,17 @@ def get_data_route():
 
     result = auth_service.get_user_data(user_id)
 
-    if result["success"] == True:
-        return {"data": result["data"]}, 200
+    if result["success"]:
+        return UserDataResponse(success=True, data=result["data"]), 200
     else:
-        return {"message": result["data"]}, 409
+        return UserDataResponse(success=False, error=result["data"]), 409
 
 
 @auth_bp.route("/delete/user", methods=["DELETE"])
-def delete_user_route():
+@validate()
+def delete_user_route(body: AuthRequest):
     """
-    Удалить пользователя
+    Удалить аккаунт пользователя из системы
     ---
     tags:
       - features/auth
@@ -262,37 +318,78 @@ def delete_user_route():
                 example: "123456"
     responses:
       200:
-        description: Успешное получение списка словарей
+        description: Аккаунт пользователя успешно удален
         content:
           application/json:
             schema:
               type: object
+              required: [success, data, error]
               properties:
+                success:
+                  type: boolean
+                  example: true
                 data:
-                  type: array
-                  description: Список названий словарей, доступных в sdcv
-                  items:
-                    type: string
-                  example: ["Mueller7GPL", "Full English-Russian", "LingvoUniversal"]
-      409:
-        description: Внутренняя ошибка сервера при обращении к контейнеру sdcv
+                  type: object
+                  nullable: true
+                  example: null
+                error:
+                  type: string
+                  nullable: true
+                  example: null
+      400:
+        description: Ошибка валидации входящих учетных данных (Pydantic)
         content:
           application/json:
             schema:
               type: object
               properties:
-                message:
+                validation_error:
+                  type: object
+                  properties:
+                    body_params:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          input:
+                            type: string
+                            example: ""
+                          loc:
+                            type: array
+                            items:
+                              type: string
+                            example: ["password"]
+                          msg:
+                            type: string
+                            example: "Field required"
+                          type:
+                            type: string
+                            example: "missing"
+      409:
+        description: Ошибка удаления (неверный пароль или пользователь не найден)
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [success, data, error]
+              properties:
+                success:
+                  type: boolean
+                  example: false
+                data:
+                  type: object
+                  nullable: true
+                  example: null
+                error:
                   type: string
-                  example: "Failed to fetch dictionaries from container"
+                  example: "Invalid password or user does not exist"
     """
-    data = request.get_json()
-
-    user_name = data.get("user_name")
-    password = data.get("password")
+    user_name = body.user_name
+    password = body.password
 
     result = auth_service.delete(user_name, password)
 
-    if result["success"] == True:
-        return {"data": result["data"]}, 200
+    if result["success"]:
+        return DeleteResponse(success=True, data=result["data"]), 200
     else:
-        return {"message": result["data"]}, 409
+        return DeleteResponse(success=False, error=result["data"]), 409
