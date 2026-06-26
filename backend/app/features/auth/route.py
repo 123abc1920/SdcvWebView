@@ -2,12 +2,16 @@ from . import auth_bp
 from .service import auth_service
 from flask import request
 from flask_jwt_extended import jwt_required, get_jwt_identity
+from flask_pydantic import validate
+from .requests import LoginRequest
+from .responses import JWTResponse
 
 
 @auth_bp.route("/login", methods=["POST"])
-def login_route():
+@validate()
+def login_route(body: LoginRequest):
     """
-    Войти в систему
+    Войти в систему и получить JWT токен
     ---
     tags:
       - features/auth
@@ -31,38 +35,81 @@ def login_route():
                 example: "123456"
     responses:
       200:
-        description: Успешное получение списка словарей
+        description: Успешная авторизация
         content:
           application/json:
             schema:
               type: object
+              required: [success, data, error]
               properties:
+                success:
+                  type: boolean
+                  example: true
                 data:
-                  type: str
-                  description: JWT токен
-                  example: "5r67gthu99ojjiijji"
-      409:
-        description: Внутренняя ошибка сервера при обращении к контейнеру sdcv
+                  type: string
+                  description: JWT токен доступа (Access Token)
+                  example: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+                error:
+                  type: string
+                  nullable: true
+                  example: null
+      400:
+        description: Ошибка валидации (не переданы обязательные поля)
         content:
           application/json:
             schema:
               type: object
               properties:
-                message:
+                validation_error:
+                  type: object
+                  properties:
+                    body_params:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          input:
+                            type: string
+                            example: "Test User"
+                          loc:
+                            type: array
+                            items:
+                              type: string
+                            example: ["password"]
+                          msg:
+                            type: string
+                            example: "Field required"
+                          type:
+                            type: string
+                            example: "missing"
+      409:
+        description: Ошибка авторизации (неверный логин или пароль)
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [success, data, error]
+              properties:
+                success:
+                  type: boolean
+                  example: false
+                data:
+                  type: object
+                  nullable: true
+                  example: null
+                error:
                   type: string
-                  example: "Failed to fetch dictionaries from container"
+                  example: "Invalid username or password"
     """
-    data = request.get_json()
-
-    user_name = data.get("user_name")
-    password = data.get("password")
+    user_name = body.user_name
+    password = body.password
 
     result = auth_service.login(user_name, password)
 
     if result["success"] == True:
-        return {"data": result["data"]}, 200
+        return JWTResponse(success=True, data=result["data"]), 200
     else:
-        return {"message": result["data"]}, 409
+        return JWTResponse(success=False, error=result["data"]), 409
 
 
 @auth_bp.route("/signup", methods=["POST"])
