@@ -2,10 +2,14 @@ from . import history_bp
 from flask import request
 from flask_jwt_extended import jwt_required, get_jwt_identity
 from .service import history_service
+from flask_pydantic import validate
+from .validation import HistoryResponseSchema
+from app.shared.validation import ApiResponse
 
 
 @history_bp.route("/history", methods=["GET"])
 @jwt_required()
+@validate()
 def get_history_route():
     """
     Получение истории пользователя
@@ -58,14 +62,21 @@ def get_history_route():
 
     result = history_service.get_history(user_id)
 
-    if result["success"] == True:
-        return {"data": result["data"]}, 200
+    if result["success"]:
+        return (
+            HistoryResponseSchema(success=True, data=result["data"]),
+            200,
+        )
     else:
-        return {"message": result["data"]}, 409
+        return (
+            HistoryResponseSchema(success=False, error=result["data"]),
+            409,
+        )
 
 
 @history_bp.route("/delete/history", methods=["DELETE"])
 @jwt_required()
+@validate()
 def delete_history_item():
     """
     Удаляет записи в истории пользователя
@@ -118,7 +129,13 @@ def delete_history_item():
 
     result = history_service.delete_history(ids, user_id)
 
-    if result["success"] == True:
-        return {}, 200
+    if result["success"]:
+        return (
+            ApiResponse(success=True, data=result["data"]),
+            200,
+        )
     else:
-        return {"message": result["data"]}, 409
+        return (
+            ApiResponse(success=False, error=result["data"]),
+            409,
+        )
