@@ -1,9 +1,9 @@
 from . import history_bp
-from flask import request
 from flask_jwt_extended import jwt_required, get_jwt_identity
 from .service import history_service
 from flask_pydantic import validate
-from .validation import HistoryResponseSchema
+from .requests import DeleteHistoryRequestSchema
+from .responses import HistoryResponseSchema
 from app.shared.validation import ApiResponse
 
 
@@ -25,11 +25,16 @@ def get_history_route():
           application/json:
             schema:
               type: object
+              required: [success, data, error]
               properties:
+                success:
+                  type: boolean
+                  example: true
                 data:
                   type: array
                   items:
                     type: object
+                    required: [id, word]
                     properties:
                       id:
                         type: integer
@@ -37,6 +42,10 @@ def get_history_route():
                       word:
                         type: string
                         example: "meet"
+                error:
+                  type: string
+                  nullable: true
+                  example: null
       401:
         description: Не авторизован (отсутствует или невалидный JWT)
         content:
@@ -48,13 +57,21 @@ def get_history_route():
                   type: string
                   example: "Missing Authorization Header"
       409:
-        description: Ошибка сервера
+        description: Ошибка сервера / Бизнес-ошибка
         content:
           application/json:
             schema:
               type: object
+              required: [success, data, error]
               properties:
-                message:
+                success:
+                  type: boolean
+                  example: false
+                data:
+                  type: object
+                  nullable: true
+                  example: null
+                error:
                   type: string
                   example: "Database error"
     """
@@ -77,7 +94,7 @@ def get_history_route():
 @history_bp.route("/delete/history", methods=["DELETE"])
 @jwt_required()
 @validate()
-def delete_history_item():
+def delete_history_item(body: DeleteHistoryRequestSchema):
     """
     Удаляет записи в истории пользователя
     ---
@@ -91,6 +108,7 @@ def delete_history_item():
         application/json:
           schema:
             type: object
+            required: [ids]
             properties:
               ids:
                 type: array
@@ -101,6 +119,55 @@ def delete_history_item():
     responses:
       200:
         description: Успешное удаление
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [success, data, error]
+              properties:
+                success:
+                  type: boolean
+                  example: true
+                data:
+                  type: object
+                  nullable: true
+                  example: null
+                error:
+                  type: string
+                  nullable: true
+                  example: null
+      400:
+        description: Ошибка валидации входящего JSON (Pydantic)
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                validation_error:
+                  type: object
+                  properties:
+                    body_params:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          input:
+                            type: string
+                            example: "jhgjk"
+                          loc:
+                            type: array
+                            items:
+                              type: string
+                            example: ["ids", 0]
+                          msg:
+                            type: string
+                            example: "Input should be a valid integer..."
+                          type:
+                            type: string
+                            example: "int_parsing"
+                          url:
+                            type: string
+                            example: "https://pydantic.dev..."
       401:
         description: Не авторизован (отсутствует или невалидный JWT)
         content:
@@ -112,22 +179,27 @@ def delete_history_item():
                   type: string
                   example: "Missing Authorization Header"
       409:
-        description: Ошибка сервера
+        description: Ошибка сервера / Бизнес-ошибка
         content:
           application/json:
             schema:
               type: object
+              required: [success, data, error]
               properties:
-                message:
+                success:
+                  type: boolean
+                  example: false
+                data:
+                  type: object
+                  nullable: true
+                  example: null
+                error:
                   type: string
                   example: "Database error"
     """
     user_id = get_jwt_identity()
 
-    data = request.get_json()
-    ids = data.get("ids", [])
-
-    result = history_service.delete_history(ids, user_id)
+    result = history_service.delete_history(body.ids, user_id)
 
     if result["success"]:
         return (
