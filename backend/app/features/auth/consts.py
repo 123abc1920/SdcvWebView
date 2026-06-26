@@ -4,3 +4,4 @@ class ResultCodes:
     PASSWORD_INCORRECT: str = "Пароль неверен"
     ERROR: str = "Непредвиденная ошибка"
     USER_NOT_FOUND: str = "Пользователь не найден"
+    DELETION_FORBIDDEN: str = "Нет прав на удаление пользователя"

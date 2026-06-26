@@ -54,10 +54,13 @@ class AuthService:
         self.logger.warning(ResultCodes.USER_NOT_FOUND)
         return {"success": False, "data": ResultCodes.USER_NOT_FOUND}
 
-    def delete(self, user_name, password):
+    def delete(self, user_name: str, password: str, user_id: int) -> dict:
         user = auth_repo.get_user(user_name)
 
         if user:
+            if user.id != user_id:
+                return {"success": True, "data": ResultCodes.DELETION_FORBIDDEN}
+
             password_hash = user.password_hash
             is_valid = self.is_password_valid(password, password_hash)
 

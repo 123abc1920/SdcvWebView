@@ -291,6 +291,7 @@ def get_data_route():
 
 
 @auth_bp.route("/delete/user", methods=["DELETE"])
+@jwt_required()
 @validate()
 def delete_user_route(body: AuthRequest):
     """
@@ -298,6 +299,8 @@ def delete_user_route(body: AuthRequest):
     ---
     tags:
       - features/auth
+    security:
+      - BearerAuth: []
     requestBody:
       required: true
       content:
@@ -365,6 +368,16 @@ def delete_user_route(body: AuthRequest):
                           type:
                             type: string
                             example: "missing"
+      401:
+        description: Не авторизован (отсутствует или невалидный JWT)
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                message:
+                  type: string
+                  example: "Missing Authorization Header"
       409:
         description: Ошибка удаления (неверный пароль или пользователь не найден)
         content:
@@ -384,10 +397,12 @@ def delete_user_route(body: AuthRequest):
                   type: string
                   example: "Invalid password or user does not exist"
     """
+    user_id = get_jwt_identity()
+
     user_name = body.user_name
     password = body.password
 
-    result = auth_service.delete(user_name, password)
+    result = auth_service.delete(user_name, password, int(user_id))
 
     if result["success"]:
         return DeleteResponse(success=True, data=result["data"]), 200
