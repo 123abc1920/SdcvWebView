@@ -123,7 +123,7 @@ def translate(body: TranslateRequest):
     if user_id:
         save_history_res = translate_service.save_history(word, user_id)
 
-    if result.success:
-        return TranslateResponseSchema(success=True, data=result.data), 200
-    else:
+    if result.error:
         return TranslateResponseSchema(success=False, error=result.error), 409
+    else:
+        return TranslateResponseSchema(success=True, data=result.data), 200

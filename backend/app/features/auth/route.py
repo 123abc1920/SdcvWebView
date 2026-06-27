@@ -105,10 +105,10 @@ def login_route(body: AuthRequest):
 
     result = auth_service.login(user_name, password)
 
-    if result.success:
-        return JWTResponse(success=True, data=result.data), 200
+    if result.error:
+        return JWTResponse(error=result.error), 409
     else:
-        return JWTResponse(success=False, error=result.error), 409
+        return JWTResponse(data=result.data), 200
 
 
 @auth_bp.route("/signup", methods=["POST"])
@@ -210,10 +210,10 @@ def signup_route(body: AuthRequest):
 
     result = auth_service.signup(user_name, password)
 
-    if result.success:
-        return JWTResponse(success=True, data=result.data), 200
+    if result.error:
+        return JWTResponse(error=result.error), 409
     else:
-        return JWTResponse(success=False, error=result.error), 409
+        return JWTResponse(data=result.data), 200
 
 
 @auth_bp.route("/get/data", methods=["GET"])
@@ -284,10 +284,10 @@ def get_data_route():
 
     result = auth_service.get_user_data(user_id)
 
-    if result.success:
-        return UserDataResponse(success=True, data=result.data), 200
-    else:
+    if result.error:
         return UserDataResponse(success=False, error=result.error), 409
+    else:
+        return UserDataResponse(success=True, data=result.data), 200
 
 
 @auth_bp.route("/delete/user", methods=["DELETE"])
@@ -404,7 +404,7 @@ def delete_user_route(body: AuthRequest):
 
     result = auth_service.delete(user_name, password, int(user_id))
 
-    if result.success:
-        return DeleteResponse(success=True, data=result.data), 200
-    else:
+    if result.error:
         return DeleteResponse(success=False, error=result.error), 409
+    else:
+        return DeleteResponse(success=True, data=result.data), 200

@@ -80,15 +80,15 @@ def get_history_route():
 
     result = history_service.get_history(user_id)
 
-    if result.success:
-        return (
-            HistoryResponseSchema(success=True, data=result.data),
-            200,
-        )
-    else:
+    if result.error:
         return (
             HistoryResponseSchema(success=False, error=result.error),
             409,
+        )
+    else:
+        return (
+            HistoryResponseSchema(success=True, data=result.data),
+            200,
         )
 
 
@@ -202,13 +202,13 @@ def delete_history_item(body: DeleteHistoryRequestSchema):
 
     result = history_service.delete_history(body.ids, user_id)
 
-    if result.success:
-        return (
-            ApiResponse(success=True, data=result.data),
-            200,
-        )
-    else:
+    if result.error:
         return (
             ApiResponse(success=False, error=result.error),
             409,
+        )
+    else:
+        return (
+            ApiResponse(success=True, data=result.data),
+            200,
         )

@@ -16,7 +16,7 @@ class AuthService:
 
         if user:
             self.logger.error(ResultCodes.USER_EXISTS_ALREADY)
-            return BaseDTO(success=True, error=ResultCodes.USER_EXISTS_ALREADY)
+            return BaseDTO(error=ResultCodes.USER_EXISTS_ALREADY)
 
         salt = bcrypt.gensalt()
         password_hash = bcrypt.hashpw(password.encode("utf-8"), salt)
@@ -28,12 +28,12 @@ class AuthService:
         res = auth_repo.add_user(user_name, password_hash, is_admin)
         if res != ResultCodes.OK:
             self.logger.error(f"User was not created: {res}")
-            return BaseDTO(success=False, error=ResultCodes.UNEXPECTED_ERROR)
+            return BaseDTO(error=ResultCodes.UNEXPECTED_ERROR)
         else:
             self.logger.info(f"User {user_name} created")
             user = auth_repo.get_user(user_name)
             token = self.create_token(user.id)
-            return BaseDTO(success=True, data=token)
+            return BaseDTO(data=token)
 
     def login(self, user_name: str, password: str) -> BaseDTO[str]:
         user = auth_repo.get_user(user_name)
@@ -44,20 +44,20 @@ class AuthService:
 
             if is_valid:
                 self.logger.info(f"User {user_name} logged in")
-                return BaseDTO(success=True, data=self.create_token(user.id))
+                return BaseDTO(data=self.create_token(user.id))
             else:
                 self.logger.warning(ResultCodes.PASSWORD_INCORRECT)
-                return BaseDTO(success=False, error=ResultCodes.PASSWORD_INCORRECT)
+                return BaseDTO(error=ResultCodes.PASSWORD_INCORRECT)
 
         self.logger.warning(ResultCodes.USER_NOT_FOUND)
-        return BaseDTO(success=False, error=ResultCodes.USER_NOT_FOUND)
+        return BaseDTO(error=ResultCodes.USER_NOT_FOUND)
 
     def delete(self, user_name: str, password: str, user_id: int) -> BaseDTO[None]:
         user = auth_repo.get_user(user_name)
 
         if user:
             if user.id != user_id:
-                return BaseDTO(success=False, error=ResultCodes.DELETION_FORBIDDEN)
+                return BaseDTO(error=ResultCodes.DELETION_FORBIDDEN)
 
             password_hash = user.password_hash
             is_valid = self.is_password_valid(password, password_hash)
@@ -73,23 +73,23 @@ class AuthService:
                             auth_repo.set_admin(new_admin.name)
                             self.logger.info(f"User {user_name} is admin now")
 
-                    return BaseDTO(success=True)
+                    return BaseDTO()
                 else:
                     self.logger.error(f"Deletion error: {result}")
-                    return BaseDTO(success=False, error=result)
+                    return BaseDTO(error=result)
             else:
                 self.logger.warning(ResultCodes.PASSWORD_INCORRECT)
-                return BaseDTO(success=False, error=ResultCodes.PASSWORD_INCORRECT)
+                return BaseDTO(error=ResultCodes.PASSWORD_INCORRECT)
 
         self.logger.warning(ResultCodes.USER_NOT_FOUND)
-        return BaseDTO(success=False, error=ResultCodes.USER_NOT_FOUND)
+        return BaseDTO(error=ResultCodes.USER_NOT_FOUND)
 
     def get_user_data(self, user_id: int) -> BaseDTO[UserDTO]:
         user = auth_repo.get_user_by_id(user_id)
         if user:
-            return BaseDTO(success=True, data=UserDTO(user_name=user.name))
+            return BaseDTO(data=UserDTO(user_name=user.name))
 
-        return BaseDTO(success=False, error=ResultCodes.USER_NOT_FOUND)
+        return BaseDTO(error=ResultCodes.USER_NOT_FOUND)
 
     def create_token(self, user_id: int) -> str:
         return create_access_token(identity=str(user_id))

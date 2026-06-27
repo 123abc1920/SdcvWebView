@@ -16,7 +16,7 @@ class HistoryService:
         for t in raw_translations:
             translations.append(TranslationDTO(id=t.id, word=t.word))
 
-        return BaseDTO(success=True, data=translations)
+        return BaseDTO(data=translations)
 
     def delete_history(self, ids: list, user_id: int) -> BaseDTO[None]:
         for id in ids:
@@ -31,7 +31,7 @@ class HistoryService:
             else:
                 self.logger.warning(f"User {user_id} does not own item {id}")
 
-        return BaseDTO(success=True, data=None)
+        return BaseDTO(data=None)
 
     def is_user_owns_history_item(self, user_id: int, translation_id: int) -> bool:
         translation = history_repo.get_history_item(translation_id)

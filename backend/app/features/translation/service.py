@@ -8,7 +8,7 @@ from app.shared.dto import BaseDTO
 from typing import List
 from .consts import ResultCodes
 
-
+# TODO: delete success?
 class TranslateService:
 
     def __init__(self):
@@ -47,21 +47,21 @@ class TranslateService:
 
                 self.logger.info("Word succsessfully found")
                 return BaseDTO(
-                    success=True, data=[item.model_dump() for item in validated_data]
+                    data=[item.model_dump() for item in validated_data]
                 )
             elif result.returncode == 2:
                 self.logger.warning("Word not found in dicts")
-                return BaseDTO(success=False, error=ResultCodes.WORD_NOT_FOUND)
+                return BaseDTO(error=ResultCodes.WORD_NOT_FOUND)
             else:
                 self.logger.error(result.stderr)
-                return BaseDTO(success=False, error=ResultCodes.UNEXPECTED_ERROR)
+                return BaseDTO(error=ResultCodes.UNEXPECTED_ERROR)
 
         except subprocess.TimeoutExpired:
             self.logger.error("Timeout")
-            return BaseDTO(success=False, error=ResultCodes.ERROR_IN_FINDING)
+            return BaseDTO(error=ResultCodes.ERROR_IN_FINDING)
         except Exception as e:
             self.logger.error(str(e))
-            return BaseDTO(success=False, error=ResultCodes.UNEXPECTED_ERROR)
+            return BaseDTO(error=ResultCodes.UNEXPECTED_ERROR)
 
     def save_history(self, word: str, user_id: int) -> bool:
         if translate_repo.user_exists(user_id):

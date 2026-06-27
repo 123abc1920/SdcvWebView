@@ -58,7 +58,7 @@ def list_dicts():
     """
     result = dicts_service.get_all(SDCV_TEST_CONTAINER)
 
-    if result.success:
-        return DictsResponse(success=True, data=result.data), 200
-    else:
+    if result.error:
         return DictsResponse(success=False, error=result.error), 409
+    else:
+        return DictsResponse(success=True, data=result.data), 200

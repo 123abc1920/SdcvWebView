@@ -27,17 +27,17 @@ class DictsService:
                     dict_name = data[i].rsplit(None, 1)[0]
                     dicts.append(dict_name)
 
-                return BaseDTO(success=True, data=dicts)
+                return BaseDTO(data=dicts)
             else:
                 self.logger.error(result.stderr)
-                return BaseDTO(success=False, data=ResultCodes.UNEXPECTED_ERROR)
+                return BaseDTO(data=ResultCodes.UNEXPECTED_ERROR)
 
         except subprocess.TimeoutExpired:
             self.logger.error("Timeout")
-            return BaseDTO(success=False, error=ResultCodes.DICTS_NOT_FOUND)
+            return BaseDTO(error=ResultCodes.DICTS_NOT_FOUND)
         except Exception as e:
             self.logger.error(str(e))
-            return BaseDTO(success=False, error=ResultCodes.UNEXPECTED_ERROR)
+            return BaseDTO(error=ResultCodes.UNEXPECTED_ERROR)
 
 
 dicts_service = DictsService()
