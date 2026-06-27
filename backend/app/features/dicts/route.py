@@ -22,11 +22,8 @@ def list_dicts():
           application/json:
             schema:
               type: object
-              required: [success, data, error]
+              required: [data, error]
               properties:
-                success:
-                  type: boolean
-                  example: true
                 data:
                   type: array
                   description: Список названий словарей, доступных в sdcv
@@ -43,11 +40,8 @@ def list_dicts():
           application/json:
             schema:
               type: object
-              required: [success, data, error]
+              required: [data, error]
               properties:
-                success:
-                  type: boolean
-                  example: false
                 data:
                   type: object
                   nullable: true
@@ -59,6 +53,6 @@ def list_dicts():
     result = dicts_service.get_all(SDCV_TEST_CONTAINER)
 
     if result.error:
-        return DictsResponse(success=False, error=result.error), 409
+        return DictsResponse(error=result.error), 409
     else:
-        return DictsResponse(success=True, data=result.data), 200
+        return DictsResponse(data=result.data), 200

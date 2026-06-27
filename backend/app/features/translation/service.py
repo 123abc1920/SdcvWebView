@@ -8,7 +8,7 @@ from app.shared.dto import BaseDTO
 from typing import List
 from .consts import ResultCodes
 
-# TODO: delete success?
+
 class TranslateService:
 
     def __init__(self):
@@ -46,9 +46,7 @@ class TranslateService:
                 validated_data = [TranslationData(**item) for item in data]
 
                 self.logger.info("Word succsessfully found")
-                return BaseDTO(
-                    data=[item.model_dump() for item in validated_data]
-                )
+                return BaseDTO(data=[item.model_dump() for item in validated_data])
             elif result.returncode == 2:
                 self.logger.warning("Word not found in dicts")
                 return BaseDTO(error=ResultCodes.WORD_NOT_FOUND)

@@ -26,11 +26,8 @@ def get_history_route():
           application/json:
             schema:
               type: object
-              required: [success, data, error]
+              required: [data, error]
               properties:
-                success:
-                  type: boolean
-                  example: true
                 data:
                   type: array
                   items:
@@ -63,11 +60,8 @@ def get_history_route():
           application/json:
             schema:
               type: object
-              required: [success, data, error]
+              required: [data, error]
               properties:
-                success:
-                  type: boolean
-                  example: false
                 data:
                   type: object
                   nullable: true
@@ -82,12 +76,12 @@ def get_history_route():
 
     if result.error:
         return (
-            HistoryResponseSchema(success=False, error=result.error),
+            HistoryResponseSchema(error=result.error),
             409,
         )
     else:
         return (
-            HistoryResponseSchema(success=True, data=result.data),
+            HistoryResponseSchema(data=result.data),
             200,
         )
 
@@ -124,11 +118,8 @@ def delete_history_item(body: DeleteHistoryRequestSchema):
           application/json:
             schema:
               type: object
-              required: [success, data, error]
+              required: [data, error]
               properties:
-                success:
-                  type: boolean
-                  example: true
                 data:
                   type: object
                   nullable: true
@@ -185,11 +176,8 @@ def delete_history_item(body: DeleteHistoryRequestSchema):
           application/json:
             schema:
               type: object
-              required: [success, data, error]
+              required: [data, error]
               properties:
-                success:
-                  type: boolean
-                  example: false
                 data:
                   type: object
                   nullable: true
@@ -204,11 +192,11 @@ def delete_history_item(body: DeleteHistoryRequestSchema):
 
     if result.error:
         return (
-            ApiResponse(success=False, error=result.error),
+            ApiResponse(error=result.error),
             409,
         )
     else:
         return (
-            ApiResponse(success=True, data=result.data),
+            ApiResponse(data=result.data),
             200,
         )

@@ -46,11 +46,8 @@ def translate(body: TranslateRequest):
           application/json:
             schema:
               type: object
-              required: [success, data, error]
+              required: [data, error]
               properties:
-                success:
-                  type: boolean
-                  example: true
                 data:
                   type: array
                   items:
@@ -102,11 +99,8 @@ def translate(body: TranslateRequest):
           application/json:
             schema:
               type: object
-              required: [success, data, error]
+              required: [data, error]
               properties:
-                success:
-                  type: boolean
-                  example: false
                 data:
                   type: object
                   nullable: true
@@ -124,6 +118,6 @@ def translate(body: TranslateRequest):
         save_history_res = translate_service.save_history(word, user_id)
 
     if result.error:
-        return TranslateResponseSchema(success=False, error=result.error), 409
+        return TranslateResponseSchema(error=result.error), 409
     else:
-        return TranslateResponseSchema(success=True, data=result.data), 200
+        return TranslateResponseSchema(data=result.data), 200
