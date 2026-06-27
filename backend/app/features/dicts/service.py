@@ -1,12 +1,14 @@
 import logging
 import subprocess
+from app.shared.dto import BaseDTO
+from .consts import ResultCodes
 
 
 class DictsService:
     def __init__(self):
         self.logger = logging.getLogger(__name__)
 
-    def get_all(self, container_name: str) -> dict:
+    def get_all(self, container_name: str) -> BaseDTO[dict]:
         try:
             result = subprocess.run(
                 ["docker", "exec", container_name, "sdcv", "-l"],
@@ -17,24 +19,25 @@ class DictsService:
             )
 
             if result.returncode == 0:
-                data = result.stdout
-                data = data.split("\n")
+                stdout = result.stdout
+                data = stdout.split("\n")
 
                 dicts = []
                 for i in range(1, len(data) - 1):
                     dict_name = data[i].rsplit(None, 1)[0]
                     dicts.append(dict_name)
 
-                return {"success": True, "data": dicts}
+                return BaseDTO(success=True, data=dicts)
             else:
                 self.logger.error(result.stderr)
-                return {"success": False, "data": "Непредвиденная ошибка"}
+                return BaseDTO(success=False, data=ResultCodes.UNEXPECTED_ERROR)
 
         except subprocess.TimeoutExpired:
             self.logger.error("Timeout")
-            return {"success": False, "data": "Словари не найдены"}
+            return BaseDTO(success=False, error=ResultCodes.DICTS_NOT_FOUND)
         except Exception as e:
             self.logger.error(str(e))
+            return BaseDTO(success=False, error=ResultCodes.UNEXPECTED_ERROR)
 
 
 dicts_service = DictsService()

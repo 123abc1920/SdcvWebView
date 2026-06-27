@@ -2,6 +2,7 @@ from . import dicts_bp
 from .service import dicts_service
 from flask_pydantic import validate
 from .responses import DictsResponse
+from app.shared.dto import BaseDTO
 
 SDCV_TEST_CONTAINER = "sdcv-test"
 
@@ -57,7 +58,7 @@ def list_dicts():
     """
     result = dicts_service.get_all(SDCV_TEST_CONTAINER)
 
-    if result["success"] == True:
-        return DictsResponse(success=True, data=result["data"]), 200
+    if result.success:
+        return DictsResponse(success=True, data=result.data), 200
     else:
-        return DictsResponse(success=False, error=result["data"]), 409
+        return DictsResponse(success=False, error=result.error), 409
