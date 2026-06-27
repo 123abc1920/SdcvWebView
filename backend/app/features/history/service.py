@@ -1,21 +1,23 @@
 import logging
 from .repository import history_repo
+from app.shared.dto import BaseDTO
+from typing import List
 
 
 class HistoryService:
     def __init__(self):
         self.logger = logging.getLogger(__name__)
 
-    def get_history(self, user_id: int) -> dict:
+    def get_history(self, user_id: int) -> BaseDTO[List[dict]]:
         raw_translations = history_repo.get_history(user_id)
 
         translations = []
         for t in raw_translations:
             translations.append({"id": t.id, "word": t.word})
 
-        return {"success": True, "data": translations}
+        return BaseDTO(success=True, data=translations)
 
-    def delete_history(self, ids: list, user_id: int) -> dict:
+    def delete_history(self, ids: list, user_id: int) -> BaseDTO[None]:
         for id in ids:
             if self.is_user_owns_history_item(user_id, id):
                 try:
@@ -28,7 +30,7 @@ class HistoryService:
             else:
                 self.logger.warning(f"User {user_id} does not own item {id}")
 
-        return {"success": True, "data": None}
+        return BaseDTO(success=True, data=None)
 
     def is_user_owns_history_item(self, user_id: int, translation_id: int) -> bool:
         translation = history_repo.get_history_item(translation_id)

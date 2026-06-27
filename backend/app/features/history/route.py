@@ -5,6 +5,7 @@ from flask_pydantic import validate
 from .requests import DeleteHistoryRequestSchema
 from .responses import HistoryResponseSchema
 from app.shared.validation import ApiResponse
+from app.shared.dto import BaseDTO
 
 
 @history_bp.route("/history", methods=["GET"])
@@ -79,14 +80,14 @@ def get_history_route():
 
     result = history_service.get_history(user_id)
 
-    if result["success"]:
+    if result.success:
         return (
-            HistoryResponseSchema(success=True, data=result["data"]),
+            HistoryResponseSchema(success=True, data=result.data),
             200,
         )
     else:
         return (
-            HistoryResponseSchema(success=False, error=result["data"]),
+            HistoryResponseSchema(success=False, error=result.error),
             409,
         )
 
@@ -201,13 +202,13 @@ def delete_history_item(body: DeleteHistoryRequestSchema):
 
     result = history_service.delete_history(body.ids, user_id)
 
-    if result["success"]:
+    if result.success:
         return (
-            ApiResponse(success=True, data=result["data"]),
+            ApiResponse(success=True, data=result.data),
             200,
         )
     else:
         return (
-            ApiResponse(success=False, error=result["data"]),
+            ApiResponse(success=False, error=result.error),
             409,
         )
