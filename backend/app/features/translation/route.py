@@ -4,6 +4,7 @@ from flask_jwt_extended import jwt_required, get_jwt_identity
 from flask_pydantic import validate
 from .requests import TranslateRequest
 from .responses import TranslateResponseSchema
+from app.shared.dto import BaseDTO
 
 SDCV_TEST_CONTAINER = "sdcv-test"
 
@@ -122,7 +123,7 @@ def translate(body: TranslateRequest):
     if user_id:
         save_history_res = translate_service.save_history(word, user_id)
 
-    if result["success"] == True:
-        return TranslateResponseSchema(success=True, data=result["data"]), 200
+    if result.success:
+        return TranslateResponseSchema(success=True, data=result.data), 200
     else:
-        return TranslateResponseSchema(success=False, error=result["data"]), 409
+        return TranslateResponseSchema(success=False, error=result.error), 409

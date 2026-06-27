@@ -2,11 +2,7 @@ import logging
 from .repository import auth_repo
 from app.features.auth.consts import ResultCodes
 import bcrypt
-from flask_jwt_extended import (
-    create_access_token,
-    jwt_required,
-    get_jwt_identity,
-)
+from flask_jwt_extended import create_access_token
 
 
 class AuthService:

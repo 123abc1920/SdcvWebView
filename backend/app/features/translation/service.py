@@ -4,6 +4,9 @@ import logging
 from .repository import translate_repo
 from datetime import datetime
 from .responses import TranslationData
+from app.shared.dto import BaseDTO
+from typing import List
+from .consts import ResultCodes
 
 
 class TranslateService:
@@ -11,11 +14,13 @@ class TranslateService:
     def __init__(self):
         self.logger = logging.getLogger(__name__)
 
-    def translate(self, container_name: str, word: str, filters: list[str]) -> dict:
+    def translate(
+        self, container_name: str, word: str, filters: list[str]
+    ) -> BaseDTO[List[TranslationData]]:
         try:
             u_filters = []
             for f in filters:
-                u_filters.append("-u"),
+                u_filters.append("-u")
                 u_filters.append(f)
 
             result = subprocess.run(
@@ -41,26 +46,22 @@ class TranslateService:
                 validated_data = [TranslationData(**item) for item in data]
 
                 self.logger.info("Word succsessfully found")
-                return {
-                    "success": True,
-                    "data": [item.model_dump() for item in validated_data],
-                }
+                return BaseDTO(
+                    success=True, data=[item.model_dump() for item in validated_data]
+                )
             elif result.returncode == 2:
                 self.logger.warning("Word not found in dicts")
-                return {
-                    "success": False,
-                    "data": "Слово не найдено",
-                }
+                return BaseDTO(success=False, error=ResultCodes.WORD_NOT_FOUND)
             else:
                 self.logger.error(result.stderr)
-                return {"success": False, "data": "Непредвиденная ошибка"}
+                return BaseDTO(success=False, error=ResultCodes.UNEXPECTED_ERROR)
 
         except subprocess.TimeoutExpired:
             self.logger.error("Timeout")
-            return {"success": False, "data": "Ошибка поиска слова"}
+            return BaseDTO(success=False, error=ResultCodes.ERROR_IN_FINDING)
         except Exception as e:
             self.logger.error(str(e))
-            return {"success": False, "data": "Непредвиденная ошибка"}
+            return BaseDTO(success=False, error=ResultCodes.UNEXPECTED_ERROR)
 
     def save_history(self, word: str, user_id: int) -> bool:
         if translate_repo.user_exists(user_id):
@@ -73,6 +74,7 @@ class TranslateService:
                     f"Error while saving history for user {user_id}: {str(e)}"
                 )
                 return False
+        return False
 
 
 translate_service = TranslateService()
