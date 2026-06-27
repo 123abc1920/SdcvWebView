@@ -4,6 +4,7 @@ from app.features.auth.consts import ResultCodes
 import bcrypt
 from flask_jwt_extended import create_access_token
 from app.shared.dto import BaseDTO
+from .dto import UserDTO
 
 
 class AuthService:
@@ -83,20 +84,20 @@ class AuthService:
         self.logger.warning(ResultCodes.USER_NOT_FOUND)
         return BaseDTO(success=False, error=ResultCodes.USER_NOT_FOUND)
 
-    def get_user_data(self, user_id: int) -> BaseDTO[dict]:
+    def get_user_data(self, user_id: int) -> BaseDTO[UserDTO]:
         user = auth_repo.get_user_by_id(user_id)
         if user:
-            return BaseDTO(success=True, data={"user_name": user.name})
+            return BaseDTO(success=True, data=UserDTO(user_name=user.name))
 
         return BaseDTO(success=False, error=ResultCodes.USER_NOT_FOUND)
 
     def create_token(self, user_id: int) -> str:
         return create_access_token(identity=str(user_id))
 
-    def is_password_valid(self, password: str, password_hash: str) -> bool:
+    def is_password_valid(self, password: str, password_hash: bytes) -> bool:
         return bcrypt.checkpw(
             password.encode("utf-8"),
-            password_hash.encode("utf-8"),
+            password_hash,
         )
 
 

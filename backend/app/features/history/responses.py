@@ -7,5 +7,7 @@ class HistoryItemSchema(BaseModel):
     id: int = Field(..., examples=[7])
     word: str = Field(..., examples=["meet"])
 
+    model_config = {"from_attributes": True}
+
 
 HistoryResponseSchema = ApiResponse[List[HistoryItemSchema]]

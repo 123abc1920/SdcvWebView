@@ -2,18 +2,19 @@ import logging
 from .repository import history_repo
 from app.shared.dto import BaseDTO
 from typing import List
+from .dto import TranslationDTO
 
 
 class HistoryService:
     def __init__(self):
         self.logger = logging.getLogger(__name__)
 
-    def get_history(self, user_id: int) -> BaseDTO[List[dict]]:
+    def get_history(self, user_id: int) -> BaseDTO[List[TranslationDTO]]:
         raw_translations = history_repo.get_history(user_id)
 
         translations = []
         for t in raw_translations:
-            translations.append({"id": t.id, "word": t.word})
+            translations.append(TranslationDTO(id=t.id, word=t.word))
 
         return BaseDTO(success=True, data=translations)
 

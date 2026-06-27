@@ -8,7 +8,7 @@ class DictsService:
     def __init__(self):
         self.logger = logging.getLogger(__name__)
 
-    def get_all(self, container_name: str) -> BaseDTO[dict]:
+    def get_all(self, container_name: str) -> BaseDTO[list]:
         try:
             result = subprocess.run(
                 ["docker", "exec", container_name, "sdcv", "-l"],
