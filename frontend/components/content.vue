@@ -98,20 +98,30 @@
 </template>
 
 <script setup>
-import { ref } from "vue";
+import { ref, onMounted } from "vue";
 
 import ResultTemplate from "./result.vue";
 
 const word = ref("");
 const results = ref([]);
 
-const availableOptions = ref([
-  "Существительное",
-  "Глагол",
-  "Прилагательное",
-  "English",
-  "Русский",
-]);
+const availableOptions = ref([]);
+
+onMounted(async () => {
+  try {
+    const response = await fetch("http://127.0.0.1:5200/dicts", {
+      method: "GET",
+      headers: { "Content-Type": "application/json" },
+    });
+    const data = await response.json();
+    
+    if (data.data) {
+      availableOptions.value = data.data;
+    }
+  } catch (error) {
+    console.error("Ошибка загрузки словарей:", error);
+  }
+});
 
 const selectedFilters = ref([]);
 
@@ -132,7 +142,7 @@ const translate = async () => {
     const response = await fetch("http://127.0.0.1:5200/translate", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ word: word.value }),
+      body: JSON.stringify({ word: word.value, filters: selectedFilters.value }),
     });
     const data = await response.json();
 
