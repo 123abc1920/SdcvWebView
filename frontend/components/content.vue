@@ -91,7 +91,7 @@
       </div>
 
       <div class="mt-3">
-        <ResultTemplate />
+        <ResultTemplate :results="results" />
       </div>
     </div>
   </main>
@@ -103,7 +103,7 @@ import { ref } from "vue";
 import ResultTemplate from "./result.vue";
 
 const word = ref("");
-const result = ref("");
+const results = ref([]);
 
 const availableOptions = ref([
   "Существительное",
@@ -135,9 +135,14 @@ const translate = async () => {
       body: JSON.stringify({ word: word.value }),
     });
     const data = await response.json();
-    console.log(data);
+
+    if (data.data) {
+      results.value = data.data;
+    } else {
+      results.value = [{ dict: "Ошибка", definition: data.error }];
+    }
   } catch (error) {
-    console.error("Ошибка:", error);
+    results.value = [{ dict: "Ошибка", definition: "Сервер недоступен" }];
   }
 };
 </script>
