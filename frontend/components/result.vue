@@ -10,7 +10,7 @@
           aria-expanded="false"
           :aria-controls="collapseId + index"
         >
-          {{ item.dict || "Словарь" }}
+          {{ item.dict }}
         </button>
       </h2>
 
@@ -21,7 +21,10 @@
         :data-bs-parent="`#${accordionId}`"
       >
         <div class="accordion-body bg-transparent">
-          <p class="fs-6">{{ item.definition || item }}</p>
+          <pre
+            class="dict-text"
+            v-html="sanitize(item.definition || item)"
+          ></pre>
         </div>
       </div>
     </div>
@@ -30,6 +33,7 @@
 
 <script setup>
 import { useId } from "vue";
+import DOMPurify from "dompurify";
 
 defineProps({
   results: {
@@ -41,4 +45,44 @@ defineProps({
 const accordionId = `accordion-${useId()}`;
 const headingId = `heading-${useId()}`;
 const collapseId = `collapse-${useId()}`;
+
+const sanitize = (rawText) => {
+  if (typeof rawText !== "string") return rawText;
+
+  return DOMPurify.sanitize(rawText, {
+    ALLOWED_TAGS: [
+      "br",
+      "b",
+      "strong",
+      "i",
+      "em",
+      "p",
+      "div",
+      "font",
+      "u",
+      "sub",
+      "sup",
+      "ul",
+      "ol",
+      "li",
+      "table",
+      "tr",
+      "td",
+      "rref",
+      "a",
+    ],
+    ALLOWED_ATTR: ["color", "size", "href", "target"],
+    ALLOW_UNKNOWN_PROTOCOLS: false,
+  });
+};
 </script>
+
+<style scoped>
+.dict-text {
+  white-space: pre-wrap;
+}
+
+.dict-text :deep(t) {
+  font-weight: bold;
+}
+</style>
