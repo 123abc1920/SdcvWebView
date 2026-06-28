@@ -17,6 +17,12 @@ class TranslateService:
     def translate(
         self, container_name: str, word: str, filters: list[str]
     ) -> BaseDTO[List[TranslationData]]:
+        if word == "" or word.isspace() or word is None:
+            self.logger.warning("Word is empty")
+            return BaseDTO(error=ResultCodes.WORD_NOT_FOUND)
+
+        word = word.strip().replace(" ", "").lower()
+
         try:
             u_filters = []
             for f in filters:
