@@ -1,6 +1,6 @@
 <template>
-  <p class="fs-2 fw-bold">{{ errorTitle }}</p>
-  <p class="fs-4">{{ errorDetail }}</p>
+  <p class="fs-2 fw-bold text-center">{{ errorTitle }}</p>
+  <p class="fs-4 text-center">{{ errorDetail }}</p>
 </template>
 
 <script setup>

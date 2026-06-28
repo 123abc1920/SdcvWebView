@@ -18,14 +18,45 @@
     </div>
 
     <div class="offcanvas-body">
-      <p class="fs-5 text-center">Нужно иметь аккаунт</p>
-      <HistoryElement />
+      <ErrorTemplate :error-title="errorTitle" :error-detail="errorDetail" />
+      <HistoryElement v-for="item in historyArr" :key="item.id" :item="item" />
     </div>
   </div>
 </template>
 
 <script setup>
-import { ref } from "vue";
+import { ref, onMounted } from "vue";
+
+import ErrorTemplate from "./error.vue";
+
+const historyArr = ref([]);
+const errorTitle = ref("");
+const errorDetail = ref("");
+
+onMounted(async () => {
+  const response = await fetch("http://127.0.0.1:5200/history", {
+    headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+  });
+  const data = await response.json();
+
+  console.log(data);
+
+  historyArr.value = [];
+  errorTitle.value = "";
+  errorDetail.value = "";
+
+  console.log(data);
+
+  if (response.status === 200) {
+    historyArr.value = data.data;
+  } else if (response.status === 422) {
+    errorTitle.value = "Ошибка";
+    errorDetail.value = "Необходимо завести аккаунт!";
+  } else {
+    errorTitle.value = "Ошибка";
+    errorDetail.value = data.error;
+  }
+});
 
 import HistoryElement from "./history_element.vue";
 </script>
