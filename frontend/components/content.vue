@@ -101,6 +101,7 @@
 
 <script setup>
 import { ref, onMounted } from "vue";
+import Cookies from 'js-cookie';
 
 import ResultTemplate from "./result.vue";
 import ErrorTemplate from "./error.vue";

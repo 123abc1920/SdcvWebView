@@ -71,13 +71,19 @@
 <script setup>
 import { ref, onMounted } from "vue";
 import { Modal } from "bootstrap";
-import Cookies from 'js-cookie';
+import Cookies from "js-cookie";
 
 const login = ref("");
 const password = ref("");
 const errorDetail = ref("");
 
 const logIn = async () => {
+  if (document.activeElement) {
+    document.activeElement.blur();
+  }
+  window.focus();
+  document.body.focus();
+
   try {
     const response = await fetch("http://127.0.0.1:5200/login", {
       method: "POST",
@@ -94,6 +100,7 @@ const logIn = async () => {
       document.querySelector("#loginModal .btn-close")?.click();
       let jwt = data.data;
       Cookies.set("jwt", jwt, { expires: 7 });
+      window.dispatchEvent(new Event('auth-changed'));
     } else {
       errorDetail.value = data.error;
     }
@@ -103,6 +110,12 @@ const logIn = async () => {
 };
 
 const signUp = async () => {
+  if (document.activeElement) {
+    document.activeElement.blur();
+  }
+  window.focus();
+  document.body.focus();
+
   try {
     const response = await fetch("http://127.0.0.1:5200/signup", {
       method: "POST",
@@ -118,6 +131,8 @@ const signUp = async () => {
     if (response.status === 200) {
       document.querySelector("#loginModal .btn-close")?.click();
       jwt = data.data;
+      Cookies.set("jwt", jwt, { expires: 7 });
+      window.dispatchEvent(new Event('auth-changed'));
     } else {
       errorDetail.value = data.error;
     }

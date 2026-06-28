@@ -7,19 +7,22 @@
         <button
           class="navbar-toggler"
           type="button"
-          data-bs-toggle="collapse"
-          data-bs-target="#navbarNav"
+          @click="isMenuOpen = !isMenuOpen"
           aria-controls="navbarNav"
-          aria-expanded="false"
+          :aria-expanded="isMenuOpen.toString()"
           aria-label="Переключатель навигации"
         >
           <span class="navbar-toggler-icon"></span>
         </button>
 
-        <div class="collapse navbar-collapse" id="navbarNav">
+        <div
+          class="collapse navbar-collapse"
+          :class="{ show: isMenuOpen }"
+          id="navbarNav"
+        >
           <div class="navbar-nav ms-auto mt-2 mt-lg-0">
             <span class="navbar-text text-light text-center fw-semibold">
-              <i class="bi bi-person-fill me-2"></i> your-name
+              <i class="bi bi-person-fill me-2"></i> {{ userName }}
             </span>
 
             <button
@@ -45,10 +48,9 @@
             <button
               class="btn d-flex align-items-center justify-content-center w-100 w-lg-auto"
               type="button"
-              data-bs-toggle="modal"
-              data-bs-target="#loginModal"
+              @click="auth"
             >
-              <i class="bi bi-box-arrow-right me-2"></i> <span>Выход</span>
+              <i class="bi bi-box-arrow-right me-2"></i> <span>{{ acc }}</span>
             </button>
           </div>
         </div>
@@ -56,3 +58,57 @@
     </nav>
   </header>
 </template>
+
+<script setup>
+import { ref, onMounted } from "vue";
+import Cookies from "js-cookie";
+import * as bootstrap from "bootstrap";
+
+const acc = ref("Log in");
+const userName = ref("Your Name");
+const isMenuOpen = ref(false);
+
+const checkAuth = async () => {
+  const jwt = Cookies.get("jwt");
+
+  if (jwt) {
+    try {
+      const response = await fetch("http://127.0.0.1:5200/get/data", {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${jwt}`,
+        },
+      });
+      const data = await response.json();
+
+      console.log(data);
+
+      if (response.status === 200) {
+        acc.value = "Log out";
+        userName.value = data.data.user_name;
+      }
+    } catch (error) {
+      console.error("Ошибка:", error);
+    }
+  }
+};
+
+onMounted(async () => {
+  checkAuth();
+  window.addEventListener("auth-changed", checkAuth);
+});
+
+const auth = () => {
+  const jwt = Cookies.get("jwt");
+
+  if (jwt) {
+    Cookies.remove("jwt");
+    acc.value = "Log in";
+    userName.value = "Your Name";
+  } else {
+    const modal = new bootstrap.Modal(document.getElementById("loginModal"));
+    modal.show();
+  }
+};
+</script>
