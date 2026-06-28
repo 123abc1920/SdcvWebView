@@ -19,14 +19,21 @@
 
     <div class="offcanvas-body">
       <ErrorTemplate :error-title="errorTitle" :error-detail="errorDetail" />
-      <HistoryElement v-for="item in historyArr" :key="item.id" :item="item" />
+      <HistoryElement
+        v-for="item in historyArr"
+        :key="item.id"
+        :item="item"
+        @itemDeleted="removeIdFromList"
+      />
     </div>
   </div>
 </template>
 
 <script setup>
 import { ref, onMounted } from "vue";
+import Cookies from "js-cookie";
 
+import HistoryElement from "./history_element.vue";
 import ErrorTemplate from "./error.vue";
 
 const historyArr = ref([]);
@@ -35,11 +42,9 @@ const errorDetail = ref("");
 
 onMounted(async () => {
   const response = await fetch("http://127.0.0.1:5200/history", {
-    headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+    headers: { Authorization: `Bearer ${Cookies.get("jwt")}` },
   });
   const data = await response.json();
-
-  console.log(data);
 
   historyArr.value = [];
   errorTitle.value = "";
@@ -56,5 +61,7 @@ onMounted(async () => {
   }
 });
 
-import HistoryElement from "./history_element.vue";
+const removeIdFromList = (deletedId) => {
+  historyArr.value = historyArr.value.filter((item) => item.id !== deletedId);
+};
 </script>
