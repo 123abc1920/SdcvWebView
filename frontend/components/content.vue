@@ -92,6 +92,7 @@
 
       <div class="mt-3">
         <ResultTemplate :results="results" />
+        <ErrorTemplate :error-title="errorTitle" :error-detail="errorDetail" />
       </div>
     </div>
   </main>
@@ -101,9 +102,13 @@
 import { ref, onMounted } from "vue";
 
 import ResultTemplate from "./result.vue";
+import ErrorTemplate from "./error.vue";
 
 const word = ref("");
 const results = ref([]);
+
+const errorTitle = ref("");
+const errorDetail = ref("");
 
 const availableOptions = ref([]);
 
@@ -114,7 +119,7 @@ onMounted(async () => {
       headers: { "Content-Type": "application/json" },
     });
     const data = await response.json();
-    
+
     if (data.data) {
       availableOptions.value = data.data;
     }
@@ -142,17 +147,25 @@ const translate = async () => {
     const response = await fetch("http://127.0.0.1:5200/translate", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ word: word.value, filters: selectedFilters.value }),
+      body: JSON.stringify({
+        word: word.value,
+        filters: selectedFilters.value,
+      }),
     });
     const data = await response.json();
+    errorTitle.value = "";
+    errorDetail.value = "";
+    results.value = [];
 
-    if (data.data) {
-      results.value = data.data;
+    if (data.error) {
+      errorTitle.value = "Ошибка";
+      errorDetail.value = data.error;
     } else {
-      results.value = [{ dict: "Ошибка", definition: data.error }];
+      results.value = data.data;
     }
   } catch (error) {
-    results.value = [{ dict: "Ошибка", definition: "Сервер недоступен" }];
+    errorTitle.value = "Ошибка";
+    errorDetail.value = "Сервер недоступен";
   }
 };
 </script>
