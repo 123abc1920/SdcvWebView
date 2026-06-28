@@ -5,6 +5,7 @@
         class="form-control fs-5 rounded"
         placeholder="Введите слово..."
         style="resize: none; field-sizing: content; max-height: 20vh"
+        v-model="word"
       ></textarea>
 
       <div class="accordion bg-transparent mt-2 mb-2" id="accordionSettings">
@@ -80,7 +81,11 @@
       </div>
 
       <div class="d-flex justify-content-center">
-        <button type="button" class="btn btn-sm btn-dark rounded">
+        <button
+          type="button"
+          class="btn btn-sm btn-dark rounded"
+          @click="translate"
+        >
           <i class="bi bi-search me-2"></i> <span>Найти</span>
         </button>
       </div>
@@ -122,8 +127,18 @@ const removeFilter = (filterToRemove) => {
   );
 };
 
-const translate = () => {
-  result.value = `Вы ввели: ${word.value}. Фильтры: ${selectedFilters.value.join(", ")}`;
+const translate = async () => {
+  try {
+    const response = await fetch("http://127.0.0.1:5200/translate", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ word: word.value }),
+    });
+    const data = await response.json();
+    console.log(data);
+  } catch (error) {
+    console.error("Ошибка:", error);
+  }
 };
 </script>
 
