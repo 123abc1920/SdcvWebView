@@ -1,9 +1,13 @@
 <template>
   <div class="accordion bg-transparent mt-2 mb-2" :id="accordionId">
-    <div class="accordion-item" v-for="(item, index) in results" :key="index">
+    <div
+      class="accordion-item mb-2"
+      v-for="(item, index) in results"
+      :key="index"
+    >
       <h2 class="accordion-header" :id="headingId + index">
         <button
-          class="accordion-button collapsed py-1 btn-sm bg-transparent"
+          class="accordion-button collapsed py-1 bg-transparent"
           type="button"
           data-bs-toggle="collapse"
           :data-bs-target="`#${collapseId + index}`"
@@ -27,6 +31,7 @@
           ></pre>
         </div>
       </div>
+      <hr class="border-top border-2 border-primary my-2 w-100" />
     </div>
   </div>
 </template>

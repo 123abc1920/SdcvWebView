@@ -12,7 +12,7 @@
         <div class="accordion-item">
           <h2 class="accordion-header" id="headingOne">
             <button
-              class="accordion-button collapsed py-1 btn-sm bg-transparent"
+              class="accordion-button collapsed py-1 bg-transparent"
               type="button"
               data-bs-toggle="collapse"
               data-bs-target="#collapseOne"
@@ -29,11 +29,11 @@
             aria-labelledby="headingOne"
             data-bs-parent="#accordionSettings"
           >
-            <div class="accordion-body bg-transparent">
+            <div class="accordion-body bg-transparent p-2">
               <div class="mb-0">
-                <div class="dropdown d-inline-block me-2 mb-2">
+                <div class="dropdown d-inline-block">
                   <button
-                    class="btn btn-outline-secondary dropdown-toggle btn-sm"
+                    class="btn btn-outline-transparent bg-transparent dropdown-toggle btn-sm"
                     type="button"
                     data-bs-toggle="dropdown"
                     aria-expanded="false"
@@ -46,7 +46,7 @@
                       :key="index"
                     >
                       <button
-                        class="dropdown-item btn-sm"
+                        class="dropdown-item"
                         type="button"
                         @click="addFilter(option)"
                       >
@@ -62,7 +62,7 @@
                   <span
                     v-for="filter in selectedFilters"
                     :key="filter"
-                    class="badge bg-dark d-flex align-items-center gap-2 fs-6 px-1 rounded text-light fw-light"
+                    class="badge bg-dark d-flex align-items-center gap-2 fs-6 px-2 py-1 rounded text-light fw-light"
                   >
                     {{ filter }}
                     <button
@@ -77,6 +77,7 @@
               </div>
             </div>
           </div>
+          <hr class="border-top border-2 border-primary my-2 w-100" />
         </div>
       </div>
 
