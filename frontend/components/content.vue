@@ -166,7 +166,7 @@ const translate = async () => {
     }
   } catch (error) {
     errorTitle.value = "Ошибка";
-    errorDetail.value = "Сервер недоступен";
+    errorDetail.value = error;
   }
 };
 </script>

@@ -45,8 +45,6 @@ onMounted(async () => {
   errorTitle.value = "";
   errorDetail.value = "";
 
-  console.log(data);
-
   if (response.status === 200) {
     historyArr.value = data.data;
   } else if (response.status === 422) {
