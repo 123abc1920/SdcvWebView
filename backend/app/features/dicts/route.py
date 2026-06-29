@@ -2,19 +2,38 @@ from . import dicts_bp
 from .service import dicts_service
 from flask_pydantic import validate
 from .responses import DictsResponse
-from app.shared.dto import BaseDTO
+from .requests import DictRequest
+from app.shared.sdcv_engine import create_engine
+import logging
 
-SDCV_TEST_CONTAINER = "sdcv-test"
+logger = logging.getLogger(__name__)
 
 
-@dicts_bp.route("/dicts", methods=["GET"])
+@dicts_bp.route("/dicts", methods=["POST"])
 @validate()
-def list_dicts():
+def list_dicts(body: DictRequest):
     """
     Получить список всех доступных словарей
     ---
     tags:
       - features/dicts
+    requestBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+              - sdcv_type
+            properties:
+              sdcv_type:
+                type: string
+                description: Откуда запускать sdcv
+                example: "docker"
+              container_name:
+                type: string
+                description: Имя контейнера, если sdcv в docker
+                example: "sdcv-test"
     responses:
       200:
         description: Успешное получение списка словарей
@@ -50,7 +69,17 @@ def list_dicts():
                   type: string
                   example: "Failed to fetch dictionaries from container"
     """
-    result = dicts_service.get_all(SDCV_TEST_CONTAINER)
+    sdcv_type = body.sdcv_type
+    container_name = body.container_name
+
+    engine = None
+    try:
+        engine = create_engine(sdcv_type, container_name)
+    except Exception as e:
+        logger.error(str(e))
+        return DictsResponse(error=str(e)), 409
+
+    result = dicts_service.get_all(engine)
 
     if result.error:
         return DictsResponse(error=result.error), 409

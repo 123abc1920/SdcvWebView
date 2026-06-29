@@ -4,9 +4,10 @@ from flask_jwt_extended import jwt_required, get_jwt_identity
 from flask_pydantic import validate
 from .requests import TranslateRequest
 from .responses import TranslateResponseSchema
-from app.shared.dto import BaseDTO
+from app.shared.sdcv_engine import create_engine
+import logging
 
-SDCV_TEST_CONTAINER = "sdcv-test"
+logger = logging.getLogger(__name__)
 
 
 @translation_bp.route("/translate", methods=["POST"])
@@ -28,6 +29,7 @@ def translate(body: TranslateRequest):
             type: object
             required:
               - word
+              - sdcv_type
             properties:
               word:
                 type: string
@@ -39,6 +41,14 @@ def translate(body: TranslateRequest):
                 items:
                   type: string
                 example: ["Mueller7GPL", "Full English-Russian"]
+              sdcv_type:
+                type: string
+                description: Откуда запускать sdcv
+                example: "docker"
+              container_name:
+                type: string
+                description: Имя контейнера, если sdcv в docker
+                example: "sdcv-test"
     responses:
       200:
         description: Успешный перевод
@@ -111,7 +121,17 @@ def translate(body: TranslateRequest):
     """
     word = body.word
 
-    result = translate_service.translate(SDCV_TEST_CONTAINER, word, body.filters)
+    sdcv_type = body.sdcv_type
+    container_name = body.container_name
+
+    engine = None
+    try:
+        engine = create_engine(sdcv_type, container_name)
+    except Exception as e:
+        logger.error(str(e))
+        return TranslateResponseSchema(error=str(e)), 409
+
+    result = translate_service.translate(engine, word, body.filters)
 
     user_id = get_jwt_identity()
     if user_id:

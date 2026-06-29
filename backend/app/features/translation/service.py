@@ -1,4 +1,3 @@
-import subprocess
 import json
 import logging
 from .repository import translate_repo
@@ -7,6 +6,8 @@ from .responses import TranslationData
 from app.shared.dto import BaseDTO
 from typing import List
 from .consts import ResultCodes
+import subprocess
+from app.shared.sdcv_engine import BaseSdcvEngine
 
 
 class TranslateService:
@@ -15,7 +16,7 @@ class TranslateService:
         self.logger = logging.getLogger(__name__)
 
     def translate(
-        self, container_name: str, word: str, filters: list[str]
+        self, engine: BaseSdcvEngine, word: str, filters: list[str]
     ) -> BaseDTO[List[TranslationData]]:
         if word == "" or word.isspace() or word is None:
             self.logger.warning("Word is empty")
@@ -29,22 +30,7 @@ class TranslateService:
                 u_filters.append("-u")
                 u_filters.append(f)
 
-            result = subprocess.run(
-                [
-                    "docker",
-                    "exec",
-                    container_name,
-                    "sdcv",
-                    "--json-output",
-                    "--exact-search",
-                    str(word),
-                    *u_filters,
-                ],
-                capture_output=True,
-                text=True,
-                encoding="utf-8",
-                timeout=10,
-            )
+            result = engine.translate(word, u_filters)
 
             if result.returncode == 0:
                 data = json.loads(result.stdout)

@@ -7,3 +7,5 @@ class TranslateRequest(BaseModel):
     filters: List[str] = Field(
         default=[], examples=[["Mueller7GPL", "Full English-Russian"]]
     )
+    sdcv_type: str = Field(min_length=0, examples=["docker"])
+    container_name: str = Field(min_length=0, examples=["sdcv-test"])

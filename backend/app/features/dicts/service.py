@@ -1,22 +1,17 @@
 import logging
-import subprocess
 from app.shared.dto import BaseDTO
 from .consts import ResultCodes
+import subprocess
+from app.shared.sdcv_engine import BaseSdcvEngine
 
 
 class DictsService:
     def __init__(self):
         self.logger = logging.getLogger(__name__)
 
-    def get_all(self, container_name: str) -> BaseDTO[list]:
+    def get_all(self, engine: BaseSdcvEngine) -> BaseDTO[list]:
         try:
-            result = subprocess.run(
-                ["docker", "exec", container_name, "sdcv", "-l"],
-                capture_output=True,
-                text=True,
-                encoding="utf-8",
-                timeout=10,
-            )
+            result = engine.list()
 
             if result.returncode == 0:
                 stdout = result.stdout
