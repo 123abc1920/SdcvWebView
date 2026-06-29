@@ -82,8 +82,6 @@ const checkAuth = async () => {
       });
       const data = await response.json();
 
-      console.log(data);
-
       if (response.status === 200) {
         acc.value = "Log out";
         userName.value = data.data.user_name;
