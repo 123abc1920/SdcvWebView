@@ -1,28 +1,29 @@
 <template>
-  <div class="accordion bg-transparent mt-2 mb-2" :id="accordionId">
+  <div class="accordion bg-transparent mt-2 mb-2" id="resultsAccordion">
     <div
       class="accordion-item mb-2"
       v-for="(item, index) in results"
       :key="index"
     >
-      <h2 class="accordion-header" :id="headingId + index">
+      <h2 class="accordion-header" :id="`heading-${index}`">
         <button
-          class="accordion-button collapsed py-1 bg-transparent"
+          class="accordion-button py-1 bg-transparent"
+          :class="{ collapsed: activeIndex !== index }"
           type="button"
-          data-bs-toggle="collapse"
-          :data-bs-target="`#${collapseId + index}`"
-          aria-expanded="false"
-          :aria-controls="collapseId + index"
+          @click="toggleItem(index)"
+          :aria-expanded="activeIndex === index ? 'true' : 'false'"
+          :aria-controls="`collapse-${index}`"
         >
           {{ item.dict }}
         </button>
       </h2>
 
       <div
-        :id="collapseId + index"
+        :id="`collapse-${index}`"
         class="accordion-collapse collapse"
-        :aria-labelledby="headingId + index"
-        :data-bs-parent="`#${accordionId}`"
+        :class="{ show: activeIndex === index }"
+        :aria-labelledby="`heading-${index}`"
+        data-bs-parent="#resultsAccordion"
       >
         <div class="accordion-body bg-transparent">
           <pre
@@ -37,7 +38,7 @@
 </template>
 
 <script setup>
-import { useId } from "vue";
+import { ref } from "vue";
 import DOMPurify from "dompurify";
 
 defineProps({
@@ -47,9 +48,15 @@ defineProps({
   },
 });
 
-const accordionId = `accordion-${useId()}`;
-const headingId = `heading-${useId()}`;
-const collapseId = `collapse-${useId()}`;
+const activeIndex = ref(-1);
+
+const toggleItem = (index) => {
+  if (activeIndex.value === index) {
+    activeIndex.value = -1;
+  } else {
+    activeIndex.value = index;
+  }
+};
 
 const sanitize = (rawText) => {
   if (typeof rawText !== "string") return rawText;

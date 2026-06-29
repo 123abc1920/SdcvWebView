@@ -35,12 +35,15 @@
                   <button
                     class="btn btn-outline-transparent bg-transparent dropdown-toggle btn-sm"
                     type="button"
-                    data-bs-toggle="dropdown"
-                    aria-expanded="false"
+                    @click="isDropdownOpen = !isDropdownOpen"
+                    :aria-expanded="isDropdownOpen ? 'true' : 'false'"
                   >
                     Выбрать словарь
                   </button>
-                  <ul class="dropdown-menu overflow-y-auto">
+                  <ul
+                    class="dropdown-menu overflow-y-auto"
+                    :class="{ show: isDropdownOpen }"
+                  >
                     <li
                       v-for="(option, index) in availableOptions"
                       :key="index"
@@ -48,7 +51,7 @@
                       <button
                         class="dropdown-item"
                         type="button"
-                        @click="addFilter(option)"
+                        @click="selectOption(option)"
                       >
                         {{ option }}
                       </button>
@@ -113,6 +116,7 @@ const errorTitle = ref("");
 const errorDetail = ref("");
 
 const availableOptions = ref([]);
+const isDropdownOpen = ref(false);
 
 onMounted(async () => {
   try {
@@ -142,6 +146,13 @@ const removeFilter = (filterToRemove) => {
   selectedFilters.value = selectedFilters.value.filter(
     (f) => f !== filterToRemove,
   );
+};
+
+const selectOption = (option) => {
+  if (!selectedFilters.value.includes(option)) {
+    selectedFilters.value.push(option);
+  }
+  isDropdownOpen.value = false; // Закрываем список после клика
 };
 
 const translate = async () => {
