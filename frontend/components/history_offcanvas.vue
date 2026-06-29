@@ -40,7 +40,7 @@ const historyArr = ref([]);
 const errorTitle = ref("");
 const errorDetail = ref("");
 
-onMounted(async () => {
+const loadHistory = async () => {
   const jwt = Cookies.get("jwt");
 
   const response = await fetch("http://127.0.0.1:5200/history", {
@@ -61,6 +61,11 @@ onMounted(async () => {
     errorTitle.value = "Ошибка";
     errorDetail.value = data.error;
   }
+};
+
+onMounted(async () => {
+  loadHistory();
+  window.addEventListener("add-translation", loadHistory);
 });
 
 const removeIdFromList = (deletedId) => {

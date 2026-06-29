@@ -185,6 +185,7 @@ const translate = async () => {
       errorDetail.value = data.error;
     } else {
       results.value = data.data;
+      window.dispatchEvent(new Event('add-translation'));
     }
   } catch (error) {
     errorTitle.value = "Ошибка";
