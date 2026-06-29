@@ -41,6 +41,8 @@ const errorTitle = ref("");
 const errorDetail = ref("");
 
 onMounted(async () => {
+  const jwt = Cookies.get("jwt");
+
   const response = await fetch("http://127.0.0.1:5200/history", {
     headers: { Authorization: `Bearer ${Cookies.get("jwt")}` },
   });

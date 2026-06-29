@@ -101,7 +101,7 @@
 
 <script setup>
 import { ref, onMounted } from "vue";
-import Cookies from 'js-cookie';
+import Cookies from "js-cookie";
 
 import ResultTemplate from "./result.vue";
 import ErrorTemplate from "./error.vue";
@@ -146,9 +146,19 @@ const removeFilter = (filterToRemove) => {
 
 const translate = async () => {
   try {
+    let headersDict = { "Content-Type": "application/json" };
+    const jwt = Cookies.get("jwt");
+
+    if (jwt) {
+      headersDict = {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${jwt}`,
+      };
+    }
+
     const response = await fetch("http://127.0.0.1:5200/translate", {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
+      headers: headersDict,
       body: JSON.stringify({
         word: word.value,
         filters: selectedFilters.value,
