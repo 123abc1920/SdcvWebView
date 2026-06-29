@@ -12,12 +12,11 @@
         <div class="accordion-item">
           <h2 class="accordion-header" id="headingOne">
             <button
-              class="accordion-button collapsed py-1 bg-transparent"
+              class="accordion-button py-1 bg-transparent"
+              :class="{ collapsed: !isSettingsOpen }"
               type="button"
-              data-bs-toggle="collapse"
-              data-bs-target="#collapseOne"
-              aria-expanded="false"
-              aria-controls="collapseOne"
+              @click="isSettingsOpen = !isSettingsOpen"
+              :aria-expanded="isSettingsOpen ? 'true' : 'false'"
             >
               Настройки
             </button>
@@ -26,8 +25,8 @@
           <div
             id="collapseOne"
             class="accordion-collapse collapse"
+            :class="{ show: isSettingsOpen }"
             aria-labelledby="headingOne"
-            data-bs-parent="#accordionSettings"
           >
             <div class="accordion-body bg-transparent p-2">
               <div class="mb-0">
@@ -117,6 +116,7 @@ const errorDetail = ref("");
 
 const availableOptions = ref([]);
 const isDropdownOpen = ref(false);
+const isSettingsOpen = ref(false);
 
 onMounted(async () => {
   try {
@@ -158,7 +158,7 @@ const selectOption = (option) => {
   if (!selectedFilters.value.includes(option)) {
     selectedFilters.value.push(option);
   }
-  isDropdownOpen.value = false; // Закрываем список после клика
+  isDropdownOpen.value = false;
 };
 
 const translate = async () => {
