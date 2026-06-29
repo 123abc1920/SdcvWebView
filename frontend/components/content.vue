@@ -121,13 +121,19 @@ const isDropdownOpen = ref(false);
 onMounted(async () => {
   try {
     const response = await fetch("http://127.0.0.1:5200/dicts", {
-      method: "GET",
+      method: "POST",
       headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        sdcv_type: `${Cookies.get("sdcvType")}`,
+        container_name: `${Cookies.get("containerName")}`,
+      }),
     });
     const data = await response.json();
 
-    if (data.data) {
+    if (response.status == 200) {
       availableOptions.value = data.data;
+    } else {
+      console.log(data.error);
     }
   } catch (error) {
     console.error("Ошибка загрузки словарей:", error);
@@ -173,6 +179,8 @@ const translate = async () => {
       body: JSON.stringify({
         word: word.value,
         filters: selectedFilters.value,
+        sdcv_type: `${Cookies.get("sdcvType")}`,
+        container_name: `${Cookies.get("containerName")}`,
       }),
     });
     const data = await response.json();
@@ -185,7 +193,7 @@ const translate = async () => {
       errorDetail.value = data.error;
     } else {
       results.value = data.data;
-      window.dispatchEvent(new Event('add-translation'));
+      window.dispatchEvent(new Event("add-translation"));
     }
   } catch (error) {
     errorTitle.value = "Ошибка";

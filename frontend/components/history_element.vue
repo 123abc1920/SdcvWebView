@@ -1,6 +1,6 @@
 <template>
   <div
-    class="rounded d-flex flex-row bg-primary align-items-center p-3 border border-1 border-primary mb-2"
+    class="rounded d-flex flex-row bg-dark border-dark align-items-center p-3 border border-1 border-primary mb-2"
   >
     <p class="fs-5 text-start m-0 text-light">{{ item.word }}</p>
 
