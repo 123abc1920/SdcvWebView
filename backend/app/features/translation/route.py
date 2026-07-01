@@ -15,7 +15,7 @@ logger = logging.getLogger(__name__)
 @validate()
 def translate(body: TranslateRequest):
     """
-    Перевод слова через sdcv
+    Word translation via sdcv
     ---
     tags:
       - features/translation
@@ -33,25 +33,25 @@ def translate(body: TranslateRequest):
             properties:
               word:
                 type: string
-                description: Слово для перевода
+                description: The word to translate
                 example: "meet"
               filters:
                 type: array
-                description: Список словарей для фильтрации
+                description: A list of dictionaries for filtering
                 items:
                   type: string
                 example: ["Mueller7GPL", "Full English-Russian"]
               sdcv_type:
                 type: string
-                description: Откуда запускать sdcv
+                description: Where to run sdcv from
                 example: "docker"
               container_name:
                 type: string
-                description: Имя контейнера, если sdcv в docker
+                description: Container name, if sdcv is in docker
                 example: "sdcv-test"
     responses:
       200:
-        description: Успешный перевод
+        description: Successful translation
         content:
           application/json:
             schema:
@@ -75,7 +75,7 @@ def translate(body: TranslateRequest):
                   nullable: true
                   example: null
       400:
-        description: Ошибка валидации входящего JSON (Pydantic)
+        description: Validation error of incoming JSON (Pydantic)
         content:
           application/json:
             schema:
@@ -104,7 +104,7 @@ def translate(body: TranslateRequest):
                             type: string
                             example: "missing"
       409:
-        description: Ошибка перевода
+        description: Translation error
         content:
           application/json:
             schema:

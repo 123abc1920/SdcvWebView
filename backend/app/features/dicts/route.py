@@ -13,7 +13,7 @@ logger = logging.getLogger(__name__)
 @validate()
 def list_dicts(body: DictRequest):
     """
-    Получить список всех доступных словарей
+    Get the list of all available dictionaries
     ---
     tags:
       - features/dicts
@@ -28,15 +28,15 @@ def list_dicts(body: DictRequest):
             properties:
               sdcv_type:
                 type: string
-                description: Откуда запускать sdcv
+                description: Where to run sdcv from
                 example: "docker"
               container_name:
                 type: string
-                description: Имя контейнера, если sdcv в docker
+                description: Container name, if sdcv is in docker
                 example: "sdcv-test"
     responses:
       200:
-        description: Успешное получение списка словарей
+        description: Successful retrieval of the dictionary list
         content:
           application/json:
             schema:
@@ -45,7 +45,7 @@ def list_dicts(body: DictRequest):
               properties:
                 data:
                   type: array
-                  description: Список названий словарей, доступных в sdcv
+                  description: List of dictionary names available in sdcv
                   items:
                     type: string
                   example: ["Mueller7GPL", "Full English-Russian", "LingvoUniversal"]
@@ -54,7 +54,7 @@ def list_dicts(body: DictRequest):
                   nullable: true
                   example: null
       409:
-        description: Внутренняя ошибка сервера при обращении к контейнеру sdcv
+        description: Internal server error when communicating with the sdcv container
         content:
           application/json:
             schema:

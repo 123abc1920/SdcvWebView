@@ -10,7 +10,7 @@ from .responses import JWTResponse, UserDataResponse, DeleteResponse
 @validate()
 def login_route(body: AuthRequest):
     """
-    Войти в систему и получить JWT токен
+    Log in to the system and receive a JWT token
     ---
     tags:
       - features/auth
@@ -26,15 +26,15 @@ def login_route(body: AuthRequest):
             properties:
               user_name:
                 type: string
-                description: Имя пользователя
+                description: The user's name
                 example: "Test User"
               password:
                 type: string
-                description: Пароль
+                description: Password
                 example: "123456"
     responses:
       200:
-        description: Успешная авторизация
+        description: Successful authorization
         content:
           application/json:
             schema:
@@ -43,14 +43,14 @@ def login_route(body: AuthRequest):
               properties:
                 data:
                   type: string
-                  description: JWT токен доступа (Access Token)
+                  description: JWT access token (Access Token)
                   example: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
                 error:
                   type: string
                   nullable: true
                   example: null
       400:
-        description: Ошибка валидации (не переданы обязательные поля)
+        description: Validation error (required fields are missing)
         content:
           application/json:
             schema:
@@ -79,7 +79,7 @@ def login_route(body: AuthRequest):
                             type: string
                             example: "missing"
       409:
-        description: Ошибка авторизации (неверный логин или пароль)
+        description: Authorization error (invalid username or password)
         content:
           application/json:
             schema:
@@ -109,7 +109,7 @@ def login_route(body: AuthRequest):
 @validate()
 def signup_route(body: AuthRequest):
     """
-    Зарегистрироваться в системе и получить JWT токен
+    Register in the system and receive a JWT token
     ---
     tags:
       - features/auth
@@ -125,15 +125,15 @@ def signup_route(body: AuthRequest):
             properties:
               user_name:
                 type: string
-                description: Имя пользователя
+                description: The user's name
                 example: "Test User"
               password:
                 type: string
-                description: Пароль
+                description: Password
                 example: "123456"
     responses:
       200:
-        description: Успешная регистрация и создание пользователя
+        description: Successful registration and user creation
         content:
           application/json:
             schema:
@@ -142,14 +142,14 @@ def signup_route(body: AuthRequest):
               properties:
                 data:
                   type: string
-                  description: JWT токен доступа (Access Token)
+                  description: JWT access token (Access Token)
                   example: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
                 error:
                   type: string
                   nullable: true
                   example: null
       400:
-        description: Ошибка валидации (не переданы обязательные поля или пустые строки)
+        description: Validation error (required fields are missing or empty strings)
         content:
           application/json:
             schema:
@@ -178,7 +178,7 @@ def signup_route(body: AuthRequest):
                             type: string
                             example: "string_too_short"
       409:
-        description: Ошибка регистрации (пользователь уже существует / ошибка БД)
+        description: Registration error (user already exists / database error)
         content:
           application/json:
             schema:
@@ -209,7 +209,7 @@ def signup_route(body: AuthRequest):
 @validate()
 def get_data_route():
     """
-    Получить данные аккаунта
+    Get account data
     ---
     tags:
       - features/auth
@@ -217,7 +217,7 @@ def get_data_route():
       - BearerAuth: []
     responses:
       200:
-        description: Успешное получение данных пользователя
+        description: Successful retrieval of user data
         content:
           application/json:
             schema:
@@ -230,14 +230,14 @@ def get_data_route():
                   properties:
                     user_name:
                       type: string
-                      description: Имя пользователя
+                      description: The user's name
                       example: "admin"
                 error:
                   type: string
                   nullable: true
                   example: null
       401:
-        description: Не авторизован (отсутствует или невалидный JWT)
+        description: Unauthorized (missing or invalid JWT)
         content:
           application/json:
             schema:
@@ -247,7 +247,7 @@ def get_data_route():
                   type: string
                   example: "Missing Authorization Header"
       409:
-        description: Конфликт (логическая ошибка, например, пользователь не найден)
+        description: Conflict (logical error, for example, user not found)
         content:
           application/json:
             schema:
@@ -277,7 +277,7 @@ def get_data_route():
 @validate()
 def delete_user_route(body: AuthRequest):
     """
-    Удалить аккаунт пользователя из системы
+    Delete user account from the system
     ---
     tags:
       - features/auth
@@ -295,15 +295,15 @@ def delete_user_route(body: AuthRequest):
             properties:
               user_name:
                 type: string
-                description: Имя пользователя
+                description: The user's name
                 example: "Test User"
               password:
                 type: string
-                description: Пароль
+                description: Password
                 example: "123456"
     responses:
       200:
-        description: Аккаунт пользователя успешно удален
+        description: User account successfully deleted
         content:
           application/json:
             schema:
@@ -319,7 +319,7 @@ def delete_user_route(body: AuthRequest):
                   nullable: true
                   example: null
       400:
-        description: Ошибка валидации входящих учетных данных (Pydantic)
+        description: Validation error of incoming credentials (Pydantic)
         content:
           application/json:
             schema:
@@ -348,7 +348,7 @@ def delete_user_route(body: AuthRequest):
                             type: string
                             example: "missing"
       401:
-        description: Не авторизован (отсутствует или невалидный JWT)
+        description: Unauthorized (missing or invalid JWT)
         content:
           application/json:
             schema:
@@ -358,7 +358,7 @@ def delete_user_route(body: AuthRequest):
                   type: string
                   example: "Missing Authorization Header"
       409:
-        description: Ошибка удаления (неверный пароль или пользователь не найден)
+        description: Deletion error (invalid password or user not found)
         content:
           application/json:
             schema:

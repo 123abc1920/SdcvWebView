@@ -12,7 +12,7 @@ from app.shared.validation import ApiResponse
 @validate()
 def get_history_route():
     """
-    Получение истории пользователя
+    Get user history
     ---
     tags:
       - features/history
@@ -20,7 +20,7 @@ def get_history_route():
       - BearerAuth: []
     responses:
       200:
-        description: Успешное получение истории
+        description: Successful retrieval of history
         content:
           application/json:
             schema:
@@ -44,7 +44,7 @@ def get_history_route():
                   nullable: true
                   example: null
       401:
-        description: Не авторизован (отсутствует или невалидный JWT)
+        description: Unauthorized (missing or invalid JWT)
         content:
           application/json:
             schema:
@@ -54,7 +54,7 @@ def get_history_route():
                   type: string
                   example: "Missing Authorization Header"
       409:
-        description: Ошибка сервера / Бизнес-ошибка
+        description: Server error / Business error
         content:
           application/json:
             schema:
@@ -90,7 +90,7 @@ def get_history_route():
 @validate()
 def delete_history_item(body: DeleteHistoryRequest):
     """
-    Удаляет записи в истории пользователя
+    Delete entries from user history
     ---
     tags:
       - features/history
@@ -106,13 +106,13 @@ def delete_history_item(body: DeleteHistoryRequest):
             properties:
               ids:
                 type: array
-                description: Id для удаления
+                description: IDs to delete
                 items:
                   type: integer
                 example: [7, 8, 3]
     responses:
       200:
-        description: Успешное удаление
+        description: Successful deletion
         content:
           application/json:
             schema:
@@ -128,7 +128,7 @@ def delete_history_item(body: DeleteHistoryRequest):
                   nullable: true
                   example: null
       400:
-        description: Ошибка валидации входящего JSON (Pydantic)
+        description: Validation error of incoming JSON (Pydantic)
         content:
           application/json:
             schema:
@@ -160,7 +160,7 @@ def delete_history_item(body: DeleteHistoryRequest):
                             type: string
                             example: "https://pydantic.dev..."
       401:
-        description: Не авторизован (отсутствует или невалидный JWT)
+        description: Unauthorized (missing or invalid JWT)
         content:
           application/json:
             schema:
@@ -170,7 +170,7 @@ def delete_history_item(body: DeleteHistoryRequest):
                   type: string
                   example: "Missing Authorization Header"
       409:
-        description: Ошибка сервера / Бизнес-ошибка
+        description: Server error / Business error
         content:
           application/json:
             schema:
