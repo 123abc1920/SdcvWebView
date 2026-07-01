@@ -16,7 +16,7 @@ documentation for details.
    :caption: Contents:
 
 .. toctree::
-   :caption: Features
+   :caption: Modules
    :maxdepth: 1
 
    modules/auth

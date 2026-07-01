@@ -11,6 +11,9 @@ from app.shared.sdcv_engine import BaseSdcvEngine
 
 
 class TranslateService:
+    """
+    Service handling translation operations and history tracking.
+    """
 
     def __init__(self):
         self.logger = logging.getLogger(__name__)
@@ -18,6 +21,17 @@ class TranslateService:
     def translate(
         self, engine: BaseSdcvEngine, word: str, filters: list[str]
     ) -> BaseDTO[List[TranslationData]]:
+        """
+        Translates a specific word using the provided engine and filters.
+
+        Args:
+            engine (BaseSdcvEngine): The specific engine implementation based on the sdcv deployment location.
+            word (str): The word to look up.
+            filters (list[str]): A list of dictionary names to filter the search results.
+
+        Returns:
+            BaseDTO[List[TranslationData]]: The data transfer object containing the translation results.
+        """
         if word == "" or word.isspace() or word is None:
             self.logger.warning("Word is empty")
             return BaseDTO(error=ResultCodes.WORD_NOT_FOUND)
@@ -54,6 +68,16 @@ class TranslateService:
             return BaseDTO(error=ResultCodes.UNEXPECTED_ERROR)
 
     def save_history(self, word: str, user_id: int) -> bool:
+        """
+        Saves a translated word to the user's search history.
+
+        Args:
+            word (str): The word to save.
+            user_id (int): The unique ID of the user.
+
+        Returns:
+            bool: True if the word was successfully saved to history, False otherwise.
+        """
         if translate_repo.user_exists(user_id):
             try:
                 translate_repo.save_history(word, user_id, datetime.utcnow())

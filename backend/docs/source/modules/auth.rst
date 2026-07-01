@@ -1,5 +1,7 @@
 Authorization module
-==================
+====================
+
+Authentication module for managing user access.
 
 Service
 -------

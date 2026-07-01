@@ -1,12 +1,15 @@
 Translation module
 ==================
 
+Translation module providing integration with sdcv.
+
 Service
 -------
 .. automodule:: app.features.translation.service
    :members:
    :undoc-members:
    :show-inheritance:
+   :exclude-members: __new__, __init__
 
 Repository
 ----------
@@ -14,6 +17,7 @@ Repository
    :members:
    :undoc-members:
    :show-inheritance:
+   :exclude-members: __new__, __init__
 
 Requests
 --------
@@ -21,6 +25,7 @@ Requests
    :members:
    :undoc-members:
    :show-inheritance:
+   :exclude-members: __new__, __init__
 
 Responses
 ---------
@@ -28,10 +33,11 @@ Responses
    :members:
    :undoc-members:
    :show-inheritance:
+   :exclude-members: __new__, __init__
 
 Consts
 ------
-.. automodule:: app.features.translation.consts
+.. autoclass:: app.features.translation.consts.ResultCodes
    :members:
-   :undoc-members:
-   :show-inheritance:
+   :member-order: bysource
+   :exclude-members: __new__, __init__

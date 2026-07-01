@@ -3,7 +3,7 @@ from .service import translate_service
 from flask_jwt_extended import jwt_required, get_jwt_identity
 from flask_pydantic import validate
 from .requests import TranslateRequest
-from .responses import TranslateResponseSchema
+from .responses import TranslateResponse
 from app.shared.sdcv_engine import create_engine
 import logging
 
@@ -129,7 +129,7 @@ def translate(body: TranslateRequest):
         engine = create_engine(sdcv_type, container_name)
     except Exception as e:
         logger.error(str(e))
-        return TranslateResponseSchema(error=str(e)), 409
+        return TranslateResponse(error=str(e)), 409
 
     result = translate_service.translate(engine, word, body.filters)
 
@@ -138,6 +138,6 @@ def translate(body: TranslateRequest):
         save_history_res = translate_service.save_history(word, user_id)
 
     if result.error:
-        return TranslateResponseSchema(error=result.error), 409
+        return TranslateResponse(error=result.error), 409
     else:
-        return TranslateResponseSchema(data=result.data), 200
+        return TranslateResponse(data=result.data), 200
