@@ -19,7 +19,17 @@ documentation for details.
    :caption: Modules
    :maxdepth: 1
 
-   modules/auth
-   modules/translation
-   modules/dicts
-   modules/history
+   modules/features/auth
+   modules/features/translation
+   modules/features/dicts
+   modules/features/history
+
+.. toctree::
+   :caption: Shared
+   :maxdepth: 1
+
+   modules/shared/consts
+   modules/shared/dbmodels
+   modules/shared/dto
+   modules/shared/sdcv_engine
+   modules/shared/validation
