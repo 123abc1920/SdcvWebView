@@ -1,11 +1,11 @@
-Authorization module
-====================
+Dicts module
+============
 
-Authentication module for managing user access.
+Module for managing dict in sdcv
 
 Route
 -----
-.. automodule:: app.features.auth.route
+.. automodule:: app.features.dicts.route
    :members:
    :undoc-members:
    :show-inheritance:
@@ -13,7 +13,7 @@ Route
 
 Service
 -------
-.. automodule:: app.features.auth.service
+.. automodule:: app.features.dicts.service
    :members:
    :undoc-members:
    :show-inheritance:
@@ -21,7 +21,7 @@ Service
 
 Repository
 ----------
-.. automodule:: app.features.auth.repository
+.. automodule:: app.features.dicts.repository
    :members:
    :undoc-members:
    :show-inheritance:
@@ -29,30 +29,23 @@ Repository
 
 Requests
 --------
-.. automodule:: app.features.auth.requests
+.. automodule:: app.features.dicts.requests
    :members:
    :undoc-members:
    :show-inheritance:
-   :exclude-members: __new__, __init__, model_config
+   :exclude-members: __new__, __init__
 
 Responses
 ---------
-.. automodule:: app.features.auth.responses
+.. automodule:: app.features.dicts.responses
    :members:
    :undoc-members:
    :show-inheritance:
-   :exclude-members: __new__, __init__, model_config
+   :exclude-members: __new__, __init__
 
 Consts
 ------
-.. autoclass:: app.features.auth.consts.ResultCodes
-   :members:
-   :member-order: bysource
-   :exclude-members: __new__, __init__
-
-DTO
-------
-.. autoclass:: app.features.auth.dto.UserDTO
+.. autoclass:: app.features.dicts.consts.ResultCodes
    :members:
    :member-order: bysource
    :exclude-members: __new__, __init__

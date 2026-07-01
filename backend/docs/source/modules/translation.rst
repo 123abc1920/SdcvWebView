@@ -3,6 +3,14 @@ Translation module
 
 Translation module providing integration with sdcv.
 
+Route
+-----
+.. automodule:: app.features.translation.route
+   :members:
+   :undoc-members:
+   :show-inheritance:
+   :exclude-members: __new__, __init__
+
 Service
 -------
 .. automodule:: app.features.translation.service

@@ -26,6 +26,7 @@ extensions = [
     "sphinx.ext.autodoc",
     "sphinx.ext.napoleon",
     "sphinxcontrib.pydantic",
+    "sphinxcontrib.httpdomain",
 ]
 
 napoleon_use_rtype = True

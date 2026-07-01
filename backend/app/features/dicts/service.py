@@ -6,10 +6,23 @@ from app.shared.sdcv_engine import BaseSdcvEngine
 
 
 class DictsService:
+    """
+    Service for managing available dictionaries.
+    """
+
     def __init__(self):
         self.logger = logging.getLogger(__name__)
 
     def get_all(self, engine: BaseSdcvEngine) -> BaseDTO[list]:
+        """
+        Retrieves all available dictionaries.
+
+        Args:
+            engine (BaseSdcvEngine): The engine implementation based on the sdcv deployment location.
+
+        Returns:
+            BaseDTO: A data transfer object containing the list of dictionaries.
+        """
         try:
             result = engine.list()
 

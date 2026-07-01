@@ -21,3 +21,5 @@ documentation for details.
 
    modules/auth
    modules/translation
+   modules/dicts
+   modules/history

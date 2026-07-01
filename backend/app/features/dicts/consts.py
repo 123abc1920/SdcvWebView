@@ -2,5 +2,10 @@ from enum import StrEnum
 
 
 class ResultCodes(StrEnum):
-    DICTS_NOT_FOUND: str = "Dicts not found"
-    UNEXPECTED_ERROR: str = "Unexpected error"
+    """Operation execution result codes."""
+
+    DICTS_NOT_FOUND = "Dicts not found"
+    """No matching dictionaries were found in the system."""
+
+    UNEXPECTED_ERROR = "Unexpected error"
+    """An unhandled or unexpected error occurred during execution."""
