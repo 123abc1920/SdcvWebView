@@ -1,0 +1,998 @@
+<!doctype html>
+<html class="no-js" lang="en" data-content_root="./">
+  <head><meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="color-scheme" content="light dark"><link rel="index" title="Index" href="#"><link rel="search" title="Search" href="search.html">
+
+    <!-- Generated with Sphinx 9.0.4 and Furo 2025.12.19 --><title>Index - SDCV web view 1.0.0 documentation</title>
+<link rel="stylesheet" type="text/css" href="_static/pygments.css?v=d111a655" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?v=7bdb33bb" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/furo-extensions.css?v=8dab3a3b" />
+    
+    
+
+
+<style>
+  body {
+    --color-code-background: #f2f2f2;
+  --color-code-foreground: #1e1e1e;
+  
+  }
+  @media not print {
+    body[data-theme="dark"] {
+      --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+    }
+    @media (prefers-color-scheme: dark) {
+      body:not([data-theme="light"]) {
+        --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+      }
+    }
+  }
+</style></head>
+  <body>
+    
+    <script>
+      document.body.dataset.theme = localStorage.getItem("theme") || "auto";
+    </script>
+    
+
+<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+  <symbol id="svg-toc" viewBox="0 0 24 24">
+    <title>Contents</title>
+    <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 1024 1024">
+      <path d="M408 442h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8zm-8 204c0 4.4 3.6 8 8 8h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56zm504-486H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm0 632H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zM115.4 518.9L271.7 642c5.8 4.6 14.4.5 14.4-6.9V388.9c0-7.4-8.5-11.5-14.4-6.9L115.4 505.1a8.74 8.74 0 0 0 0 13.8z"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-menu" viewBox="0 0 24 24">
+    <title>Menu</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-menu">
+      <line x1="3" y1="12" x2="21" y2="12"></line>
+      <line x1="3" y1="6" x2="21" y2="6"></line>
+      <line x1="3" y1="18" x2="21" y2="18"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-arrow-right" viewBox="0 0 24 24">
+    <title>Expand</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-chevron-right">
+      <polyline points="9 18 15 12 9 6"></polyline>
+    </svg>
+  </symbol>
+  <symbol id="svg-sun" viewBox="0 0 24 24">
+    <title>Light mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="feather-sun">
+      <circle cx="12" cy="12" r="5"></circle>
+      <line x1="12" y1="1" x2="12" y2="3"></line>
+      <line x1="12" y1="21" x2="12" y2="23"></line>
+      <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+      <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+      <line x1="1" y1="12" x2="3" y2="12"></line>
+      <line x1="21" y1="12" x2="23" y2="12"></line>
+      <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+      <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-moon" viewBox="0 0 24 24">
+    <title>Dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-moon">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z" />
+    </svg>
+  </symbol>
+  <symbol id="svg-sun-with-moon" viewBox="0 0 24 24">
+    <title>Auto light/dark, in light mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round"
+      class="icon-custom-derived-from-feather-sun-and-tabler-moon">
+      <path style="opacity: 50%" d="M 5.411 14.504 C 5.471 14.504 5.532 14.504 5.591 14.504 C 3.639 16.319 4.383 19.569 6.931 20.352 C 7.693 20.586 8.512 20.551 9.25 20.252 C 8.023 23.207 4.056 23.725 2.11 21.184 C 0.166 18.642 1.702 14.949 4.874 14.536 C 5.051 14.512 5.231 14.5 5.411 14.5 L 5.411 14.504 Z"/>
+      <line x1="14.5" y1="3.25" x2="14.5" y2="1.25"/>
+      <line x1="14.5" y1="15.85" x2="14.5" y2="17.85"/>
+      <line x1="10.044" y1="5.094" x2="8.63" y2="3.68"/>
+      <line x1="19" y1="14.05" x2="20.414" y2="15.464"/>
+      <line x1="8.2" y1="9.55" x2="6.2" y2="9.55"/>
+      <line x1="20.8" y1="9.55" x2="22.8" y2="9.55"/>
+      <line x1="10.044" y1="14.006" x2="8.63" y2="15.42"/>
+      <line x1="19" y1="5.05" x2="20.414" y2="3.636"/>
+      <circle cx="14.5" cy="9.55" r="3.6"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-moon-with-sun" viewBox="0 0 24 24">
+    <title>Auto light/dark, in dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round"
+      class="icon-custom-derived-from-feather-sun-and-tabler-moon">
+      <path d="M 8.282 7.007 C 8.385 7.007 8.494 7.007 8.595 7.007 C 5.18 10.184 6.481 15.869 10.942 17.24 C 12.275 17.648 13.706 17.589 15 17.066 C 12.851 22.236 5.91 23.143 2.505 18.696 C -0.897 14.249 1.791 7.786 7.342 7.063 C 7.652 7.021 7.965 7 8.282 7 L 8.282 7.007 Z"/>
+      <line style="opacity: 50%" x1="18" y1="3.705" x2="18" y2="2.5"/>
+      <line style="opacity: 50%" x1="18" y1="11.295" x2="18" y2="12.5"/>
+      <line style="opacity: 50%" x1="15.316" y1="4.816" x2="14.464" y2="3.964"/>
+      <line style="opacity: 50%" x1="20.711" y1="10.212" x2="21.563" y2="11.063"/>
+      <line style="opacity: 50%" x1="14.205" y1="7.5" x2="13.001" y2="7.5"/>
+      <line style="opacity: 50%" x1="21.795" y1="7.5" x2="23" y2="7.5"/>
+      <line style="opacity: 50%" x1="15.316" y1="10.184" x2="14.464" y2="11.036"/>
+      <line style="opacity: 50%" x1="20.711" y1="4.789" x2="21.563" y2="3.937"/>
+      <circle style="opacity: 50%" cx="18" cy="7.5" r="2.169"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-pencil" viewBox="0 0 24 24">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-pencil-code">
+      <path d="M4 20h4l10.5 -10.5a2.828 2.828 0 1 0 -4 -4l-10.5 10.5v4" />
+      <path d="M13.5 6.5l4 4" />
+      <path d="M20 21l2 -2l-2 -2" />
+      <path d="M17 17l-2 2l2 2" />
+    </svg>
+  </symbol>
+  <symbol id="svg-eye" viewBox="0 0 24 24">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-eye-code">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" />
+      <path
+        d="M11.11 17.958c-3.209 -.307 -5.91 -2.293 -8.11 -5.958c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6c-.21 .352 -.427 .688 -.647 1.008" />
+      <path d="M20 21l2 -2l-2 -2" />
+      <path d="M17 17l-2 2l2 2" />
+    </svg>
+  </symbol>
+</svg>
+
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle site navigation sidebar">
+<input type="checkbox" class="sidebar-toggle" name="__toc" id="__toc" aria-label="Toggle table of contents sidebar">
+<label class="overlay sidebar-overlay" for="__navigation"></label>
+<label class="overlay toc-overlay" for="__toc"></label>
+
+<a class="skip-to-content muted-link" href="#furo-main-content">Skip to content</a>
+
+
+
+<div class="page">
+  <header class="mobile-header">
+    <div class="header-left">
+      <label class="nav-overlay-icon" for="__navigation">
+        <span class="icon"><svg><use href="#svg-menu"></use></svg></span>
+      </label>
+    </div>
+    <div class="header-center">
+      <a href="index.html"><div class="brand">SDCV web view 1.0.0 documentation</div></a>
+    </div>
+    <div class="header-right">
+      <div class="theme-toggle-container theme-toggle-header">
+        <button class="theme-toggle" aria-label="Toggle Light / Dark / Auto color theme">
+          <svg class="theme-icon-when-auto-light"><use href="#svg-sun-with-moon"></use></svg>
+          <svg class="theme-icon-when-auto-dark"><use href="#svg-moon-with-sun"></use></svg>
+          <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+          <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+        </button>
+      </div>
+      <label class="toc-overlay-icon toc-header-icon no-toc" for="__toc">
+        <span class="icon"><svg><use href="#svg-toc"></use></svg></span>
+      </label>
+    </div>
+  </header>
+  <aside class="sidebar-drawer">
+    <div class="sidebar-container">
+      
+      <div class="sidebar-sticky"><a class="sidebar-brand" href="index.html">
+  
+  <span class="sidebar-brand-text">SDCV web view 1.0.0 documentation</span>
+  
+</a><form class="sidebar-search-container" method="get" action="search.html" role="search">
+  <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
+  <input type="hidden" name="check_keywords" value="yes">
+  <input type="hidden" name="area" value="default">
+</form>
+<div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
+  <p class="caption" role="heading"><span class="caption-text">Modules</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="modules/features/auth.html">Authorization module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="modules/features/translation.html">Translation module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="modules/features/dicts.html">Dicts module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="modules/features/history.html">History module</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Shared</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="modules/shared/consts.html">Consts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="modules/shared/dbmodels.html">Dbmodels</a></li>
+<li class="toctree-l1"><a class="reference internal" href="modules/shared/dto.html">DTOs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="modules/shared/sdcv_engine.html">SDCV engine</a></li>
+<li class="toctree-l1"><a class="reference internal" href="modules/shared/validation.html">Validation responses and requests</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Configurations</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="modules/configuration.html">App configurations</a></li>
+</ul>
+
+</div>
+</div>
+
+      </div>
+      
+    </div>
+  </aside>
+  <div class="main">
+    <div class="content">
+      <div class="article-container">
+        <a href="#" class="back-to-top muted-link">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"></path>
+          </svg>
+          <span>Back to top</span>
+        </a>
+        <div class="content-icon-container">
+          <div class="theme-toggle-container theme-toggle-content">
+            <button class="theme-toggle" aria-label="Toggle Light / Dark / Auto color theme">
+              <svg class="theme-icon-when-auto-light"><use href="#svg-sun-with-moon"></use></svg>
+              <svg class="theme-icon-when-auto-dark"><use href="#svg-moon-with-sun"></use></svg>
+              <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+              <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+            </button>
+          </div>
+          <label class="toc-overlay-icon toc-content-icon no-toc" for="__toc">
+            <span class="icon"><svg><use href="#svg-toc"></use></svg></span>
+          </label>
+        </div>
+        <article role="main" id="furo-main-content">
+          
+<section class="genindex-section">
+  <h1 id="index">Index</h1>
+  <div class="genindex-jumpbox"><a href="#_"><strong>_</strong></a> | <a href="#A"><strong>A</strong></a> | <a href="#B"><strong>B</strong></a> | <a href="#C"><strong>C</strong></a> | <a href="#D"><strong>D</strong></a> | <a href="#E"><strong>E</strong></a> | <a href="#F"><strong>F</strong></a> | <a href="#G"><strong>G</strong></a> | <a href="#H"><strong>H</strong></a> | <a href="#I"><strong>I</strong></a> | <a href="#J"><strong>J</strong></a> | <a href="#L"><strong>L</strong></a> | <a href="#M"><strong>M</strong></a> | <a href="#N"><strong>N</strong></a> | <a href="#O"><strong>O</strong></a> | <a href="#P"><strong>P</strong></a> | <a href="#R"><strong>R</strong></a> | <a href="#S"><strong>S</strong></a> | <a href="#T"><strong>T</strong></a> | <a href="#U"><strong>U</strong></a> | <a href="#W"><strong>W</strong></a></div>
+</section>
+<section id="_" class="genindex-section">
+  <h2>_</h2>
+  <table style="width: 100%" class="indextable genindextable"><tr>
+    <td style="width: 33%; vertical-align: top;"><ul>
+        <li><a href="modules/shared/dto.html#app.shared.dto.BaseDTO.__init__">__init__() (app.shared.dto.BaseDTO method)</a>
+
+        <ul>
+          <li><a href="modules/shared/sdcv_engine.html#app.shared.sdcv_engine.BaseSdcvEngine.__init__">(app.shared.sdcv_engine.BaseSdcvEngine method)</a>
+</li>
+          <li><a href="modules/shared/sdcv_engine.html#app.shared.sdcv_engine.DockerSdcvEngine.__init__">(app.shared.sdcv_engine.DockerSdcvEngine method)</a>
+</li>
+          <li><a href="modules/shared/sdcv_engine.html#app.shared.sdcv_engine.LinuxSdcvEngine.__init__">(app.shared.sdcv_engine.LinuxSdcvEngine method)</a>
+</li>
+        </ul></li>
+    </ul></td>
+  </tr></table>
+</section>
+
+<section id="A" class="genindex-section">
+  <h2>A</h2>
+  <table style="width: 100%" class="indextable genindextable"><tr>
+    <td style="width: 33%; vertical-align: top;"><ul>
+        <li><a href="modules/features/auth.html#app.features.auth.repository.AuthRepository.add_user">add_user() (app.features.auth.repository.AuthRepository method)</a>
+</li>
+        <li><a href="modules/shared/validation.html#app.shared.validation.ApiResponse">ApiResponse (class in app.shared.validation)</a>
+</li>
+        <li>
+    app.features.auth.repository
+
+        <ul>
+          <li><a href="modules/features/auth.html#module-app.features.auth.repository">module</a>
+</li>
+        </ul></li>
+        <li>
+    app.features.auth.requests
+
+        <ul>
+          <li><a href="modules/features/auth.html#module-app.features.auth.requests">module</a>
+</li>
+        </ul></li>
+        <li>
+    app.features.auth.responses
+
+        <ul>
+          <li><a href="modules/features/auth.html#module-app.features.auth.responses">module</a>
+</li>
+        </ul></li>
+        <li>
+    app.features.auth.route
+
+        <ul>
+          <li><a href="modules/features/auth.html#module-app.features.auth.route">module</a>
+</li>
+        </ul></li>
+        <li>
+    app.features.auth.service
+
+        <ul>
+          <li><a href="modules/features/auth.html#module-app.features.auth.service">module</a>
+</li>
+        </ul></li>
+        <li>
+    app.features.dicts.requests
+
+        <ul>
+          <li><a href="modules/features/dicts.html#module-app.features.dicts.requests">module</a>
+</li>
+        </ul></li>
+        <li>
+    app.features.dicts.responses
+
+        <ul>
+          <li><a href="modules/features/dicts.html#module-app.features.dicts.responses">module</a>
+</li>
+        </ul></li>
+        <li>
+    app.features.dicts.route
+
+        <ul>
+          <li><a href="modules/features/dicts.html#module-app.features.dicts.route">module</a>
+</li>
+        </ul></li>
+        <li>
+    app.features.dicts.service
+
+        <ul>
+          <li><a href="modules/features/dicts.html#module-app.features.dicts.service">module</a>
+</li>
+        </ul></li>
+        <li>
+    app.features.history.repository
+
+        <ul>
+          <li><a href="modules/features/history.html#module-app.features.history.repository">module</a>
+</li>
+        </ul></li>
+        <li>
+    app.features.history.requests
+
+        <ul>
+          <li><a href="modules/features/history.html#module-app.features.history.requests">module</a>
+</li>
+        </ul></li>
+        <li>
+    app.features.history.responses
+
+        <ul>
+          <li><a href="modules/features/history.html#module-app.features.history.responses">module</a>
+</li>
+        </ul></li>
+        <li>
+    app.features.history.route
+
+        <ul>
+          <li><a href="modules/features/history.html#module-app.features.history.route">module</a>
+</li>
+        </ul></li>
+    </ul></td>
+    <td style="width: 33%; vertical-align: top;"><ul>
+        <li>
+    app.features.history.service
+
+        <ul>
+          <li><a href="modules/features/history.html#module-app.features.history.service">module</a>
+</li>
+        </ul></li>
+        <li>
+    app.features.translation.repository
+
+        <ul>
+          <li><a href="modules/features/translation.html#module-app.features.translation.repository">module</a>
+</li>
+        </ul></li>
+        <li>
+    app.features.translation.requests
+
+        <ul>
+          <li><a href="modules/features/translation.html#module-app.features.translation.requests">module</a>
+</li>
+        </ul></li>
+        <li>
+    app.features.translation.responses
+
+        <ul>
+          <li><a href="modules/features/translation.html#module-app.features.translation.responses">module</a>
+</li>
+        </ul></li>
+        <li>
+    app.features.translation.route
+
+        <ul>
+          <li><a href="modules/features/translation.html#module-app.features.translation.route">module</a>
+</li>
+        </ul></li>
+        <li>
+    app.features.translation.service
+
+        <ul>
+          <li><a href="modules/features/translation.html#module-app.features.translation.service">module</a>
+</li>
+        </ul></li>
+        <li>
+    app.shared.config
+
+        <ul>
+          <li><a href="modules/configuration.html#module-app.shared.config">module</a>
+</li>
+        </ul></li>
+        <li>
+    app.shared.consts
+
+        <ul>
+          <li><a href="modules/shared/consts.html#module-app.shared.consts">module</a>
+</li>
+        </ul></li>
+        <li>
+    app.shared.dbmodels
+
+        <ul>
+          <li><a href="modules/shared/dbmodels.html#module-app.shared.dbmodels">module</a>
+</li>
+        </ul></li>
+        <li>
+    app.shared.dto
+
+        <ul>
+          <li><a href="modules/shared/dto.html#module-app.shared.dto">module</a>
+</li>
+        </ul></li>
+        <li>
+    app.shared.sdcv_engine
+
+        <ul>
+          <li><a href="modules/shared/sdcv_engine.html#module-app.shared.sdcv_engine">module</a>
+</li>
+        </ul></li>
+        <li><a href="modules/configuration.html#app.shared.config.BaseConfig.APP_NAME">APP_NAME (app.shared.config.BaseConfig attribute)</a>
+</li>
+        <li><a href="modules/features/auth.html#app.features.auth.repository.AuthRepository">AuthRepository (class in app.features.auth.repository)</a>
+</li>
+        <li><a href="modules/features/auth.html#app.features.auth.requests.AuthRequest">AuthRequest (class in app.features.auth.requests)</a>
+</li>
+        <li><a href="modules/features/auth.html#app.features.auth.service.AuthService">AuthService (class in app.features.auth.service)</a>
+</li>
+    </ul></td>
+  </tr></table>
+</section>
+
+<section id="B" class="genindex-section">
+  <h2>B</h2>
+  <table style="width: 100%" class="indextable genindextable"><tr>
+    <td style="width: 33%; vertical-align: top;"><ul>
+        <li><a href="modules/configuration.html#app.shared.config.BaseConfig">BaseConfig (class in app.shared.config)</a>
+</li>
+    </ul></td>
+    <td style="width: 33%; vertical-align: top;"><ul>
+        <li><a href="modules/shared/dto.html#app.shared.dto.BaseDTO">BaseDTO (class in app.shared.dto)</a>
+</li>
+        <li><a href="modules/shared/sdcv_engine.html#app.shared.sdcv_engine.BaseSdcvEngine">BaseSdcvEngine (class in app.shared.sdcv_engine)</a>
+</li>
+    </ul></td>
+  </tr></table>
+</section>
+
+<section id="C" class="genindex-section">
+  <h2>C</h2>
+  <table style="width: 100%" class="indextable genindextable"><tr>
+    <td style="width: 33%; vertical-align: top;"><ul>
+        <li><a href="modules/configuration.html#app.shared.config.BaseConfig.CONFIG">CONFIG (app.shared.config.BaseConfig attribute)</a>
+
+        <ul>
+          <li><a href="modules/configuration.html#app.shared.config.DebugConfig.CONFIG">(app.shared.config.DebugConfig attribute)</a>
+</li>
+          <li><a href="modules/configuration.html#app.shared.config.ProductConfig.CONFIG">(app.shared.config.ProductConfig attribute)</a>
+</li>
+        </ul></li>
+        <li><a href="modules/configuration.html#app.shared.config.config_factory">config_factory() (in module app.shared.config)</a>
+</li>
+        <li><a href="modules/configuration.html#app.shared.config.configs">configs (in module app.shared.config)</a>
+</li>
+    </ul></td>
+    <td style="width: 33%; vertical-align: top;"><ul>
+        <li><a href="modules/features/dicts.html#app.features.dicts.requests.DictRequest.container_name">container_name (app.features.dicts.requests.DictRequest attribute)</a>
+
+        <ul>
+          <li><a href="modules/features/translation.html#app.features.translation.requests.TranslateRequest.container_name">(app.features.translation.requests.TranslateRequest attribute)</a>
+</li>
+        </ul></li>
+        <li><a href="modules/features/auth.html#app.features.auth.repository.AuthRepository.count_users">count_users() (app.features.auth.repository.AuthRepository method)</a>
+</li>
+        <li><a href="modules/shared/sdcv_engine.html#app.shared.sdcv_engine.create_engine">create_engine() (in module app.shared.sdcv_engine)</a>
+</li>
+        <li><a href="modules/shared/dbmodels.html#app.shared.dbmodels.Translation.created_at">created_at (app.shared.dbmodels.Translation attribute)</a>
+</li>
+    </ul></td>
+  </tr></table>
+</section>
+
+<section id="D" class="genindex-section">
+  <h2>D</h2>
+  <table style="width: 100%" class="indextable genindextable"><tr>
+    <td style="width: 33%; vertical-align: top;"><ul>
+        <li><a href="modules/shared/dto.html#app.shared.dto.BaseDTO.data">data (app.shared.dto.BaseDTO attribute)</a>
+
+        <ul>
+          <li><a href="modules/shared/validation.html#app.shared.validation.ApiResponse.data">(app.shared.validation.ApiResponse attribute)</a>
+</li>
+        </ul></li>
+        <li><a href="modules/configuration.html#app.shared.config.DebugConfig">DebugConfig (class in app.shared.config)</a>
+</li>
+        <li><a href="modules/features/translation.html#app.features.translation.responses.TranslationData.definition">definition (app.features.translation.responses.TranslationData attribute)</a>
+</li>
+        <li><a href="modules/features/auth.html#app.features.auth.service.AuthService.delete">delete() (app.features.auth.service.AuthService method)</a>
+</li>
+        <li><a href="modules/features/history.html#app.features.history.service.HistoryService.delete_history">delete_history() (app.features.history.service.HistoryService method)</a>
+</li>
+        <li><a href="modules/features/history.html#app.features.history.repository.HistoryRepository.delete_history_item">delete_history_item() (app.features.history.repository.HistoryRepository method)</a>
+
+        <ul>
+          <li><a href="modules/features/history.html#app.features.history.route.delete_history_item">(in module app.features.history.route)</a>
+</li>
+        </ul></li>
+        <li><a href="modules/features/auth.html#app.features.auth.repository.AuthRepository.delete_user">delete_user() (app.features.auth.repository.AuthRepository method)</a>
+</li>
+    </ul></td>
+    <td style="width: 33%; vertical-align: top;"><ul>
+        <li><a href="modules/features/auth.html#app.features.auth.route.delete_user_route">delete_user_route() (in module app.features.auth.route)</a>
+</li>
+        <li><a href="modules/features/history.html#app.features.history.requests.DeleteHistoryRequest">DeleteHistoryRequest (class in app.features.history.requests)</a>
+</li>
+        <li><a href="modules/features/auth.html#app.features.auth.responses.DeleteResponse">DeleteResponse (in module app.features.auth.responses)</a>
+</li>
+        <li><a href="modules/features/auth.html#app.features.auth.consts.ResultCodes.DELETION_FORBIDDEN">DELETION_FORBIDDEN (app.features.auth.consts.ResultCodes attribute)</a>
+</li>
+        <li><a href="modules/features/dicts.html#app.features.dicts.requests.DictRequest">DictRequest (class in app.features.dicts.requests)</a>
+</li>
+        <li><a href="modules/features/dicts.html#app.features.dicts.consts.ResultCodes.DICTS_NOT_FOUND">DICTS_NOT_FOUND (app.features.dicts.consts.ResultCodes attribute)</a>
+</li>
+        <li><a href="modules/features/dicts.html#app.features.dicts.responses.DictsResponse">DictsResponse (in module app.features.dicts.responses)</a>
+</li>
+        <li><a href="modules/features/dicts.html#app.features.dicts.service.DictsService">DictsService (class in app.features.dicts.service)</a>
+</li>
+        <li><a href="modules/shared/sdcv_engine.html#app.shared.sdcv_engine.DOCKER_TYPE">DOCKER_TYPE (in module app.shared.sdcv_engine)</a>
+</li>
+        <li><a href="modules/shared/sdcv_engine.html#app.shared.sdcv_engine.DockerSdcvEngine">DockerSdcvEngine (class in app.shared.sdcv_engine)</a>
+</li>
+    </ul></td>
+  </tr></table>
+</section>
+
+<section id="E" class="genindex-section">
+  <h2>E</h2>
+  <table style="width: 100%" class="indextable genindextable"><tr>
+    <td style="width: 33%; vertical-align: top;"><ul>
+        <li><a href="modules/shared/dto.html#app.shared.dto.BaseDTO.error">error (app.shared.dto.BaseDTO attribute)</a>
+
+        <ul>
+          <li><a href="modules/shared/validation.html#app.shared.validation.ApiResponse.error">(app.shared.validation.ApiResponse attribute)</a>
+</li>
+        </ul></li>
+    </ul></td>
+    <td style="width: 33%; vertical-align: top;"><ul>
+        <li><a href="modules/features/translation.html#app.features.translation.consts.ResultCodes.ERROR_IN_FINDING">ERROR_IN_FINDING (app.features.translation.consts.ResultCodes attribute)</a>
+</li>
+    </ul></td>
+  </tr></table>
+</section>
+
+<section id="F" class="genindex-section">
+  <h2>F</h2>
+  <table style="width: 100%" class="indextable genindextable"><tr>
+    <td style="width: 33%; vertical-align: top;"><ul>
+        <li><a href="modules/features/translation.html#app.features.translation.requests.TranslateRequest.filters">filters (app.features.translation.requests.TranslateRequest attribute)</a>
+</li>
+    </ul></td>
+  </tr></table>
+</section>
+
+<section id="G" class="genindex-section">
+  <h2>G</h2>
+  <table style="width: 100%" class="indextable genindextable"><tr>
+    <td style="width: 33%; vertical-align: top;"><ul>
+        <li><a href="modules/features/dicts.html#app.features.dicts.service.DictsService.get_all">get_all() (app.features.dicts.service.DictsService method)</a>
+</li>
+        <li><a href="modules/features/auth.html#app.features.auth.route.get_data_route">get_data_route() (in module app.features.auth.route)</a>
+</li>
+        <li><a href="modules/features/auth.html#app.features.auth.repository.AuthRepository.get_first">get_first() (app.features.auth.repository.AuthRepository method)</a>
+</li>
+        <li><a href="modules/features/history.html#app.features.history.repository.HistoryRepository.get_history">get_history() (app.features.history.repository.HistoryRepository method)</a>
+
+        <ul>
+          <li><a href="modules/features/history.html#app.features.history.service.HistoryService.get_history">(app.features.history.service.HistoryService method)</a>
+</li>
+        </ul></li>
+    </ul></td>
+    <td style="width: 33%; vertical-align: top;"><ul>
+        <li><a href="modules/features/history.html#app.features.history.repository.HistoryRepository.get_history_item">get_history_item() (app.features.history.repository.HistoryRepository method)</a>
+</li>
+        <li><a href="modules/features/history.html#app.features.history.route.get_history_route">get_history_route() (in module app.features.history.route)</a>
+</li>
+        <li><a href="modules/features/auth.html#app.features.auth.repository.AuthRepository.get_user">get_user() (app.features.auth.repository.AuthRepository method)</a>
+</li>
+        <li><a href="modules/features/auth.html#app.features.auth.repository.AuthRepository.get_user_by_id">get_user_by_id() (app.features.auth.repository.AuthRepository method)</a>
+</li>
+        <li><a href="modules/features/auth.html#app.features.auth.service.AuthService.get_user_data">get_user_data() (app.features.auth.service.AuthService method)</a>
+</li>
+    </ul></td>
+  </tr></table>
+</section>
+
+<section id="H" class="genindex-section">
+  <h2>H</h2>
+  <table style="width: 100%" class="indextable genindextable"><tr>
+    <td style="width: 33%; vertical-align: top;"><ul>
+        <li><a href="modules/features/history.html#app.features.history.responses.HistoryItem">HistoryItem (class in app.features.history.responses)</a>
+</li>
+        <li><a href="modules/features/history.html#app.features.history.repository.HistoryRepository">HistoryRepository (class in app.features.history.repository)</a>
+</li>
+    </ul></td>
+    <td style="width: 33%; vertical-align: top;"><ul>
+        <li><a href="modules/features/history.html#app.features.history.responses.HistoryResponse">HistoryResponse (in module app.features.history.responses)</a>
+</li>
+        <li><a href="modules/features/history.html#app.features.history.service.HistoryService">HistoryService (class in app.features.history.service)</a>
+</li>
+    </ul></td>
+  </tr></table>
+</section>
+
+<section id="I" class="genindex-section">
+  <h2>I</h2>
+  <table style="width: 100%" class="indextable genindextable"><tr>
+    <td style="width: 33%; vertical-align: top;"><ul>
+        <li><a href="modules/features/history.html#app.features.history.dto.TranslationDTO.id">id (app.features.history.dto.TranslationDTO attribute)</a>
+
+        <ul>
+          <li><a href="modules/features/history.html#app.features.history.responses.HistoryItem.id">(app.features.history.responses.HistoryItem attribute)</a>
+</li>
+          <li><a href="modules/shared/dbmodels.html#app.shared.dbmodels.Translation.id">(app.shared.dbmodels.Translation attribute)</a>
+</li>
+          <li><a href="modules/shared/dbmodels.html#app.shared.dbmodels.User.id">(app.shared.dbmodels.User attribute)</a>
+</li>
+        </ul></li>
+    </ul></td>
+    <td style="width: 33%; vertical-align: top;"><ul>
+        <li><a href="modules/features/history.html#app.features.history.requests.DeleteHistoryRequest.ids">ids (app.features.history.requests.DeleteHistoryRequest attribute)</a>
+</li>
+        <li><a href="modules/shared/dbmodels.html#app.shared.dbmodels.User.is_admin">is_admin (app.shared.dbmodels.User attribute)</a>
+</li>
+        <li><a href="modules/features/history.html#app.features.history.service.HistoryService.is_user_owns_history_item">is_user_owns_history_item() (app.features.history.service.HistoryService method)</a>
+</li>
+    </ul></td>
+  </tr></table>
+</section>
+
+<section id="J" class="genindex-section">
+  <h2>J</h2>
+  <table style="width: 100%" class="indextable genindextable"><tr>
+    <td style="width: 33%; vertical-align: top;"><ul>
+        <li><a href="modules/shared/consts.html#app.shared.consts.JWT_ACCESS_TOKEN_EXPIRES">JWT_ACCESS_TOKEN_EXPIRES (in module app.shared.consts)</a>
+</li>
+    </ul></td>
+    <td style="width: 33%; vertical-align: top;"><ul>
+        <li><a href="modules/configuration.html#app.shared.config.BaseConfig.JWT_SECRET_KEY">JWT_SECRET_KEY (app.shared.config.BaseConfig attribute)</a>
+</li>
+        <li><a href="modules/features/auth.html#app.features.auth.responses.JWTResponse">JWTResponse (in module app.features.auth.responses)</a>
+</li>
+    </ul></td>
+  </tr></table>
+</section>
+
+<section id="L" class="genindex-section">
+  <h2>L</h2>
+  <table style="width: 100%" class="indextable genindextable"><tr>
+    <td style="width: 33%; vertical-align: top;"><ul>
+        <li><a href="modules/shared/sdcv_engine.html#app.shared.sdcv_engine.LINUX_TYPE">LINUX_TYPE (in module app.shared.sdcv_engine)</a>
+</li>
+        <li><a href="modules/shared/sdcv_engine.html#app.shared.sdcv_engine.LinuxSdcvEngine">LinuxSdcvEngine (class in app.shared.sdcv_engine)</a>
+</li>
+        <li><a href="modules/shared/sdcv_engine.html#app.shared.sdcv_engine.BaseSdcvEngine.list">list() (app.shared.sdcv_engine.BaseSdcvEngine method)</a>
+</li>
+    </ul></td>
+    <td style="width: 33%; vertical-align: top;"><ul>
+        <li><a href="modules/features/dicts.html#app.features.dicts.route.list_dicts">list_dicts() (in module app.features.dicts.route)</a>
+</li>
+        <li><a href="modules/features/auth.html#app.features.auth.service.AuthService.login">login() (app.features.auth.service.AuthService method)</a>
+</li>
+        <li><a href="modules/features/auth.html#app.features.auth.route.login_route">login_route() (in module app.features.auth.route)</a>
+</li>
+    </ul></td>
+  </tr></table>
+</section>
+
+<section id="M" class="genindex-section">
+  <h2>M</h2>
+  <table style="width: 100%" class="indextable genindextable"><tr>
+    <td style="width: 33%; vertical-align: top;"><ul>
+        <li>
+    module
+
+        <ul>
+          <li><a href="modules/features/auth.html#module-app.features.auth.repository">app.features.auth.repository</a>
+</li>
+          <li><a href="modules/features/auth.html#module-app.features.auth.requests">app.features.auth.requests</a>
+</li>
+          <li><a href="modules/features/auth.html#module-app.features.auth.responses">app.features.auth.responses</a>
+</li>
+          <li><a href="modules/features/auth.html#module-app.features.auth.route">app.features.auth.route</a>
+</li>
+          <li><a href="modules/features/auth.html#module-app.features.auth.service">app.features.auth.service</a>
+</li>
+          <li><a href="modules/features/dicts.html#module-app.features.dicts.requests">app.features.dicts.requests</a>
+</li>
+          <li><a href="modules/features/dicts.html#module-app.features.dicts.responses">app.features.dicts.responses</a>
+</li>
+          <li><a href="modules/features/dicts.html#module-app.features.dicts.route">app.features.dicts.route</a>
+</li>
+          <li><a href="modules/features/dicts.html#module-app.features.dicts.service">app.features.dicts.service</a>
+</li>
+          <li><a href="modules/features/history.html#module-app.features.history.repository">app.features.history.repository</a>
+</li>
+          <li><a href="modules/features/history.html#module-app.features.history.requests">app.features.history.requests</a>
+</li>
+          <li><a href="modules/features/history.html#module-app.features.history.responses">app.features.history.responses</a>
+</li>
+          <li><a href="modules/features/history.html#module-app.features.history.route">app.features.history.route</a>
+</li>
+          <li><a href="modules/features/history.html#module-app.features.history.service">app.features.history.service</a>
+</li>
+          <li><a href="modules/features/translation.html#module-app.features.translation.repository">app.features.translation.repository</a>
+</li>
+          <li><a href="modules/features/translation.html#module-app.features.translation.requests">app.features.translation.requests</a>
+</li>
+          <li><a href="modules/features/translation.html#module-app.features.translation.responses">app.features.translation.responses</a>
+</li>
+          <li><a href="modules/features/translation.html#module-app.features.translation.route">app.features.translation.route</a>
+</li>
+          <li><a href="modules/features/translation.html#module-app.features.translation.service">app.features.translation.service</a>
+</li>
+          <li><a href="modules/configuration.html#module-app.shared.config">app.shared.config</a>
+</li>
+          <li><a href="modules/shared/consts.html#module-app.shared.consts">app.shared.consts</a>
+</li>
+          <li><a href="modules/shared/dbmodels.html#module-app.shared.dbmodels">app.shared.dbmodels</a>
+</li>
+          <li><a href="modules/shared/dto.html#module-app.shared.dto">app.shared.dto</a>
+</li>
+          <li><a href="modules/shared/sdcv_engine.html#module-app.shared.sdcv_engine">app.shared.sdcv_engine</a>
+</li>
+        </ul></li>
+    </ul></td>
+  </tr></table>
+</section>
+
+<section id="N" class="genindex-section">
+  <h2>N</h2>
+  <table style="width: 100%" class="indextable genindextable"><tr>
+    <td style="width: 33%; vertical-align: top;"><ul>
+        <li><a href="modules/shared/dbmodels.html#app.shared.dbmodels.User.name">name (app.shared.dbmodels.User attribute)</a>
+</li>
+    </ul></td>
+  </tr></table>
+</section>
+
+<section id="O" class="genindex-section">
+  <h2>O</h2>
+  <table style="width: 100%" class="indextable genindextable"><tr>
+    <td style="width: 33%; vertical-align: top;"><ul>
+        <li><a href="modules/features/auth.html#app.features.auth.consts.ResultCodes.OK">OK (app.features.auth.consts.ResultCodes attribute)</a>
+</li>
+    </ul></td>
+    <td style="width: 33%; vertical-align: top;"><ul>
+        <li><a href="modules/configuration.html#app.shared.config.BaseConfig.OPEN_API_V">OPEN_API_V (app.shared.config.BaseConfig attribute)</a>
+</li>
+    </ul></td>
+  </tr></table>
+</section>
+
+<section id="P" class="genindex-section">
+  <h2>P</h2>
+  <table style="width: 100%" class="indextable genindextable"><tr>
+    <td style="width: 33%; vertical-align: top;"><ul>
+        <li><a href="modules/features/auth.html#app.features.auth.requests.AuthRequest.password">password (app.features.auth.requests.AuthRequest attribute)</a>
+</li>
+        <li><a href="modules/shared/dbmodels.html#app.shared.dbmodels.User.password_hash">password_hash (app.shared.dbmodels.User attribute)</a>
+</li>
+    </ul></td>
+    <td style="width: 33%; vertical-align: top;"><ul>
+        <li><a href="modules/features/auth.html#app.features.auth.consts.ResultCodes.PASSWORD_INCORRECT">PASSWORD_INCORRECT (app.features.auth.consts.ResultCodes attribute)</a>
+</li>
+        <li><a href="modules/configuration.html#app.shared.config.ProductConfig">ProductConfig (class in app.shared.config)</a>
+</li>
+    </ul></td>
+  </tr></table>
+</section>
+
+<section id="R" class="genindex-section">
+  <h2>R</h2>
+  <table style="width: 100%" class="indextable genindextable"><tr>
+    <td style="width: 33%; vertical-align: top;"><ul>
+        <li><a href="modules/features/auth.html#app.features.auth.consts.ResultCodes">ResultCodes (class in app.features.auth.consts)</a>
+
+        <ul>
+          <li><a href="modules/features/dicts.html#app.features.dicts.consts.ResultCodes">(class in app.features.dicts.consts)</a>
+</li>
+          <li><a href="modules/features/translation.html#app.features.translation.consts.ResultCodes">(class in app.features.translation.consts)</a>
+</li>
+        </ul></li>
+    </ul></td>
+  </tr></table>
+</section>
+
+<section id="S" class="genindex-section">
+  <h2>S</h2>
+  <table style="width: 100%" class="indextable genindextable"><tr>
+    <td style="width: 33%; vertical-align: top;"><ul>
+        <li><a href="modules/features/translation.html#app.features.translation.repository.TranslationRepository.save_history">save_history() (app.features.translation.repository.TranslationRepository method)</a>
+
+        <ul>
+          <li><a href="modules/features/translation.html#app.features.translation.service.TranslateService.save_history">(app.features.translation.service.TranslateService method)</a>
+</li>
+        </ul></li>
+        <li><a href="modules/features/dicts.html#app.features.dicts.requests.DictRequest.sdcv_type">sdcv_type (app.features.dicts.requests.DictRequest attribute)</a>
+
+        <ul>
+          <li><a href="modules/features/translation.html#app.features.translation.requests.TranslateRequest.sdcv_type">(app.features.translation.requests.TranslateRequest attribute)</a>
+</li>
+        </ul></li>
+        <li><a href="modules/features/auth.html#app.features.auth.repository.AuthRepository.set_admin">set_admin() (app.features.auth.repository.AuthRepository method)</a>
+</li>
+        <li><a href="modules/features/auth.html#app.features.auth.service.AuthService.signup">signup() (app.features.auth.service.AuthService method)</a>
+</li>
+    </ul></td>
+    <td style="width: 33%; vertical-align: top;"><ul>
+        <li><a href="modules/features/auth.html#app.features.auth.route.signup_route">signup_route() (in module app.features.auth.route)</a>
+</li>
+        <li><a href="modules/configuration.html#app.shared.config.BaseConfig.special_init">special_init() (app.shared.config.BaseConfig method)</a>
+
+        <ul>
+          <li><a href="modules/configuration.html#app.shared.config.DebugConfig.special_init">(app.shared.config.DebugConfig method)</a>
+</li>
+          <li><a href="modules/configuration.html#app.shared.config.ProductConfig.special_init">(app.shared.config.ProductConfig method)</a>
+</li>
+        </ul></li>
+        <li><a href="modules/configuration.html#app.shared.config.BaseConfig.SQLALCHEMY_DATABASE_URI">SQLALCHEMY_DATABASE_URI (app.shared.config.BaseConfig attribute)</a>
+
+        <ul>
+          <li><a href="modules/configuration.html#app.shared.config.DebugConfig.SQLALCHEMY_DATABASE_URI">(app.shared.config.DebugConfig attribute)</a>
+</li>
+          <li><a href="modules/configuration.html#app.shared.config.ProductConfig.SQLALCHEMY_DATABASE_URI">(app.shared.config.ProductConfig attribute)</a>
+</li>
+        </ul></li>
+    </ul></td>
+  </tr></table>
+</section>
+
+<section id="T" class="genindex-section">
+  <h2>T</h2>
+  <table style="width: 100%" class="indextable genindextable"><tr>
+    <td style="width: 33%; vertical-align: top;"><ul>
+        <li><a href="modules/shared/dto.html#app.shared.dto.T">T (class in app.shared.dto)</a>
+</li>
+        <li><a href="modules/features/translation.html#app.features.translation.service.TranslateService.translate">translate() (app.features.translation.service.TranslateService method)</a>
+
+        <ul>
+          <li><a href="modules/shared/sdcv_engine.html#app.shared.sdcv_engine.BaseSdcvEngine.translate">(app.shared.sdcv_engine.BaseSdcvEngine method)</a>
+</li>
+          <li><a href="modules/features/translation.html#app.features.translation.route.translate">(in module app.features.translation.route)</a>
+</li>
+        </ul></li>
+        <li><a href="modules/features/translation.html#app.features.translation.requests.TranslateRequest">TranslateRequest (class in app.features.translation.requests)</a>
+</li>
+        <li><a href="modules/features/translation.html#app.features.translation.responses.TranslateResponse">TranslateResponse (in module app.features.translation.responses)</a>
+</li>
+    </ul></td>
+    <td style="width: 33%; vertical-align: top;"><ul>
+        <li><a href="modules/features/translation.html#app.features.translation.service.TranslateService">TranslateService (class in app.features.translation.service)</a>
+</li>
+        <li><a href="modules/shared/dbmodels.html#app.shared.dbmodels.Translation">Translation (class in app.shared.dbmodels)</a>
+</li>
+        <li><a href="modules/features/translation.html#app.features.translation.responses.TranslationData">TranslationData (class in app.features.translation.responses)</a>
+</li>
+        <li><a href="modules/features/history.html#app.features.history.dto.TranslationDTO">TranslationDTO (class in app.features.history.dto)</a>
+</li>
+        <li><a href="modules/features/translation.html#app.features.translation.repository.TranslationRepository">TranslationRepository (class in app.features.translation.repository)</a>
+</li>
+        <li><a href="modules/shared/dbmodels.html#app.shared.dbmodels.User.translations">translations (app.shared.dbmodels.User attribute)</a>
+</li>
+    </ul></td>
+  </tr></table>
+</section>
+
+<section id="U" class="genindex-section">
+  <h2>U</h2>
+  <table style="width: 100%" class="indextable genindextable"><tr>
+    <td style="width: 33%; vertical-align: top;"><ul>
+        <li><a href="modules/features/auth.html#app.features.auth.consts.ResultCodes.UNEXPECTED_ERROR">UNEXPECTED_ERROR (app.features.auth.consts.ResultCodes attribute)</a>
+
+        <ul>
+          <li><a href="modules/features/dicts.html#app.features.dicts.consts.ResultCodes.UNEXPECTED_ERROR">(app.features.dicts.consts.ResultCodes attribute)</a>
+</li>
+          <li><a href="modules/features/translation.html#app.features.translation.consts.ResultCodes.UNEXPECTED_ERROR">(app.features.translation.consts.ResultCodes attribute)</a>
+</li>
+        </ul></li>
+        <li><a href="modules/shared/dbmodels.html#app.shared.dbmodels.User">User (class in app.shared.dbmodels)</a>
+</li>
+        <li><a href="modules/features/translation.html#app.features.translation.repository.TranslationRepository.user_exists">user_exists() (app.features.translation.repository.TranslationRepository method)</a>
+</li>
+        <li><a href="modules/features/auth.html#app.features.auth.consts.ResultCodes.USER_EXISTS_ALREADY">USER_EXISTS_ALREADY (app.features.auth.consts.ResultCodes attribute)</a>
+</li>
+        <li><a href="modules/shared/dbmodels.html#app.shared.dbmodels.Translation.user_id">user_id (app.shared.dbmodels.Translation attribute)</a>
+</li>
+    </ul></td>
+    <td style="width: 33%; vertical-align: top;"><ul>
+        <li><a href="modules/features/auth.html#app.features.auth.dto.UserDTO.user_name">user_name (app.features.auth.dto.UserDTO attribute)</a>
+
+        <ul>
+          <li><a href="modules/features/auth.html#app.features.auth.requests.AuthRequest.user_name">(app.features.auth.requests.AuthRequest attribute)</a>
+</li>
+          <li><a href="modules/features/auth.html#app.features.auth.responses.UserData.user_name">(app.features.auth.responses.UserData attribute)</a>
+</li>
+        </ul></li>
+        <li><a href="modules/features/auth.html#app.features.auth.consts.ResultCodes.USER_NOT_FOUND">USER_NOT_FOUND (app.features.auth.consts.ResultCodes attribute)</a>
+</li>
+        <li><a href="modules/features/auth.html#app.features.auth.responses.UserData">UserData (class in app.features.auth.responses)</a>
+</li>
+        <li><a href="modules/features/auth.html#app.features.auth.responses.UserDataResponse">UserDataResponse (in module app.features.auth.responses)</a>
+</li>
+        <li><a href="modules/features/auth.html#app.features.auth.dto.UserDTO">UserDTO (class in app.features.auth.dto)</a>
+</li>
+    </ul></td>
+  </tr></table>
+</section>
+
+<section id="W" class="genindex-section">
+  <h2>W</h2>
+  <table style="width: 100%" class="indextable genindextable"><tr>
+    <td style="width: 33%; vertical-align: top;"><ul>
+        <li><a href="modules/features/history.html#app.features.history.dto.TranslationDTO.word">word (app.features.history.dto.TranslationDTO attribute)</a>
+
+        <ul>
+          <li><a href="modules/features/history.html#app.features.history.responses.HistoryItem.word">(app.features.history.responses.HistoryItem attribute)</a>
+</li>
+          <li><a href="modules/features/translation.html#app.features.translation.requests.TranslateRequest.word">(app.features.translation.requests.TranslateRequest attribute)</a>
+</li>
+          <li><a href="modules/shared/dbmodels.html#app.shared.dbmodels.Translation.word">(app.shared.dbmodels.Translation attribute)</a>
+</li>
+        </ul></li>
+    </ul></td>
+    <td style="width: 33%; vertical-align: top;"><ul>
+        <li><a href="modules/features/translation.html#app.features.translation.consts.ResultCodes.WORD_NOT_FOUND">WORD_NOT_FOUND (app.features.translation.consts.ResultCodes attribute)</a>
+</li>
+    </ul></td>
+  </tr></table>
+</section>
+
+
+        </article>
+      </div>
+      <footer>
+        
+        <div class="related-pages">
+          
+          
+        </div>
+        <div class="bottom-of-page">
+          <div class="left-details">
+            <div class="copyright">
+                Copyright &#169; 2026, 123abc1920
+            </div>
+            Made with <a href="https://www.sphinx-doc.org/">Sphinx</a> and <a class="muted-link" href="https://pradyunsg.me">@pradyunsg</a>'s
+            
+            <a href="https://github.com/pradyunsg/furo">Furo</a>
+            
+          </div>
+          <div class="right-details">
+            
+          </div>
+        </div>
+        
+      </footer>
+    </div>
+    <aside class="toc-drawer no-toc">
+      
+      
+      
+    </aside>
+  </div>
+</div><script src="_static/documentation_options.js?v=8d563738"></script>
+    <script src="_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="_static/scripts/furo.js?v=46bd48cc"></script>
+    </body>
+</html>
