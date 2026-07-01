@@ -1,7 +1,7 @@
-from flask import Flask, request, render_template_string
+from flask import Flask
 from flask_cors import CORS
 from app.shared.extensions import db, migrate, main_config
-from config import config_factory
+from app.shared.config import config_factory
 import os
 from dotenv import load_dotenv
 from app.features import translation_bp, dicts_bp, auth_bp, history_bp

@@ -33,3 +33,9 @@ documentation for details.
    modules/shared/dto
    modules/shared/sdcv_engine
    modules/shared/validation
+
+.. toctree::
+   :caption: Configurations
+   :maxdepth: 1
+
+   modules/configuration
