@@ -15,3 +15,9 @@ documentation for details.
    :maxdepth: 2
    :caption: Contents:
 
+.. toctree::
+   :caption: Features
+   :maxdepth: 1
+
+   modules/auth
+   modules/translation
