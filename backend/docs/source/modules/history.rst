@@ -1,11 +1,11 @@
-Dicts module
+History module
 ============
 
-Module for managing dict in sdcv
+Module for managing history
 
 Route
 -----
-.. automodule:: app.features.dicts.route
+.. automodule:: app.features.history.route
    :members:
    :undoc-members:
    :show-inheritance:
@@ -13,7 +13,7 @@ Route
 
 Service
 -------
-.. automodule:: app.features.dicts.service
+.. automodule:: app.features.history.service
    :members:
    :undoc-members:
    :show-inheritance:
@@ -21,7 +21,7 @@ Service
 
 Repository
 ----------
-.. automodule:: app.features.dicts.repository
+.. automodule:: app.features.history.repository
    :members:
    :undoc-members:
    :show-inheritance:
@@ -29,7 +29,7 @@ Repository
 
 Requests
 --------
-.. automodule:: app.features.dicts.requests
+.. automodule:: app.features.history.requests
    :members:
    :undoc-members:
    :show-inheritance:
@@ -37,7 +37,7 @@ Requests
 
 Responses
 ---------
-.. automodule:: app.features.dicts.responses
+.. automodule:: app.features.history.responses
    :members:
    :undoc-members:
    :show-inheritance:
@@ -45,7 +45,14 @@ Responses
 
 Consts
 ------
-.. autoclass:: app.features.dicts.consts.ResultCodes
+.. autoclass:: app.features.history.consts.ResultCodes
+   :members:
+   :member-order: bysource
+   :exclude-members: __new__, __init__
+
+DTO
+------
+.. autoclass:: app.features.history.dto.TranslationDTO
    :members:
    :member-order: bysource
    :exclude-members: __new__, __init__
