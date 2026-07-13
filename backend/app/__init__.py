@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, send_from_directory
 from flask_cors import CORS
 from app.shared.extensions import db, migrate, main_config
 from app.shared.config import config_factory
@@ -11,7 +11,11 @@ load_dotenv()
 
 
 def create_app():
-    app = Flask(__name__)
+    app = Flask(
+        __name__,
+        static_folder="../../frontend/dist",
+        static_url_path="",
+    )
     config_const = os.getenv("CONFIG")
     config = config_factory(config_const)
     app.config.from_object(config)
@@ -31,5 +35,13 @@ def create_app():
     config.special_init(migrate, app, db)
 
     from .shared import dbmodels
+
+    @app.route('/')
+    def index():
+        return send_from_directory(app.static_folder, 'index.html')
+
+    @app.errorhandler(404)
+    def not_found(e):
+        return send_from_directory(app.static_folder, 'index.html')
 
     return app
