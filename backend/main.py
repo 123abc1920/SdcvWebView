@@ -29,6 +29,6 @@ if __name__ == "__main__":
 
         threading.Thread(target=open_browser, daemon=True).start()
 
-        serve(app, host="127.0.0.1", port=PORT)
+        serve(app, host="0.0.0.0", port=PORT)
     else:
-        app.run(host="127.0.0.1", port=PORT, debug=True)
+        app.run(host="0.0.0.0", port=PORT, debug=True)
