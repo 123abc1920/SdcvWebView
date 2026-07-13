@@ -1,6 +1,5 @@
 import os
 from dotenv import load_dotenv
-from pydantic_settings import BaseSettings
 from flasgger import Swagger
 import logging
 from logging.handlers import RotatingFileHandler
@@ -23,7 +22,7 @@ DEFAULT_PROD_DB = os.path.join(EXE_DIR, "app.db")
 DEFAULT_TEST_DB = os.path.join(EXE_DIR, "test.db")
 
 
-class BaseConfig(BaseSettings):
+class BaseConfig():
     """
     Base configuration class managing core application environment settings.
     """
@@ -107,7 +106,6 @@ class DebugConfig(BaseConfig):
         print(f"Swagger on localhost:{PORT}/apidocs")
 
         log_dir = os.path.join(LOG_DIR, "logs", "logs.log")
-        print(log_dir)
         logging.basicConfig(
             level=logging.DEBUG,
             format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",

@@ -18,9 +18,11 @@ def open_browser():
 if __name__ == "__main__":
     if hasattr(sys, "_MEIPASS"):
         print("=" * 50)
-        print(f" {os.getenv('APP_NAME', 'SDCV API')} successfully started")
+        print(f"{os.getenv('APP_NAME', 'SDCV API')} successfully started")
         print("A tab will now automatically open in your browser....")
-        print(f"If it didn't open, go to: http://127.0.0.1:{PORT}")
+        print(
+            f"If it didn't open, go to: http://127.0.0.1:{PORT} or https://localhost:{PORT}"
+        )
         print("-" * 50)
         print("DO NOT CLOSE THIS WINDOW while you are working with the program.")
         print("=" * 50)
