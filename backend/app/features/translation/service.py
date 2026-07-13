@@ -64,7 +64,7 @@ class TranslateService:
             self.logger.error("Timeout")
             return BaseDTO(error=ResultCodes.ERROR_IN_FINDING)
         except Exception as e:
-            self.logger.error(str(e))
+            self.logger.error(f"Unexpected error: {str(e)}")
             return BaseDTO(error=ResultCodes.UNEXPECTED_ERROR)
 
     def save_history(self, word: str, user_id: int) -> bool:

@@ -76,7 +76,7 @@ def list_dicts(body: DictRequest):
     try:
         engine = create_engine(sdcv_type, container_name)
     except Exception as e:
-        logger.error(str(e))
+        logger.error(f"Error with sdcv connection: {str(e)}")
         return DictsResponse(error=str(e)), 409
 
     result = dicts_service.get_all(engine)

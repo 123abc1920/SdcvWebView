@@ -44,7 +44,7 @@ class DictsService:
             self.logger.error("Timeout")
             return BaseDTO(error=ResultCodes.DICTS_NOT_FOUND)
         except Exception as e:
-            self.logger.error(str(e))
+            self.logger.error(f"Unexpected error: {str(e)}")
             return BaseDTO(error=ResultCodes.UNEXPECTED_ERROR)
 
 

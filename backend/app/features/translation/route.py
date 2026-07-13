@@ -128,7 +128,7 @@ def translate(body: TranslateRequest):
     try:
         engine = create_engine(sdcv_type, container_name)
     except Exception as e:
-        logger.error(str(e))
+        logger.error(f"Error with sdcv connection: {str(e)}")
         return TranslateResponse(error=str(e)), 409
 
     result = translate_service.translate(engine, word, body.filters)

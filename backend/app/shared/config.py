@@ -5,9 +5,22 @@ from flasgger import Swagger
 import logging
 from logging.handlers import RotatingFileHandler
 from datetime import timedelta
-from app.shared.consts import JWT_ACCESS_TOKEN_EXPIRES
+from app.shared.consts import JWT_ACCESS_TOKEN_EXPIRES, PORT
+import sys
 
 load_dotenv()
+
+if hasattr(sys, "_MEIPASS"):
+    EXE_DIR = os.path.dirname(sys.executable)
+    LOG_DIR = os.path.dirname(sys.executable)
+else:
+    EXE_DIR = os.path.dirname(os.path.abspath(__file__))
+    LOG_DIR = os.path.dirname(
+        os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    )
+
+DEFAULT_PROD_DB = os.path.join(EXE_DIR, "app.db")
+DEFAULT_TEST_DB = os.path.join(EXE_DIR, "test.db")
 
 
 class BaseConfig(BaseSettings):
@@ -16,7 +29,7 @@ class BaseConfig(BaseSettings):
     """
 
     SQLALCHEMY_DATABASE_URI: str = os.getenv(
-        "SQLALCHEMY_DATABASE_URI_TEST", "sqlite:///app.db"
+        "SQLALCHEMY_DATABASE_URI_PROD", f"sqlite:///{DEFAULT_PROD_DB}"
     )
     """The database connection URI string."""
     CONFIG: str = "DEBUG"
@@ -42,6 +55,9 @@ class BaseConfig(BaseSettings):
             days=JWT_ACCESS_TOKEN_EXPIRES
         )
 
+        actual_log_folder = os.path.join(LOG_DIR, "logs")
+        os.makedirs(actual_log_folder, exist_ok=True)
+
 
 class DebugConfig(BaseConfig):
     """
@@ -49,7 +65,7 @@ class DebugConfig(BaseConfig):
     """
 
     SQLALCHEMY_DATABASE_URI: str = os.getenv(
-        "SQLALCHEMY_DATABASE_URI_TEST", "sqlite:///app.db"
+        "SQLALCHEMY_DATABASE_URI_TEST", f"sqlite:///{DEFAULT_TEST_DB}"
     )
     """The database connection URI string used for debugging/testing."""
     CONFIG: str = "DEBUG"
@@ -88,17 +104,16 @@ class DebugConfig(BaseConfig):
         }
         swagger = Swagger(app, template=swagger_template)
 
-        print("Swagger on localhost:5200/apidocs")
+        print(f"Swagger on localhost:{PORT}/apidocs")
 
-        CURRENT_DIR = os.path.dirname(os.path.abspath(__file__))
-        BASE_DIR = os.path.dirname(CURRENT_DIR)
-        BASE_DIR = os.path.dirname(BASE_DIR)
+        log_dir = os.path.join(LOG_DIR, "logs", "logs.log")
+        print(log_dir)
         logging.basicConfig(
             level=logging.DEBUG,
             format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
             handlers=[
                 RotatingFileHandler(
-                    os.path.join(BASE_DIR, "logs", "logs.log"),
+                    log_dir,
                     encoding="utf-8",
                     maxBytes=10_000_000,
                     backupCount=5,
@@ -107,7 +122,7 @@ class DebugConfig(BaseConfig):
             ],
         )
 
-        print("Logs on backend/logs/")
+        print(f"Logs on {log_dir}")
 
 
 class ProductConfig(BaseConfig):
@@ -116,7 +131,7 @@ class ProductConfig(BaseConfig):
     """
 
     SQLALCHEMY_DATABASE_URI: str = os.getenv(
-        "SQLALCHEMY_DATABASE_URI_PROD", "sqlite:///app.db"
+        "SQLALCHEMY_DATABASE_URI_TEST", f"sqlite:///{DEFAULT_PROD_DB}"
     )
     """The live production database connection URI string."""
     CONFIG: str = "PRODUCT"
@@ -131,7 +146,24 @@ class ProductConfig(BaseConfig):
             app: The current Flask application instance.
             db: The SQLAlchemy database instance.
         """
-        pass
+        super().special_init(migrate, app, db)
+
+        log_dir = os.path.join(LOG_DIR, "logs", "logs.log")
+        logging.basicConfig(
+            level=logging.ERROR,
+            format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
+            handlers=[
+                RotatingFileHandler(
+                    log_dir,
+                    encoding="utf-8",
+                    maxBytes=10_000_000,
+                    backupCount=5,
+                ),
+                logging.StreamHandler(),
+            ],
+        )
+
+        print(f"Logs on {log_dir}")
 
 
 configs = [DebugConfig(), ProductConfig()]

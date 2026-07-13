@@ -14,7 +14,7 @@
           :aria-expanded="activeIndex === index ? 'true' : 'false'"
           :aria-controls="`collapse-${index}`"
         >
-          {{ item.dict }}
+          {{ item.dict_title }}
         </button>
       </h2>
 
