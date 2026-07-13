@@ -6,17 +6,26 @@ import os
 from dotenv import load_dotenv
 from app.features import translation_bp, dicts_bp, auth_bp, history_bp
 from flask_jwt_extended import JWTManager
+import sys
 
 load_dotenv()
 
 
 def create_app():
+    if hasattr(sys, "_MEIPASS"):
+        frontend_dist = os.path.join(sys._MEIPASS, "dist")
+    else:
+        BASE_DIR = os.path.dirname(
+            os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+        )
+        frontend_dist = os.path.join(BASE_DIR, "frontend", "dist")
+
     app = Flask(
         __name__,
-        static_folder="../../frontend/dist",
+        static_folder=frontend_dist,
         static_url_path="",
     )
-    config_const = os.getenv("CONFIG")
+    config_const = os.getenv("CONFIG", "PRODUCT")
     config = config_factory(config_const)
     app.config.from_object(config)
     CORS(app, resources={r"/*": {"origins": "*"}})
@@ -36,12 +45,12 @@ def create_app():
 
     from .shared import dbmodels
 
-    @app.route('/')
+    @app.route("/")
     def index():
-        return send_from_directory(app.static_folder, 'index.html')
+        return send_from_directory(app.static_folder, "index.html")
 
     @app.errorhandler(404)
     def not_found(e):
-        return send_from_directory(app.static_folder, 'index.html')
+        return send_from_directory(app.static_folder, "index.html")
 
     return app

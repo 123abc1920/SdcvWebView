@@ -16,7 +16,7 @@ class BaseConfig(BaseSettings):
     """
 
     SQLALCHEMY_DATABASE_URI: str = os.getenv(
-        "SQLALCHEMY_DATABASE_URI_TEST", "sqlite:///test.db"
+        "SQLALCHEMY_DATABASE_URI_TEST", "sqlite:///app.db"
     )
     """The database connection URI string."""
     CONFIG: str = "DEBUG"
@@ -49,7 +49,7 @@ class DebugConfig(BaseConfig):
     """
 
     SQLALCHEMY_DATABASE_URI: str = os.getenv(
-        "SQLALCHEMY_DATABASE_URI_TEST", "sqlite:///test.db"
+        "SQLALCHEMY_DATABASE_URI_TEST", "sqlite:///app.db"
     )
     """The database connection URI string used for debugging/testing."""
     CONFIG: str = "DEBUG"
