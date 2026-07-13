@@ -3,9 +3,13 @@ if [ "$EUID" -ne 0 ]; then
   exit 1
 fi
 
-SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+SCRIPT_DIR=$(pwd)
 BACKEND_DIR="$SCRIPT_DIR/backend"
 CURRENT_USER=$SUDO_USER
+
+if [ -z "$CURRENT_USER" ]; then
+    CURRENT_USER="root"
+fi
 
 echo "==========================="
 echo "SDCV Web UI Server Setup..."
