@@ -35,8 +35,8 @@ sudo ./install.sh
 
 ## UI
 
-![Big Screen](путь/к/файлу.jpg)
-![Mobile Screens]()
+![Big Screen](https://github.com/123abc1920/SdcvWebView/blob/main/readme_img/image1.png)
+![Mobile Screens](https://github.com/123abc1920/SdcvWebView/blob/main/readme_img/image2.png)
 
 ## FAQ
 
