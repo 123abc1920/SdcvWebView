@@ -29,6 +29,20 @@ sudo -u "$CURRENT_USER" ./venv/bin/pip install --upgrade pip
 sudo -u "$CURRENT_USER" ./venv/bin/pip install -r requirements.txt
 sudo -u "$CURRENT_USER" ./venv/bin/pip install waitress
 
+echo "Generating secure .env configuration file..."
+ENV_FILE="$BACKEND_DIR/.env"
+
+RANDOM_JWT_KEY=$(head -c 32 /dev/urandom | base64 | tr -dc 'a-zA-Z0-9' | head -c 32)
+
+sudo -u "$CURRENT_USER" cat <<EOF > "$ENV_FILE"
+CONFIG=PRODUCT
+SQLALCHEMY_DATABASE_URI_TEST=sqlite:///test.db
+SQLALCHEMY_DATABASE_URI_PROD=sqlite:///app.db
+JWT_SECRET_KEY=$RANDOM_JWT_KEY
+APP_NAME=SDCV API
+OPEN_API_V=3.0.2
+EOF
+
 echo "Creating a systemd service..."
 SERVICE_FILE="/etc/systemd/system/sdcv_web_ui.service"
 

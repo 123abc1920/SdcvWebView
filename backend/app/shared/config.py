@@ -6,6 +6,7 @@ from logging.handlers import RotatingFileHandler
 from datetime import timedelta
 from app.shared.consts import JWT_ACCESS_TOKEN_EXPIRES, PORT
 import sys
+import secrets
 
 load_dotenv()
 
@@ -22,7 +23,7 @@ DEFAULT_PROD_DB = os.path.join(EXE_DIR, "app.db")
 DEFAULT_TEST_DB = os.path.join(EXE_DIR, "test.db")
 
 
-class BaseConfig():
+class BaseConfig:
     """
     Base configuration class managing core application environment settings.
     """
@@ -33,7 +34,7 @@ class BaseConfig():
     """The database connection URI string."""
     CONFIG: str = "DEBUG"
     """The configuration environment identifier string."""
-    JWT_SECRET_KEY: str = os.getenv("JWT_SECRET_KEY", "3xvX3jfKiSOoFFGVcIM5Hkd9o")
+    JWT_SECRET_KEY: str = os.getenv("JWT_SECRET_KEY")
     """The secret key used for signing JWT access tokens."""
     APP_NAME: str = os.getenv("APP_NAME", "SDCV API")
     """The application name used across metadata and interfaces."""

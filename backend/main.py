@@ -16,7 +16,7 @@ def open_browser():
 
 
 if __name__ == "__main__":
-    if hasattr(sys, "_MEIPASS"):
+    if hasattr(sys, "_MEIPASS") or app.config.get("CONFIG") == "PRODUCT":
         print("=" * 50)
         print(f"{os.getenv('APP_NAME', 'SDCV API')} successfully started")
         print("A tab will now automatically open in your browser....")
