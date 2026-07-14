@@ -43,7 +43,7 @@ const errorDetail = ref("");
 const loadHistory = async () => {
   const jwt = Cookies.get("jwt");
 
-  const response = await fetch("http://127.0.0.1:5200/history", {
+  const response = await fetch("/history", {
     headers: { Authorization: `Bearer ${Cookies.get("jwt")}` },
   });
   const data = await response.json();

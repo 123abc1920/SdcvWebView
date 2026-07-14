@@ -73,7 +73,7 @@ const checkAuth = async () => {
 
   if (jwt) {
     try {
-      const response = await fetch("http://127.0.0.1:5200/get/data", {
+      const response = await fetch("/get/data", {
         method: "GET",
         headers: {
           "Content-Type": "application/json",

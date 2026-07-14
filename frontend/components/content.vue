@@ -120,7 +120,7 @@ const isSettingsOpen = ref(false);
 
 onMounted(async () => {
   try {
-    const response = await fetch("http://127.0.0.1:5200/dicts", {
+    const response = await fetch("/dicts", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
@@ -173,7 +173,7 @@ const translate = async () => {
       };
     }
 
-    const response = await fetch("http://127.0.0.1:5200/translate", {
+    const response = await fetch("/translate", {
       method: "POST",
       headers: headersDict,
       body: JSON.stringify({
