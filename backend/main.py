@@ -6,6 +6,7 @@ import os
 import sys
 from app.shared.consts import PORT
 from waitress import serve
+from app.shared.dbmodels import db
 
 app = create_app()
 
@@ -16,6 +17,9 @@ def open_browser():
 
 
 if __name__ == "__main__":
+    with app.app_context():
+        db.create_all()
+
     if hasattr(sys, "_MEIPASS") or app.config.get("CONFIG") == "PRODUCT":
         print("=" * 50)
         print(f"{os.getenv('APP_NAME', 'SDCV API')} successfully started")
